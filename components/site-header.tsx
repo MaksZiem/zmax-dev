@@ -12,6 +12,9 @@ export function SiteHeader({ locale }: { locale: Locale }) {
           zmax<span className="text-accent">.dev</span>
         </Link>
         <div className="flex items-center gap-4 sm:gap-6">
+          <Link href={`/${locale}#about`} className="text-sm text-muted hover:text-foreground">
+            {dict.about}
+          </Link>
           <Link href={`/${locale}#projects`} className="text-sm text-muted hover:text-foreground">
             {dict.projects}
           </Link>

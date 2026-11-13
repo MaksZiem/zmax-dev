@@ -9,6 +9,8 @@ export function hasLocale(value: string): value is Locale {
 const dictionaries = {
   pl: {
     role: "Full-Stack Developer",
+    scroll: "Przewiń",
+    about: "O mnie",
     intro:
       "Buduję aplikacje webowe od bazy danych po interfejs – w TypeScripcie, NestJS i Next.js. W ostatnich projektach łączę je z LLM-ami tak, żeby wynik był sprawdzalny: z uprawnieniami, walidacją i widocznym przebiegiem.",
     projects: "Projekty",
@@ -30,6 +32,8 @@ const dictionaries = {
   },
   en: {
     role: "Full-Stack Developer",
+    scroll: "Scroll",
+    about: "About",
     intro:
       "I build web applications end to end – database to interface – with TypeScript, NestJS and Next.js. Lately I pair them with LLMs in ways you can verify: permissions, validation and a visible trail of what happened.",
     projects: "Projects",
