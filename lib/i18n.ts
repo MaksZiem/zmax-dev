@@ -11,6 +11,8 @@ const dictionaries = {
     role: "Full-Stack Developer",
     scroll: "Przewiń",
     about: "O mnie",
+    workTitle: ["Wybrane projekty.", "Od schematu po produkcję."],
+    moreProjects: "Pozostałe projekty",
     intro:
       "Buduję aplikacje webowe od bazy danych po interfejs – w TypeScripcie, NestJS i Next.js. W ostatnich projektach łączę je z LLM-ami tak, żeby wynik był sprawdzalny: z uprawnieniami, walidacją i widocznym przebiegiem.",
     projects: "Projekty",
@@ -34,6 +36,8 @@ const dictionaries = {
     role: "Full-Stack Developer",
     scroll: "Scroll",
     about: "About",
+    workTitle: ["Selected work.", "From schema to production."],
+    moreProjects: "More projects",
     intro:
       "I build web applications end to end – database to interface – with TypeScript, NestJS and Next.js. Lately I pair them with LLMs in ways you can verify: permissions, validation and a visible trail of what happened.",
     projects: "Projects",

@@ -60,6 +60,101 @@ body {
   mask-image: linear-gradient(to bottom, #000 calc(100% - 30vh), transparent 100%);
 }
 
+/* Featured projects: heading lines slide up from a mask */
+.reveal-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+
+.reveal-line-in {
+  display: inline-block;
+  transition: transform 1.1s cubic-bezier(0.2, 0.7, 0.1, 1);
+}
+
+.reveal-line + .reveal-line .reveal-line-in {
+  transition-delay: 0.12s;
+}
+
+.reveal-armed:not(.is-in) .reveal-line-in {
+  transform: translateY(115%);
+}
+
+/* Featured projects: sticky cards stacking on top of each other (--stack: 0..1, set by ProjectStack) */
+.stack {
+  padding-bottom: 12vh;
+}
+
+.stack-card {
+  position: sticky;
+  top: calc(4.75rem + var(--i, 0) * 1.25rem);
+  height: min(78vh, 680px);
+}
+
+.stack-card + .stack-card {
+  margin-top: 14vh;
+}
+
+.stack-inner {
+  background: color-mix(in srgb, var(--background) 96%, transparent);
+  box-shadow: 0 30px 80px -40px color-mix(in srgb, var(--glow, #8b6cff) 45%, transparent);
+  transform: scale(calc(1 - var(--stack, 0) * 0.06));
+  transform-origin: 50% 0;
+  filter: blur(calc(var(--stack, 0) * 2.5px));
+  will-change: transform, filter;
+}
+
+/* soft smoke-coloured glow in the corner of each card */
+.stack-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 70% at 100% 0%, color-mix(in srgb, var(--glow, #8b6cff) 22%, transparent), transparent 70%),
+    radial-gradient(50% 60% at 0% 100%, color-mix(in srgb, var(--glow, #8b6cff) 10%, transparent), transparent 70%);
+}
+
+.stack-dim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: var(--background);
+  opacity: calc(var(--stack, 0) * 0.6);
+}
+
+.terminal-caret {
+  display: inline-block;
+  width: 0.55em;
+  height: 1.05em;
+  vertical-align: -0.15em;
+  background: var(--accent);
+  animation: caret 1.1s steps(1) infinite;
+}
+
+@keyframes caret {
+  50% { opacity: 0; }
+}
+
+@media (max-width: 767px) {
+  .stack-card {
+    height: min(80vh, 560px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-line-in {
+    transition: none;
+  }
+
+  .stack-inner {
+    filter: none;
+  }
+
+  .terminal-caret {
+    animation: none;
+  }
+}
+
 /* Hero copy dissolves while the hero is pinned (--t = transition progress, set on the stage) */
 .hero-content {
   opacity: clamp(0, calc(1 - var(--t, 0) * 2.4), 1);

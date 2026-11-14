@@ -1,14 +1,21 @@
 import { notFound } from "next/navigation";
 import { HeroBackground } from "@/components/hero-background";
 import { ProjectCard } from "@/components/project-card";
+import { ProjectStack } from "@/components/project-stack";
+import { ProjectStackCard } from "@/components/project-stack-card";
 import { getDictionary, hasLocale } from "@/lib/i18n";
 import { getProjects } from "@/lib/projects";
+
+// shown as the stacked showcase, in this order; the rest go to "More projects"
+const FEATURED = ["ai-agents-platform", "ai-observability-incident-response", "ai-notes"];
 
 export default async function Home({ params }: PageProps<"/[lang]">) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
   const dict = getDictionary(lang);
   const projects = getProjects(lang);
+  const featured = FEATURED.flatMap((slug) => projects.filter((p) => p.slug === slug));
+  const others = projects.filter((p) => !FEATURED.includes(p.slug));
 
   return (
     <>
@@ -98,21 +105,62 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
             </div>
           </div>
         </section>
+
+        {/* featured projects: cards rise out of the smoke and stack on top of each other */}
+        <section id="projects" className="relative scroll-mt-14">
+          <div className="mx-auto max-w-6xl px-4 pt-16 sm:px-6 md:pt-24">
+            <ProjectStack>
+              <div className="flex flex-wrap items-end justify-between gap-8">
+                <div>
+                  <p data-fog className="font-mono text-sm text-accent">
+                    02 / {dict.projects}
+                  </p>
+                  <h2
+                    data-reveal-lines
+                    className="mt-3 text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl"
+                  >
+                    <span className="reveal-line">
+                      <span className="reveal-line-in">{dict.workTitle[0]}</span>
+                    </span>
+                    <span className="reveal-line">
+                      <span className="reveal-line-in text-muted">{dict.workTitle[1]}</span>
+                    </span>
+                  </h2>
+                </div>
+                <p data-fog className="max-w-sm leading-relaxed text-muted">
+                  {dict.projectsLead}
+                </p>
+              </div>
+
+              <div className="stack mt-16">
+                {featured.map((project, i) => (
+                  <ProjectStackCard
+                    key={project.slug}
+                    project={project}
+                    index={i}
+                    total={featured.length}
+                    locale={lang}
+                    dict={dict}
+                  />
+                ))}
+              </div>
+            </ProjectStack>
+          </div>
+        </section>
       </div>
 
-      <section id="projects" className="relative z-0 scroll-mt-20 border-t border-line bg-surface/40">
-        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-          <div className="mb-10 max-w-2xl">
-            <h2 className="text-2xl font-semibold tracking-tight">{dict.projects}</h2>
-            <p className="mt-2 text-muted">{dict.projectsLead}</p>
+      {others.length > 0 && (
+        <section className="relative">
+          <div className="mx-auto max-w-6xl px-4 pb-24 pt-8 sm:px-6">
+            <h2 className="mb-8 text-2xl font-semibold tracking-tight">{dict.moreProjects}</h2>
+            <div className="grid gap-6 md:grid-cols-2">
+              {others.map((project) => (
+                <ProjectCard key={project.slug} project={project} locale={lang} dict={dict} />
+              ))}
+            </div>
           </div>
-          <div className="grid gap-6 md:grid-cols-2">
-            {projects.map((project) => (
-              <ProjectCard key={project.slug} project={project} locale={lang} dict={dict} />
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
     </>
   );
 }

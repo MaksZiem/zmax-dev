@@ -29,6 +29,7 @@ uniform vec2  uRes;
 uniform vec2  uMouse;
 uniform float uT;     // pinned hero transition: 0 -> 1
 uniform float uA;     // "About" entering: 0 (top edge at the bottom) -> 1 (top edge at the top)
+uniform float uP;     // projects section on screen: 0 -> 1 (smoke returns, cards rise out of it)
 uniform float uDark;
 uniform vec3  uBg;
 varying vec2 vUv;
@@ -84,6 +85,7 @@ void main() {
   neb *= 1.0 + Te * (1.0 - Te) * 1.8; // the smoke glows brighter while it pours down
   // in "About" the smoke settles into a faint haze
   neb *= mix(1.0, 0.35, smoothstep(0.2, 1.0, uA));
+  neb *= mix(1.0, 2.2, uP);                            // smoke thickens again behind the projects
 
   // ---- fog bank rising from the bottom during the pinned transition, thinning as "About" arrives
   float wave = (fbm(p * 1.8 + vec2(t * 0.04, -t * 0.03)) - 0.5) * 0.45;
@@ -93,6 +95,9 @@ void main() {
   float fogTex = 0.3 + 0.7 * smoothstep(0.25, 0.8, fbm(fp + fbm(fp * 1.7) * 0.8)); // wispy
   fog *= fogTex;
   fog *= 1.0 - smoothstep(0.15, 0.95, uA) * 0.85;
+  // projects: a bank of smoke along the bottom of the screen that the cards rise out of
+  float fogBottom = smoothstep(-0.12, -0.5, p.y + wave * 0.8) * fogTex * uP;
+  fog = max(fog, fogBottom * 0.95);
 
   vec3 violet = vec3(0.55, 0.38, 1.0);
   vec3 cyan   = vec3(0.30, 0.72, 1.0);
@@ -145,6 +150,7 @@ export function HeroBackground() {
 
     const track = stage.querySelector<HTMLElement>("[data-hero-track]");
     const about = stage.querySelector<HTMLElement>("#about");
+    const projects = stage.querySelector<HTMLElement>("#projects");
     const fogEls = Array.from(stage.querySelectorAll<HTMLElement>("[data-fog]"));
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
@@ -152,6 +158,7 @@ export function HeroBackground() {
     // ---- scroll state (drives CSS even when WebGL is unavailable)
     let T = 0;
     let A = 0;
+    let P = 0;
     const updateScroll = () => {
       const vh = window.innerHeight;
       if (track) {
@@ -159,6 +166,11 @@ export function HeroBackground() {
         T = clamp01(-r.top / Math.max(1, r.height - vh));
       }
       if (about) A = clamp01((vh - about.getBoundingClientRect().top) / vh);
+      if (projects) {
+        const r = projects.getBoundingClientRect();
+        // fades in as the section enters, fades out as its end scrolls past
+        P = clamp01((vh - r.top) / (vh * 0.6)) * clamp01((r.bottom - vh * 0.2) / (vh * 0.6));
+      }
       stage.style.setProperty("--t", T.toFixed(4));
       // each [data-fog] element is hidden in fog near the bottom and clears as it rises
       for (const el of fogEls) {
@@ -189,6 +201,7 @@ export function HeroBackground() {
         uMouse: { value: new THREE.Vector2() },
         uT: { value: 0 },
         uA: { value: 0 },
+        uP: { value: 0 },
         uDark: { value: 0 },
         uBg: { value: readBg() },
       },
@@ -197,7 +210,7 @@ export function HeroBackground() {
     scene.add(quad);
 
     const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
-    const smooth = { T: -1, A: 0 };
+    const smooth = { T: -1, A: 0, P: 0 };
     let visible = true;
     let raf = 0;
     let disposed = false;
@@ -226,10 +239,12 @@ export function HeroBackground() {
       const first = smooth.T < 0 || still;
       smooth.T = first ? T : smooth.T + (T - smooth.T) * 0.1;
       smooth.A = first ? A : smooth.A + (A - smooth.A) * 0.1;
+      smooth.P = first ? P : smooth.P + (P - smooth.P) * 0.1;
       material.uniforms.uTime.value = still ? 8 : (now - start) / 1000;
       material.uniforms.uMouse.value.set(still ? 0 : mouse.x, still ? 0 : -mouse.y);
       material.uniforms.uT.value = smooth.T;
       material.uniforms.uA.value = smooth.A;
+      material.uniforms.uP.value = smooth.P;
       renderer.render(scene, camera);
       if (visible && !still) raf = requestAnimationFrame(frame);
     };

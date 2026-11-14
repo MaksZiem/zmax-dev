@@ -7,8 +7,9 @@ import { StatusBadge } from "./status-badge";
 const MAX_CHIPS = 6;
 
 // "Next.js 16 (App Router)" -> "Next.js 16": the card only needs the name.
+// Also cuts an unclosed "(" — YAML splits "Gemini (text, function calling)" at the comma.
 function shortName(item: string) {
-  return item.replace(/\s*\(.*\)\s*/, "").trim();
+  return item.replace(/\s*\(.*$/, "").trim();
 }
 
 export function stackHighlights(project: Project) {
