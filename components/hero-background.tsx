@@ -28,6 +28,7 @@ uniform float uTime;
 uniform vec2  uRes;
 uniform vec2  uMouse;
 uniform float uT;     // pinned hero transition: 0 -> 1
+uniform float uFlow;  // scroll distance travelled through the transition, in either direction (only grows)
 uniform float uA;     // "About" entering: 0 (top edge at the bottom) -> 1 (top edge at the top)
 uniform float uP;     // projects section on screen: 0 -> 1 (smoke returns, cards rise out of it)
 uniform float uDark;
@@ -72,7 +73,9 @@ void main() {
   // the pattern is advected downwards and stretched into trails; its centre sinks and spreads out
   vec2 c = mix(vec2(0.45, 0.1), vec2(0.15, -0.3), Te);
   vec2 np = (p - c * 0.35) * 1.3 + m;
-  np.y = np.y * mix(1.0, 0.75, Te) + Te * 1.3;              // gentle drift down + soft trails
+  // the drift is driven by distance scrolled, not by position: scrolling back up keeps the smoke
+  // flowing the same calm way instead of yanking it against its own motion
+  np.y = np.y * mix(1.0, 0.75, Te) + uFlow * 1.3;           // gentle drift down + soft trails
   np.x += sin(np.y * 2.0 + t * 0.3) * 0.05 * Te;            // slight smoke wobble
   vec2 q = vec2(fbm(np + vec2(0.0, t * 0.03)), fbm(np + vec2(5.2, -t * 0.025)));
   float n = fbm(np * 1.4 + 2.2 * q + vec2(t * 0.02, t * 0.05 * Te));
@@ -91,7 +94,7 @@ void main() {
   float wave = (fbm(p * 1.8 + vec2(t * 0.04, -t * 0.03)) - 0.5) * 0.45;
   float fogLine = mix(-1.0, 0.6, smoothstep(0.15, 1.0, T));
   float fog = smoothstep(fogLine + 0.55, fogLine - 0.45, p.y + wave * 0.7) * 0.8; // soft, low-contrast edge
-  vec2 fp = p * vec2(1.2, 2.2) + vec2(t * 0.025, -t * 0.05 - T * 0.6);
+  vec2 fp = p * vec2(1.2, 2.2) + vec2(t * 0.025, -t * 0.05 - uFlow * 0.6);
   float fogTex = 0.3 + 0.7 * smoothstep(0.25, 0.8, fbm(fp + fbm(fp * 1.7) * 0.8)); // wispy
   fog *= fogTex;
   fog *= 1.0 - smoothstep(0.15, 0.95, uA) * 0.85;
@@ -205,6 +208,7 @@ export function HeroBackground() {
         uRes: { value: new THREE.Vector2(1, 1) },
         uMouse: { value: new THREE.Vector2() },
         uT: { value: 0 },
+        uFlow: { value: 0 },
         uA: { value: 0 },
         uP: { value: 0 },
         uDark: { value: 0 },
@@ -216,6 +220,7 @@ export function HeroBackground() {
 
     const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
     const smooth = { T: -1, A: 0, P: 0 };
+    let flow = 0;
     let visible = true;
     let raf = 0;
     let disposed = false;
@@ -242,12 +247,15 @@ export function HeroBackground() {
       mouse.x += (mouse.tx - mouse.x) * 0.04;
       mouse.y += (mouse.ty - mouse.y) * 0.04;
       const first = smooth.T < 0 || still;
+      const prevT = smooth.T;
       smooth.T = first ? T : smooth.T + (T - smooth.T) * 0.05;
+      if (!first) flow += Math.abs(smooth.T - prevT);
       smooth.A = first ? A : smooth.A + (A - smooth.A) * 0.05;
       smooth.P = first ? P : smooth.P + (P - smooth.P) * 0.1;
       material.uniforms.uTime.value = still ? 8 : (now - start) / 1000;
       material.uniforms.uMouse.value.set(still ? 0 : mouse.x, still ? 0 : -mouse.y);
       material.uniforms.uT.value = smooth.T;
+      material.uniforms.uFlow.value = flow;
       material.uniforms.uA.value = smooth.A;
       material.uniforms.uP.value = smooth.P;
       renderer.render(scene, camera);
