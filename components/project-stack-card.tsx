@@ -4,6 +4,8 @@ import type { CSSProperties } from "react";
 import type { Dictionary, Locale } from "@/lib/i18n";
 import type { Project, StackGroup } from "@/lib/projects";
 import { stackHighlights } from "./project-card";
+import { getTerminalDemo, REPO_DIRS } from "@/lib/terminal-demos";
+import { ProjectTerminal } from "./project-terminal";
 import { StatusBadge } from "./status-badge";
 
 // one smoke tint per card, matching the background palette
@@ -12,46 +14,6 @@ const GROUP_ORDER: StackGroup[] = ["backend", "frontend", "database", "ai"];
 
 function shortName(item: string) {
   return item.replace(/\s*\(.*$/, "").trim();
-}
-
-/** Stand-in for a screenshot: a terminal window listing the project's stack and tags. */
-function TerminalPanel({ project, dict }: { project: Project; dict: Dictionary }) {
-  const groups = GROUP_ORDER.filter((g) => project.stack[g]?.length);
-
-  return (
-    <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-background/70 font-mono text-[13px] leading-relaxed">
-      <div className="flex items-center gap-1.5 border-b border-line px-4 py-3">
-        <span className="h-2.5 w-2.5 rounded-full bg-line-strong" />
-        <span className="h-2.5 w-2.5 rounded-full bg-line-strong" />
-        <span className="h-2.5 w-2.5 rounded-full bg-line-strong" />
-        <span className="ml-3 text-xs text-muted">~/{project.slug}</span>
-      </div>
-      <div className="flex-1 space-y-3 overflow-hidden p-5 text-muted">
-        <p>
-          <span className="text-accent">$</span> cat stack
-        </p>
-        <dl className="grid grid-cols-[6.5rem_minmax(0,1fr)] gap-x-3 gap-y-1.5">
-          {groups.map((g) => (
-            <div key={g} className="contents">
-              <dt className="text-foreground/70">{dict.stackGroups[g].toLowerCase()}</dt>
-              <dd className="truncate">{project.stack[g]!.slice(0, 3).map(shortName).join(", ")}</dd>
-            </div>
-          ))}
-        </dl>
-        <p className="pt-2">
-          <span className="text-accent">$</span> ls tags
-        </p>
-        <p className="flex flex-wrap gap-x-3 gap-y-1">
-          {project.tags.slice(0, 8).map((tag) => (
-            <span key={tag}>#{tag}</span>
-          ))}
-        </p>
-        <p>
-          <span className="text-accent">$</span> <span className="terminal-caret" aria-hidden="true" />
-        </p>
-      </div>
-    </div>
-  );
 }
 
 export function ProjectStackCard({
@@ -123,7 +85,17 @@ export function ProjectStackCard({
                   <Image src={project.cover} alt="" fill sizes="50vw" className="object-cover object-top" />
                 </div>
               ) : (
-                <TerminalPanel project={project} dict={dict} />
+                <ProjectTerminal
+                  slug={project.slug}
+                  stack={GROUP_ORDER.filter((g) => project.stack[g]?.length).map((g) => [
+                    dict.stackGroups[g].toLowerCase(),
+                    project.stack[g]!.slice(0, 3).map(shortName).join(", "),
+                  ])}
+                  demo={getTerminalDemo(project.slug, locale)}
+                  repo={project.repo}
+                  dirs={REPO_DIRS[project.slug] ?? null}
+                  labels={dict.terminal}
+                />
               )}
             </div>
           </div>

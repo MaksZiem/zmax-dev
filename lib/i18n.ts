@@ -24,6 +24,13 @@ const dictionaries = {
     locationLabel: "Lokalizacja",
     location: "Warszawa, Polska",
     elsewhere: "W sieci",
+    terminal: {
+      hint: "wpisz help albo cd frontend",
+      help: "dostępne komendy:",
+      notFound: "nie znaleziono komendy",
+      opening: "otwieram",
+      noRepo: "repozytorium nie jest publiczne",
+    },
     intro:
       "Projektuję i buduję kompletne aplikacje webowe – od architektury backendu i bazy danych po dopracowany interfejs. Pracuję w TypeScripcie, NestJS i Next.js, a do produktów wdrażam AI, które działa przewidywalnie i bezpiecznie.",
     projects: "Projekty",
@@ -59,6 +66,13 @@ const dictionaries = {
     locationLabel: "Location",
     location: "Warsaw, Poland",
     elsewhere: "Elsewhere",
+    terminal: {
+      hint: "type help or cd frontend",
+      help: "available commands:",
+      notFound: "command not found",
+      opening: "opening",
+      noRepo: "the repository isn't public",
+    },
     intro:
       "I design and build complete web applications – from backend architecture and the database to a polished interface. I work with TypeScript, NestJS and Next.js, and bring AI into products in a way that is predictable and safe.",
     projects: "Projects",
