@@ -72,7 +72,7 @@ export function ProjectStackCard({
 
   return (
     <div data-stack-card className="stack-card" style={style}>
-      <div data-fog className="h-full">
+      <div data-fog="slow" className="h-full">
         <article className="stack-inner relative h-full overflow-hidden rounded-[1.75rem] border border-line-strong md:rounded-[2.25rem]">
           <div className="stack-glow" aria-hidden="true" />
 

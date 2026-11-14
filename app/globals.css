@@ -157,16 +157,25 @@ body {
 
 /* Hero copy dissolves while the hero is pinned (--t = transition progress, set on the stage) */
 .hero-content {
-  opacity: clamp(0, calc(1 - var(--t, 0) * 2.4), 1);
-  filter: blur(calc(var(--t, 0) * 16px));
-  transform: translateY(calc(var(--t, 0) * -60px));
+  opacity: clamp(0, calc(1 - var(--t, 0) * 1.6), 1);
+  filter: blur(calc(var(--t, 0) * 8px));
+  transform: translateY(calc(var(--t, 0) * -32px));
+  /* smooths out wheel steps so the copy fades instead of jumping */
+  transition:
+    opacity 0.5s ease-out,
+    filter 0.5s ease-out,
+    transform 0.6s ease-out;
 }
 
 /* "About" content emerges from the fog (--fog per element: 1 = hidden in fog, 0 = clear) */
 [data-fog] {
   opacity: calc(1 - var(--fog, 0) * 0.95);
-  filter: blur(calc(var(--fog, 0) * 14px));
-  transform: translateY(calc(var(--fog, 0) * 28px));
+  filter: blur(calc(var(--fog, 0) * 9px));
+  transform: translateY(calc(var(--fog, 0) * 16px));
+  transition:
+    opacity 0.5s ease-out,
+    filter 0.5s ease-out,
+    transform 0.6s ease-out;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -174,6 +183,7 @@ body {
   [data-fog] {
     filter: none;
     transform: none;
+    transition: none;
   }
 }
 

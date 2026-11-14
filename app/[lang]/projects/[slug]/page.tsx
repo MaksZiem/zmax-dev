@@ -39,7 +39,7 @@ export default async function ProjectPage({ params }: PageProps<"/[lang]/project
   return (
     <article className="mx-auto max-w-6xl px-4 pb-24 sm:px-6">
       <header className="border-b border-line pb-10 pt-10 sm:pt-14">
-        <Link href={`/${lang}#projects`} className="text-sm text-muted hover:text-foreground">
+        <Link href={`/${lang}/projects`} className="text-sm text-muted hover:text-foreground">
           ← {dict.back}
         </Link>
         <h1 className="mt-6 text-3xl font-semibold tracking-tight sm:text-5xl">{project.title}</h1>

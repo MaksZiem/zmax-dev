@@ -1,12 +1,12 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { HeroBackground } from "@/components/hero-background";
-import { ProjectCard } from "@/components/project-card";
 import { ProjectStack } from "@/components/project-stack";
 import { ProjectStackCard } from "@/components/project-stack-card";
 import { getDictionary, hasLocale } from "@/lib/i18n";
 import { getProjects } from "@/lib/projects";
 
-// shown as the stacked showcase, in this order; the rest go to "More projects"
+// shown as the stacked showcase on the home page, in this order; all projects live on /projects
 const FEATURED = ["ai-agents-platform", "ai-observability-incident-response", "ai-notes"];
 
 export default async function Home({ params }: PageProps<"/[lang]">) {
@@ -15,7 +15,6 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
   const dict = getDictionary(lang);
   const projects = getProjects(lang);
   const featured = FEATURED.flatMap((slug) => projects.filter((p) => p.slug === slug));
-  const others = projects.filter((p) => !FEATURED.includes(p.slug));
 
   return (
     <>
@@ -27,7 +26,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
         <div data-hero-track className="relative h-[140vh]">
           <section className="sticky top-14 h-[calc(100svh-3.5rem)]">
             <div className="hero-content mx-auto flex h-full max-w-6xl flex-col justify-center px-4 sm:px-6">
-              <p className="font-mono text-sm text-accent">{dict.role}</p>
+              <p className="font-mono text-base text-accent sm:text-lg">{dict.role}</p>
               <h1 className="mt-3 text-4xl font-semibold tracking-tight sm:text-6xl">Maksymilian Ziembicki</h1>
               <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">{dict.intro}</p>
               <a
@@ -44,10 +43,9 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
         <section id="about" className="relative scroll-mt-14">
           <div className="mx-auto max-w-6xl px-4 pb-40 pt-20 sm:px-6 md:pt-28">
             <div className="grid gap-10 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:items-end md:gap-16">
-              <div data-fog>
-                <p className="font-mono text-sm text-accent">01 /</p>
-                <h2 className="mt-3 text-6xl font-semibold tracking-tight sm:text-7xl lg:text-8xl">{dict.about}</h2>
-              </div>
+              <h2 data-fog className="text-6xl font-semibold tracking-tight sm:text-7xl lg:text-8xl">
+                {dict.about}
+              </h2>
               <p data-fog className="text-2xl font-medium leading-snug tracking-tight text-balance sm:text-3xl">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante venenatis dapibus,
                 posuere velit aliquet.
@@ -112,12 +110,9 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
             <ProjectStack>
               <div className="flex flex-wrap items-end justify-between gap-8">
                 <div>
-                  <p data-fog className="font-mono text-sm text-accent">
-                    02 / {dict.projects}
-                  </p>
                   <h2
                     data-reveal-lines
-                    className="mt-3 text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl"
+                    className="text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl"
                   >
                     <span className="reveal-line">
                       <span className="reveal-line-in">{dict.workTitle[0]}</span>
@@ -145,22 +140,21 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
                 ))}
               </div>
             </ProjectStack>
-          </div>
-        </section>
-      </div>
 
-      {others.length > 0 && (
-        <section className="relative">
-          <div className="mx-auto max-w-6xl px-4 pb-24 pt-8 sm:px-6">
-            <h2 className="mb-8 text-2xl font-semibold tracking-tight">{dict.moreProjects}</h2>
-            <div className="grid gap-6 md:grid-cols-2">
-              {others.map((project) => (
-                <ProjectCard key={project.slug} project={project} locale={lang} dict={dict} />
-              ))}
+            <div data-fog className="flex justify-center pb-32">
+              <Link
+                href={`/${lang}/projects`}
+                className="group inline-flex items-center gap-3 rounded-full border border-line-strong bg-background/60 px-7 py-3.5 text-base font-medium backdrop-blur transition-colors hover:border-foreground"
+              >
+                {dict.allProjects}
+                <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">
+                  →
+                </span>
+              </Link>
             </div>
           </div>
         </section>
-      )}
+      </div>
     </>
   );
 }

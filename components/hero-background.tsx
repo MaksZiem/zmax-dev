@@ -70,28 +70,28 @@ void main() {
 
   // ---- nebula flowing down like smoke
   // the pattern is advected downwards and stretched into trails; its centre sinks and spreads out
-  vec2 c = mix(vec2(0.45, 0.1), vec2(0.0, -0.45), Te);
+  vec2 c = mix(vec2(0.45, 0.1), vec2(0.15, -0.3), Te);
   vec2 np = (p - c * 0.35) * 1.3 + m;
-  np.y = np.y * mix(1.0, 0.55, Te) + Te * 2.4;              // flow down + vertical trails
-  np.x += sin(np.y * 2.0 + t * 0.3) * 0.12 * Te;            // smoke wobble
+  np.y = np.y * mix(1.0, 0.75, Te) + Te * 1.3;              // gentle drift down + soft trails
+  np.x += sin(np.y * 2.0 + t * 0.3) * 0.05 * Te;            // slight smoke wobble
   vec2 q = vec2(fbm(np + vec2(0.0, t * 0.03)), fbm(np + vec2(5.2, -t * 0.025)));
   float n = fbm(np * 1.4 + 2.2 * q + vec2(t * 0.02, t * 0.05 * Te));
-  vec2 dc = (p - c) * vec2(mix(0.75, 0.45, Te), 1.0);
+  vec2 dc = (p - c) * vec2(mix(0.75, 0.55, Te), 1.0);
   float focus = smoothstep(1.3, 0.0, length(dc));
   float neb = smoothstep(0.42, 0.95, n) * (0.25 + 0.85 * focus);
   // hero copy (left) stays readable while it is on screen
   float calmHero = mix(0.3, 1.0, smoothstep(-0.2, 0.55, p.x) + smoothstep(0.35, 0.6, abs(p.y)));
   neb *= mix(calmHero, 1.0, smoothstep(0.0, 0.4, T));
-  neb *= 1.0 + Te * (1.0 - Te) * 1.8; // the smoke glows brighter while it pours down
+  neb *= 1.0 + Te * (1.0 - Te) * 0.6; // a faint glow while it drifts down
   // in "About" the smoke settles into a faint haze
   neb *= mix(1.0, 0.35, smoothstep(0.2, 1.0, uA));
   neb *= mix(1.0, 2.2, uP);                            // smoke thickens again behind the projects
 
   // ---- fog bank rising from the bottom during the pinned transition, thinning as "About" arrives
   float wave = (fbm(p * 1.8 + vec2(t * 0.04, -t * 0.03)) - 0.5) * 0.45;
-  float fogLine = mix(-0.95, 0.75, smoothstep(0.25, 0.95, T));
-  float fog = smoothstep(fogLine + 0.35, fogLine - 0.3, p.y + wave);
-  vec2 fp = p * vec2(1.2, 2.2) + vec2(t * 0.025, -t * 0.05 - T * 1.5);
+  float fogLine = mix(-1.0, 0.6, smoothstep(0.15, 1.0, T));
+  float fog = smoothstep(fogLine + 0.55, fogLine - 0.45, p.y + wave * 0.7) * 0.8; // soft, low-contrast edge
+  vec2 fp = p * vec2(1.2, 2.2) + vec2(t * 0.025, -t * 0.05 - T * 0.6);
   float fogTex = 0.3 + 0.7 * smoothstep(0.25, 0.8, fbm(fp + fbm(fp * 1.7) * 0.8)); // wispy
   fog *= fogTex;
   fog *= 1.0 - smoothstep(0.15, 0.95, uA) * 0.85;
@@ -175,7 +175,12 @@ export function HeroBackground() {
       // each [data-fog] element is hidden in fog near the bottom and clears as it rises
       for (const el of fogEls) {
         const top = el.getBoundingClientRect().top;
-        const f = reduceMotion.matches ? 0 : clamp01((top - vh * 0.55) / (vh * 0.4));
+        // default ("About" text): clear by the time it reaches 75% of the screen height;
+        // data-fog="slow" (project cards): a longer emergence, clear at mid-screen
+        const slow = el.dataset.fog === "slow";
+        const clearAt = slow ? 0.5 : 0.75;
+        const range = slow ? 0.5 : 0.25;
+        const f = reduceMotion.matches ? 0 : clamp01((top - vh * clearAt) / (vh * range));
         el.style.setProperty("--fog", f.toFixed(3));
       }
     };
@@ -237,8 +242,8 @@ export function HeroBackground() {
       mouse.x += (mouse.tx - mouse.x) * 0.04;
       mouse.y += (mouse.ty - mouse.y) * 0.04;
       const first = smooth.T < 0 || still;
-      smooth.T = first ? T : smooth.T + (T - smooth.T) * 0.1;
-      smooth.A = first ? A : smooth.A + (A - smooth.A) * 0.1;
+      smooth.T = first ? T : smooth.T + (T - smooth.T) * 0.05;
+      smooth.A = first ? A : smooth.A + (A - smooth.A) * 0.05;
       smooth.P = first ? P : smooth.P + (P - smooth.P) * 0.1;
       material.uniforms.uTime.value = still ? 8 : (now - start) / 1000;
       material.uniforms.uMouse.value.set(still ? 0 : mouse.x, still ? 0 : -mouse.y);
