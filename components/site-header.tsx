@@ -18,6 +18,9 @@ export function SiteHeader({ locale }: { locale: Locale }) {
           <Link href={`/${locale}#projects`} className="text-sm text-muted hover:text-foreground">
             {dict.projects}
           </Link>
+          <Link href={`/${locale}#contact`} className="text-sm text-muted hover:text-foreground">
+            {dict.contact}
+          </Link>
           <a
             href="https://github.com/MaksZiem"
             target="_blank"

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { CopyButton } from "@/components/copy-button";
 import { HeroBackground } from "@/components/hero-background";
 import { ProjectStack } from "@/components/project-stack";
 import { ProjectStackCard } from "@/components/project-stack-card";
@@ -8,6 +9,12 @@ import { getProjects } from "@/lib/projects";
 
 // shown as the stacked showcase on the home page, in this order; all projects live on /projects
 const FEATURED = ["ai-agents-platform", "ai-observability-incident-response", "ai-notes"];
+
+const CONTACT = {
+  email: "mtziembicki@gmail.com",
+  linkedin: "https://www.linkedin.com/in/maksymilian-ziembicki-b81864351/",
+  github: "https://github.com/MaksZiem",
+};
 
 export default async function Home({ params }: PageProps<"/[lang]">) {
   const { lang } = await params;
@@ -144,14 +151,70 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
             <div data-fog className="flex justify-center pb-32">
               <Link
                 href={`/${lang}/projects`}
-                className="group inline-flex items-center gap-3 rounded-full border border-line-strong bg-background/60 px-7 py-3.5 text-base font-medium backdrop-blur transition-colors hover:border-foreground"
+                className="group inline-flex items-center gap-4 rounded-full bg-foreground py-2 pl-7 pr-2 text-base font-semibold text-background shadow-[0_10px_40px_-12px_color-mix(in_srgb,var(--accent)_55%,transparent)] transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_50px_-12px_color-mix(in_srgb,var(--accent)_75%,transparent)]"
               >
                 {dict.allProjects}
-                <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">
+                <span className="font-mono text-sm font-normal opacity-60">({projects.length})</span>
+                <span
+                  aria-hidden="true"
+                  className="grid h-10 w-10 place-items-center rounded-full bg-accent text-lg text-background transition-transform duration-300 group-hover:translate-x-1"
+                >
                   →
                 </span>
               </Link>
             </div>
+          </div>
+        </section>
+
+        <section id="contact" className="relative scroll-mt-14 border-t border-line">
+          <div className="mx-auto max-w-6xl px-4 pb-28 pt-24 sm:px-6 md:pb-36 md:pt-32">
+            <p data-fog className="font-mono text-base text-accent sm:text-lg">
+              {dict.contact}
+            </p>
+            <h2 data-fog className="mt-4 text-6xl font-semibold tracking-tight sm:text-7xl lg:text-8xl">
+              {dict.contactTitle}
+            </h2>
+            <p data-fog className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
+              {dict.contactLead}
+            </p>
+
+            <div data-fog className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-4">
+              <a
+                href={`mailto:${CONTACT.email}`}
+                className="group inline-flex items-center gap-3 text-3xl font-medium tracking-tight sm:text-5xl"
+              >
+                <span className="bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_2px] bg-left-bottom bg-no-repeat pb-1 transition-[background-size] duration-500 group-hover:bg-[length:100%_2px]">
+                  {CONTACT.email}
+                </span>
+                <span aria-hidden="true" className="text-accent transition-transform group-hover:-translate-y-1 group-hover:translate-x-1">
+                  ↗
+                </span>
+              </a>
+              <CopyButton value={CONTACT.email} label={dict.copy} doneLabel={dict.copied} />
+            </div>
+
+            <dl data-fog className="mt-20 grid gap-10 border-t border-line pt-10 sm:grid-cols-3">
+              <div>
+                <dt className="font-mono text-xs uppercase tracking-widest text-muted">{dict.nameLabel}</dt>
+                <dd className="mt-3 text-lg font-medium">Maksymilian Ziembicki</dd>
+                <dd className="mt-1 text-muted">{dict.role}</dd>
+              </div>
+              <div>
+                <dt className="font-mono text-xs uppercase tracking-widest text-muted">{dict.locationLabel}</dt>
+                <dd className="mt-3 text-lg font-medium">{dict.location}</dd>
+              </div>
+              <div>
+                <dt className="font-mono text-xs uppercase tracking-widest text-muted">{dict.elsewhere}</dt>
+                <dd className="mt-3 flex flex-col gap-2 text-lg font-medium">
+                  <a href={CONTACT.linkedin} target="_blank" rel="noreferrer" className="w-fit hover:text-accent">
+                    LinkedIn ↗
+                  </a>
+                  <a href={CONTACT.github} target="_blank" rel="noreferrer" className="w-fit hover:text-accent">
+                    GitHub ↗
+                  </a>
+                </dd>
+              </div>
+            </dl>
           </div>
         </section>
       </div>
