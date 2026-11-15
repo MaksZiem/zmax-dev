@@ -162,8 +162,15 @@ export function HeroBackground() {
     let T = 0;
     let A = 0;
     let P = 0;
+    let lastT = "";
+    const fogSlow = fogEls.map((el) => el.dataset.fog === "slow");
+    const fogLast = fogEls.map(() => "");
+    const fogTops = new Array<number>(fogEls.length).fill(0);
+    let scrollQueued = false;
     const updateScroll = () => {
+      scrollQueued = false;
       const vh = window.innerHeight;
+      // ---- read every rect first, then write: interleaving the two forces a layout per element
       if (track) {
         const r = track.getBoundingClientRect();
         T = clamp01(-r.top / Math.max(1, r.height - vh));
@@ -174,17 +181,25 @@ export function HeroBackground() {
         // fades in as the section enters, fades out as its end scrolls past
         P = clamp01((vh - r.top) / (vh * 0.6)) * clamp01((r.bottom - vh * 0.2) / (vh * 0.6));
       }
-      stage.style.setProperty("--t", T.toFixed(4));
+      for (let i = 0; i < fogEls.length; i++) fogTops[i] = fogEls[i].getBoundingClientRect().top;
+
+      // ---- writes, only when a value actually changed (every write invalidates styles)
+      const t = T.toFixed(3);
+      if (t !== lastT) stage.style.setProperty("--t", (lastT = t));
       // each [data-fog] element is hidden in fog near the bottom and clears as it rises
-      for (const el of fogEls) {
-        const top = el.getBoundingClientRect().top;
+      for (let i = 0; i < fogEls.length; i++) {
         // default ("About" text): clear by the time it reaches 75% of the screen height;
         // data-fog="slow" (project cards): a longer emergence, clear at mid-screen
-        const slow = el.dataset.fog === "slow";
-        const clearAt = slow ? 0.5 : 0.75;
-        const range = slow ? 0.5 : 0.25;
-        const f = reduceMotion.matches ? 0 : clamp01((top - vh * clearAt) / (vh * range));
-        el.style.setProperty("--fog", f.toFixed(3));
+        const clearAt = fogSlow[i] ? 0.5 : 0.75;
+        const range = fogSlow[i] ? 0.5 : 0.25;
+        const f = reduceMotion.matches ? "0" : clamp01((fogTops[i] - vh * clearAt) / (vh * range)).toFixed(2);
+        if (f !== fogLast[i]) fogEls[i].style.setProperty("--fog", (fogLast[i] = f));
+      }
+    };
+    const queueScroll = () => {
+      if (!scrollQueued) {
+        scrollQueued = true;
+        requestAnimationFrame(updateScroll);
       }
     };
 
@@ -229,7 +244,7 @@ export function HeroBackground() {
     const resize = () => {
       if (!renderer) return;
       // render below device resolution: the image is soft by design and fbm is costly
-      const scale = Math.min(window.devicePixelRatio || 1, 1.5) * 0.75;
+      const scale = Math.min(window.devicePixelRatio || 1, 1.5) * 0.6;
       renderer.setPixelRatio(scale);
       renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
       material.uniforms.uRes.value.copy(renderer.getDrawingBufferSize(new THREE.Vector2()));
@@ -266,7 +281,7 @@ export function HeroBackground() {
       if (renderer && !raf && !disposed) raf = requestAnimationFrame(frame);
     };
     const onScroll = () => {
-      updateScroll();
+      queueScroll();
       kick();
     };
     const onPointer = (e: PointerEvent) => {
@@ -285,7 +300,7 @@ export function HeroBackground() {
     io.observe(wrap);
     const ro = new ResizeObserver(() => {
       resize();
-      updateScroll();
+      queueScroll();
       kick();
     });
     ro.observe(canvas);

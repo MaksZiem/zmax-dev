@@ -30,21 +30,24 @@ export function ProjectStack({ children }: { children: ReactNode }) {
 
     // ---- stacking cards
     const cards = Array.from(root.querySelectorAll<HTMLElement>("[data-stack-card]"));
+    const inners = cards.map((c) => c.querySelector<HTMLElement>(".stack-inner"));
+    const last = cards.map(() => "");
     let raf = 0;
     const update = () => {
       raf = 0;
+      // read all rects first, then write (no forced layouts in between)
+      const rects = cards.map((c) => c.getBoundingClientRect());
       for (let i = 0; i < cards.length; i++) {
-        const inner = cards[i].querySelector<HTMLElement>(".stack-inner");
+        const inner = inners[i];
         if (!inner) continue;
-        const next = cards[i + 1];
         let p = 0;
-        if (next) {
-          const r = cards[i].getBoundingClientRect();
-          const nextTop = next.getBoundingClientRect().top;
+        if (i + 1 < cards.length) {
+          const r = rects[i];
           // 0 when the next card reaches this card's bottom edge, 1 when it has fully covered it
-          p = Math.min(1, Math.max(0, (r.top + r.height - nextTop) / Math.max(1, r.height - 24)));
+          p = Math.min(1, Math.max(0, (r.bottom - rects[i + 1].top) / Math.max(1, r.height - 24)));
         }
-        inner.style.setProperty("--stack", p.toFixed(3));
+        const v = p.toFixed(3);
+        if (v !== last[i]) inner.style.setProperty("--stack", (last[i] = v));
       }
     };
     const onScroll = () => {

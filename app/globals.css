@@ -100,8 +100,8 @@ body {
   box-shadow: 0 30px 80px -40px color-mix(in srgb, var(--glow, #8b6cff) 45%, transparent);
   transform: scale(calc(1 - var(--stack, 0) * 0.06));
   transform-origin: 50% 0;
-  filter: blur(calc(var(--stack, 0) * 2.5px));
-  will-change: transform, filter;
+  /* no blur here: a filter on a card this size is re-rasterised every frame and stutters */
+  will-change: transform;
 }
 
 /* soft smoke-coloured glow in the corner of each card */
@@ -146,10 +146,6 @@ body {
     transition: none;
   }
 
-  .stack-inner {
-    filter: none;
-  }
-
   .terminal-caret {
     animation: none;
   }
@@ -176,6 +172,18 @@ body {
     opacity 0.5s ease-out,
     filter 0.5s ease-out,
     transform 0.6s ease-out;
+}
+
+/* project cards: too large to blur smoothly, so they rise out of the smoke with opacity +
+   transform only (both run on the compositor, no repaint) */
+[data-fog="slow"] {
+  filter: none;
+  opacity: calc(1 - var(--fog, 0) * 0.9);
+  transform: translateY(calc(var(--fog, 0) * 48px)) scale(calc(1 - var(--fog, 0) * 0.03));
+  transition:
+    opacity 0.45s ease-out,
+    transform 0.45s ease-out;
+  will-change: opacity, transform;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -6,11 +6,48 @@ export function hasLocale(value: string): value is Locale {
   return (locales as readonly string[]).includes(value);
 }
 
+/** One entry on the "About" timelines (education, experience). `school` is the institution or company. */
+export type TimelineItem = { period: string; school: string; field: string; note: string | null; current: boolean };
+
 const dictionaries = {
   pl: {
     role: "Full-Stack Developer",
     scroll: "Przewiń",
     about: "O mnie",
+    educationTitle: "Wykształcenie",
+    education: [
+      {
+        period: "2017 – 2021",
+        school: "Technikum – ZSP nr 5 w Krośnie",
+        field: "Kierunek: informatyka",
+        note: null,
+        current: false,
+      },
+      {
+        period: "2021 – 2025",
+        school: "Uniwersytet Rzeszowski",
+        field: "Informatyka, specjalizacja: aplikacje internetowe",
+        note: "Inżynier",
+        current: false,
+      },
+      {
+        period: "2026 – obecnie",
+        school: "Politechnika Warszawska",
+        field: "Informatyka, specjalizacja: inteligentne systemy",
+        note: "W trakcie",
+        current: true,
+      },
+    ] as TimelineItem[],
+    experienceTitle: "Doświadczenie",
+    experience: [
+      {
+        period: "sierpień 2024 – sierpień 2026",
+        school: "e-bi sp. z o.o.",
+        field: "Frontend Developer",
+        note: null,
+        current: false,
+      },
+    ] as TimelineItem[],
     workTitle: ["Wybrane projekty.", "Od schematu po produkcję."],
     allProjects: "Wszystkie projekty",
     home: "Strona główna",
@@ -54,6 +91,40 @@ const dictionaries = {
     role: "Full-Stack Developer",
     scroll: "Scroll",
     about: "About",
+    educationTitle: "Education",
+    education: [
+      {
+        period: "2017 – 2021",
+        school: "Technical secondary school – ZSP no. 5, Krosno",
+        field: "Computer Science",
+        note: null,
+        current: false,
+      },
+      {
+        period: "2021 – 2025",
+        school: "University of Rzeszów",
+        field: "Computer Science, specialisation: web applications",
+        note: "Engineer's degree (BEng)",
+        current: false,
+      },
+      {
+        period: "2026 – present",
+        school: "Warsaw University of Technology",
+        field: "Computer Science, specialisation: intelligent systems",
+        note: "In progress",
+        current: true,
+      },
+    ],
+    experienceTitle: "Experience",
+    experience: [
+      {
+        period: "August 2024 – August 2026",
+        school: "e-bi sp. z o.o.",
+        field: "Frontend Developer",
+        note: null,
+        current: false,
+      },
+    ],
     workTitle: ["Selected work.", "From schema to production."],
     allProjects: "All projects",
     home: "Home",

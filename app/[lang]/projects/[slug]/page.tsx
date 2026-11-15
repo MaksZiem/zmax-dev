@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Markdown } from "@/components/markdown";
 import { StatusBadge } from "@/components/status-badge";
+import { TableOfContents } from "@/components/table-of-contents";
 import { getDictionary, hasLocale } from "@/lib/i18n";
 import { getProject, getProjectSlugs, type StackGroup } from "@/lib/projects";
 
@@ -122,20 +123,7 @@ export default async function ProjectPage({ params }: PageProps<"/[lang]/project
       )}
 
       <div className="gap-12 pt-10 lg:grid lg:grid-cols-[200px_minmax(0,1fr)]">
-        <nav aria-label={dict.contents} className="hidden lg:block">
-          <div className="sticky top-24">
-            <p className="mb-3 text-xs font-medium uppercase tracking-wider text-muted">{dict.contents}</p>
-            <ol className="space-y-2 border-l border-line text-sm">
-              {project.toc.map((item) => (
-                <li key={item.id}>
-                  <a href={`#${item.id}`} className="-ml-px block border-l border-transparent pl-3 text-muted hover:border-foreground hover:text-foreground">
-                    {item.title}
-                  </a>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </nav>
+        <TableOfContents items={project.toc} label={dict.contents} />
         <Markdown source={project.body} dict={dict} />
       </div>
     </article>
