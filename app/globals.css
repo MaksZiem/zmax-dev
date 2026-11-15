@@ -499,3 +499,39 @@ body {
   color: var(--muted);
   font-size: 0.875rem;
 }
+
+/* Project page: the same dot grid as the home page background, lit by a soft smoke glow
+   in the top-right corner and fading out towards the content */
+.dot-field {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 640px;
+  pointer-events: none;
+  background:
+    radial-gradient(45% 60% at 82% 8%, color-mix(in srgb, #8b6cff 16%, transparent), transparent 70%),
+    radial-gradient(35% 50% at 62% 30%, color-mix(in srgb, #4c9fff 10%, transparent), transparent 70%);
+}
+
+.dot-field::before,
+.dot-field::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-size: 22px 22px;
+  background-position: center top;
+}
+
+/* faint grid everywhere */
+.dot-field::before {
+  background-image: radial-gradient(circle, color-mix(in srgb, var(--foreground) 14%, transparent) 1.2px, transparent 1.7px);
+  -webkit-mask-image: linear-gradient(to bottom, #000 30%, transparent);
+  mask-image: linear-gradient(to bottom, #000 30%, transparent);
+}
+
+/* brighter, tinted dots where the glow is */
+.dot-field::after {
+  background-image: radial-gradient(circle, color-mix(in srgb, #b9a6ff 55%, var(--foreground)) 1.2px, transparent 1.7px);
+  opacity: 0.45;
+  -webkit-mask-image: radial-gradient(45% 65% at 80% 10%, #000, transparent 75%);
+  mask-image: radial-gradient(45% 65% at 80% 10%, #000, transparent 75%);
+}
