@@ -4,7 +4,8 @@ import { CopyButton } from "@/components/copy-button";
 import { HeroBackground } from "@/components/hero-background";
 import { ProjectStack } from "@/components/project-stack";
 import { ProjectStackCard } from "@/components/project-stack-card";
-import { getDictionary, hasLocale, type TimelineItem } from "@/lib/i18n";
+import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
+import { isLocale } from "@/i18n/config";
 import { getProjects } from "@/lib/projects";
 
 // shown as the stacked showcase on the home page, in this order; all projects live on /projects
@@ -15,6 +16,20 @@ const CONTACT = {
   linkedin: "https://www.linkedin.com/in/maksymilian-ziembicki-b81864351/",
   github: "https://github.com/MaksZiem",
 };
+
+type TimelineItem = {
+  period: string;
+  school: string;
+  field: string;
+  note: string;
+  current: boolean;
+};
+
+type TimelineEntry = Omit<TimelineItem, "current">;
+
+function toTimeline(entries: Record<string, TimelineEntry>, currentKey?: string): TimelineItem[] {
+  return Object.entries(entries).map(([key, entry]) => ({ ...entry, current: key === currentKey }));
+}
 
 function Timeline({ title, items }: { title: string; items: TimelineItem[] }) {
   return (
@@ -57,8 +72,12 @@ function Timeline({ title, items }: { title: string; items: TimelineItem[] }) {
 
 export default async function Home({ params }: PageProps<"/[lang]">) {
   const { lang } = await params;
-  if (!hasLocale(lang)) notFound();
-  const dict = getDictionary(lang);
+  if (!isLocale(lang)) notFound();
+  setRequestLocale(lang);
+  const t = await getTranslations();
+  const { about } = await getMessages();
+  const education = toTimeline(about.education, "warsaw");
+  const experience = toTimeline(about.experience);
   const projects = getProjects(lang);
   const featured = FEATURED.flatMap((slug) => projects.filter((p) => p.slug === slug));
 
@@ -75,20 +94,20 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
               {/* name on the left (one word per line), description on the right, aligned to the bottom line */}
               <div className="grid gap-8 md:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] md:items-end md:gap-14">
                 <div>
-                  <p className="font-mono text-base text-accent sm:text-lg">{dict.role}</p>
+                  <p className="font-mono text-base text-accent sm:text-lg">{t("hero.role")}</p>
                   <h1 className="mt-4 text-6xl font-semibold leading-[0.95] tracking-tight sm:text-7xl lg:text-8xl">
                     <span className="block">Maksymilian</span>
                     <span className="block">Ziembicki</span>
                   </h1>
                 </div>
-                <p className="max-w-md text-lg leading-relaxed text-muted md:pb-2">{dict.intro}</p>
+                <p className="max-w-md text-lg leading-relaxed text-muted md:pb-2">{t("hero.intro")}</p>
               </div>
               <a
                 href="#about"
                 className="mt-14 inline-flex w-fit items-center gap-3 font-mono text-xs uppercase tracking-widest text-muted hover:text-foreground"
               >
                 <span className="scroll-cue-line" aria-hidden="true" />
-                {dict.scroll}
+                {t("hero.scroll")}
               </a>
             </div>
           </section>
@@ -97,37 +116,21 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
         <section id="about" className="relative scroll-mt-14">
           <div className="mx-auto max-w-6xl px-4 pb-40 pt-16 sm:px-6 md:pt-16">
             <h2 data-fog className="text-6xl font-semibold tracking-tight sm:text-7xl lg:text-8xl">
-              {dict.about}
+              {t("about.title")}
             </h2>
 
             <div className="mt-10 grid gap-16 md:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] md:gap-20">
               <div className="space-y-6 text-lg leading-relaxed text-muted">
-                <p data-fog>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
-                  dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                  ex ea commodo consequat. Curabitur blandit tempus porttitor.
-                </p>
-                <p data-fog>
-                  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-                  laborum. Maecenas faucibus mollis interdum.
-                </p>
-                <p data-fog>
-                  Nullam quis risus eget urna mollis ornare vel eu leo. Cras mattis consectetur purus sit amet fermentum.
-                  Vestibulum id ligula porta felis euismod semper. Aenean lacinia bibendum nulla sed consectetur. Donec
-                  ullamcorper nulla non metus auctor fringilla.
-                </p>
-                <p data-fog>
-                  Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Morbi leo risus, porta ac
-                  consectetur ac, vestibulum at eros. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus,
-                  tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-                </p>
+                <p data-fog>{t("about.paragraphs.p1")}</p>
+                <p data-fog>{t("about.paragraphs.p2")}</p>
+                <p data-fog>{t("about.paragraphs.p3")}</p>
+                <p data-fog>{t("about.paragraphs.p4")}</p>
               </div>
 
               {/* education + experience timelines */}
               <div className="space-y-8">
-                <Timeline title={dict.educationTitle} items={dict.education} />
-                <Timeline title={dict.experienceTitle} items={dict.experience} />
+                <Timeline title={t("about.educationTitle")} items={education} />
+                <Timeline title={t("about.experienceTitle")} items={experience} />
               </div>
             </div>
           </div>
@@ -144,15 +147,15 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
                     className="text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl"
                   >
                     <span className="reveal-line">
-                      <span className="reveal-line-in">{dict.workTitle[0]}</span>
+                      <span className="reveal-line-in">{t("work.titleFirst")}</span>
                     </span>
                     <span className="reveal-line">
-                      <span className="reveal-line-in text-muted">{dict.workTitle[1]}</span>
+                      <span className="reveal-line-in text-muted">{t("work.titleSecond")}</span>
                     </span>
                   </h2>
                 </div>
                 <p data-fog className="max-w-sm leading-relaxed text-muted">
-                  {dict.projectsLead}
+                  {t("work.lead")}
                 </p>
               </div>
 
@@ -164,7 +167,6 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
                     index={i}
                     total={featured.length}
                     locale={lang}
-                    dict={dict}
                   />
                 ))}
               </div>
@@ -175,7 +177,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
                 href={`/${lang}/projects`}
                 className="group inline-flex items-center gap-4 rounded-full bg-foreground py-2 pl-7 pr-2 text-base font-semibold text-background shadow-[0_10px_40px_-12px_color-mix(in_srgb,var(--accent)_55%,transparent)] transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_50px_-12px_color-mix(in_srgb,var(--accent)_75%,transparent)]"
               >
-                {dict.allProjects}
+                {t("work.allProjects")}
                 <span className="font-mono text-sm font-normal opacity-60">({projects.length})</span>
                 <span
                   aria-hidden="true"
@@ -191,13 +193,13 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
         <section id="contact" className="relative scroll-mt-14 border-t border-line">
           <div className="mx-auto max-w-6xl px-4 pb-28 pt-24 sm:px-6 md:pb-36 md:pt-32">
             <p data-fog className="font-mono text-base text-accent sm:text-lg">
-              {dict.contact}
+              {t("contact.kicker")}
             </p>
             <h2 data-fog className="mt-4 text-6xl font-semibold tracking-tight sm:text-7xl lg:text-8xl">
-              {dict.contactTitle}
+              {t("contact.title")}
             </h2>
             <p data-fog className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
-              {dict.contactLead}
+              {t("contact.lead")}
             </p>
 
             <div data-fog className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-4">
@@ -212,21 +214,21 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
                   ↗
                 </span>
               </a>
-              <CopyButton value={CONTACT.email} label={dict.copy} doneLabel={dict.copied} />
+              <CopyButton value={CONTACT.email} label={t("common.copy")} doneLabel={t("common.copied")} />
             </div>
 
             <dl data-fog className="mt-20 grid gap-10 border-t border-line pt-10 sm:grid-cols-3">
               <div>
-                <dt className="font-mono text-xs uppercase tracking-widest text-muted">{dict.nameLabel}</dt>
+                <dt className="font-mono text-xs uppercase tracking-widest text-muted">{t("contact.nameLabel")}</dt>
                 <dd className="mt-3 text-lg font-medium">Maksymilian Ziembicki</dd>
-                <dd className="mt-1 text-muted">{dict.role}</dd>
+                <dd className="mt-1 text-muted">{t("hero.role")}</dd>
               </div>
               <div>
-                <dt className="font-mono text-xs uppercase tracking-widest text-muted">{dict.locationLabel}</dt>
-                <dd className="mt-3 text-lg font-medium">{dict.location}</dd>
+                <dt className="font-mono text-xs uppercase tracking-widest text-muted">{t("contact.locationLabel")}</dt>
+                <dd className="mt-3 text-lg font-medium">{t("contact.location")}</dd>
               </div>
               <div>
-                <dt className="font-mono text-xs uppercase tracking-widest text-muted">{dict.elsewhere}</dt>
+                <dt className="font-mono text-xs uppercase tracking-widest text-muted">{t("contact.elsewhere")}</dt>
                 <dd className="mt-3 flex flex-col gap-2 text-lg font-medium">
                   <a href={CONTACT.linkedin} target="_blank" rel="noreferrer" className="w-fit hover:text-accent">
                     LinkedIn ↗

@@ -5,7 +5,8 @@ import { notFound } from "next/navigation";
 import { Markdown } from "@/components/markdown";
 import { StatusBadge } from "@/components/status-badge";
 import { TableOfContents } from "@/components/table-of-contents";
-import { getDictionary, hasLocale } from "@/lib/i18n";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { isLocale } from "@/i18n/config";
 import { getProject, getProjectSlugs, type StackGroup } from "@/lib/projects";
 
 const stackOrder: StackGroup[] = [
@@ -26,7 +27,7 @@ export async function generateMetadata({
   params,
 }: PageProps<"/[lang]/projects/[slug]">): Promise<Metadata> {
   const { lang, slug } = await params;
-  if (!hasLocale(lang)) return {};
+  if (!isLocale(lang)) return {};
   const project = getProject(lang, slug);
   if (!project) return {};
 
@@ -44,10 +45,11 @@ export default async function ProjectPage({
   params,
 }: PageProps<"/[lang]/projects/[slug]">) {
   const { lang, slug } = await params;
-  if (!hasLocale(lang)) notFound();
+  if (!isLocale(lang)) notFound();
+  setRequestLocale(lang);
   const project = getProject(lang, slug);
   if (!project) notFound();
-  const dict = getDictionary(lang);
+  const t = await getTranslations("projects");
 
   return (
     <div className="relative overflow-x-clip">
@@ -59,7 +61,7 @@ export default async function ProjectPage({
             href={`/${lang}/projects`}
             className="text-sm text-muted hover:text-foreground"
           >
-            ← {dict.back}
+            ← {t("back")}
           </Link>
           <h1 className="mt-6 text-3xl font-semibold tracking-tight sm:text-5xl">
             {project.title}
@@ -69,13 +71,13 @@ export default async function ProjectPage({
           </p>
 
           <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
-            <StatusBadge status={project.status} dict={dict} />
+            <StatusBadge status={project.status} />
             <span>
-              <span className="text-muted">{dict.period_label}: </span>
+              <span className="text-muted">{t("period")}: </span>
               <span className="font-mono">{project.period}</span>
             </span>
             <span>
-              <span className="text-muted">{dict.role_label}: </span>
+              <span className="text-muted">{t("role")}: </span>
               {project.role}
             </span>
           </div>
@@ -88,7 +90,7 @@ export default async function ProjectPage({
                 rel="noreferrer"
                 className="rounded-lg bg-foreground px-4 py-2 text-sm font-medium text-background hover:opacity-90"
               >
-                {dict.source} ↗
+                {t("source")} ↗
               </a>
             )}
             {project.demo && (
@@ -98,7 +100,7 @@ export default async function ProjectPage({
                 rel="noreferrer"
                 className="rounded-lg border border-line-strong px-4 py-2 text-sm font-medium hover:bg-surface"
               >
-                {dict.demo} ↗
+                {t("demo")} ↗
               </a>
             )}
           </div>
@@ -109,7 +111,7 @@ export default async function ProjectPage({
             id="stack"
             className="mb-6 text-sm font-medium uppercase tracking-wider text-muted"
           >
-            {dict.stack}
+            {t("stack")}
           </h2>
           <dl className="grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
             {stackOrder
@@ -117,7 +119,7 @@ export default async function ProjectPage({
               .map((group) => (
                 <div key={group}>
                   <dt className="mb-2 text-sm font-medium">
-                    {dict.stackGroups[group]}
+                    {t(`stackGroups.${group}`)}
                   </dt>
                   <dd className="flex flex-wrap gap-1.5">
                     {project.stack[group]!.map((item) => (
@@ -143,7 +145,7 @@ export default async function ProjectPage({
               id="screenshots"
               className="mb-6 text-sm font-medium uppercase tracking-wider text-muted"
             >
-              {dict.screenshots}
+              {t("screenshots")}
             </h2>
             <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:px-0">
               {project.screenshots.map((shot) => (
@@ -175,8 +177,8 @@ export default async function ProjectPage({
         )}
 
         <div className="gap-12 pt-10 lg:grid lg:grid-cols-[200px_minmax(0,1fr)]">
-          <TableOfContents items={project.toc} label={dict.contents} />
-          <Markdown source={project.body} dict={dict} />
+          <TableOfContents items={project.toc} label={t("contents")} />
+          <Markdown source={project.body} />
         </div>
       </article>
     </div>

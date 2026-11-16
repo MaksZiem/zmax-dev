@@ -2,7 +2,7 @@ import "server-only";
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
-import type { Locale } from "./i18n";
+import type { Locale } from "@/i18n/config";
 import { slugify } from "./slugify";
 
 const contentDir = path.join(process.cwd(), "content/projects");

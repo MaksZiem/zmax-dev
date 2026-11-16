@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Geist, Geist_Mono } from "next/font/google";
+import { NextIntlClientProvider } from "next-intl";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { SiteHeader } from "@/components/site-header";
-import { getDictionary, hasLocale, locales } from "@/lib/i18n";
+import { isLocale, LOCALES } from "@/i18n/config";
 import "../globals.css";
 
 const geistSans = Geist({
@@ -18,31 +20,33 @@ const geistMono = Geist_Mono({
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return locales.map((lang) => ({ lang }));
+  return LOCALES.map((lang) => ({ lang }));
 }
 
 export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Promise<Metadata> {
   const { lang } = await params;
-  if (!hasLocale(lang)) return {};
-  const dict = getDictionary(lang);
+  if (!isLocale(lang)) return {};
+  const t = await getTranslations({ locale: lang });
 
   return {
     metadataBase: new URL("https://zmax-dev.pl"),
     title: { default: "Maksymilian Ziembicki", template: "%s · Maksymilian Ziembicki" },
-    description: `Maksymilian Ziembicki — ${dict.role}`,
+    description: t("meta.description", { role: t("hero.role") }),
     alternates: { languages: { pl: "/pl", en: "/en" } },
   };
 }
 
 export default async function RootLayout({ children, params }: LayoutProps<"/[lang]">) {
   const { lang } = await params;
-  if (!hasLocale(lang)) notFound();
+  if (!isLocale(lang)) notFound();
+  setRequestLocale(lang);
 
   return (
     <html lang={lang} className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col">
-        <SiteHeader locale={lang} />
-        <main className="flex-1">{children}</main>
+        <NextIntlClientProvider>
+          <SiteHeader locale={lang} />
+          <main className="flex-1">{children}</main>
         <footer className="border-t border-line">
           <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 px-4 py-6 text-xs text-muted sm:px-6">
             <span>© {new Date().getFullYear()} Maksymilian Ziembicki</span>
@@ -51,6 +55,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
             </a>
           </div>
         </footer>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

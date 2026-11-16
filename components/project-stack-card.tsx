@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
-import type { Dictionary, Locale } from "@/lib/i18n";
+import { useTranslations } from "next-intl";
+import type { Locale } from "@/i18n/config";
 import type { Project, StackGroup } from "@/lib/projects";
 import { stackHighlights } from "./project-card";
 import { getTerminalDemo, REPO_DIRS } from "@/lib/terminal-demos";
@@ -21,14 +22,13 @@ export function ProjectStackCard({
   index,
   total,
   locale,
-  dict,
 }: {
   project: Project;
   index: number;
   total: number;
   locale: Locale;
-  dict: Dictionary;
 }) {
+  const t = useTranslations();
   const href = `/${locale}/projects/${project.slug}`;
   const style = { "--i": index, "--glow": GLOWS[index % GLOWS.length] } as CSSProperties;
 
@@ -44,7 +44,7 @@ export function ProjectStackCard({
                 <span className="font-mono text-sm text-accent">
                   {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
                 </span>
-                <StatusBadge status={project.status} dict={dict} />
+                <StatusBadge status={project.status} />
                 <span className="font-mono">{project.period}</span>
               </div>
 
@@ -64,7 +64,7 @@ export function ProjectStackCard({
                   ))}
                 </ul>
                 <div className="mt-6 flex items-center gap-5 text-sm">
-                  <span className="font-medium text-foreground">{dict.details} →</span>
+                  <span className="font-medium text-foreground">{t("projects.details")} →</span>
                   {project.repo && (
                     <a
                       href={project.repo}
@@ -72,7 +72,7 @@ export function ProjectStackCard({
                       rel="noreferrer"
                       className="relative z-10 text-muted hover:text-foreground"
                     >
-                      {dict.source}
+                      {t("projects.source")}
                     </a>
                   )}
                 </div>
@@ -88,13 +88,19 @@ export function ProjectStackCard({
                 <ProjectTerminal
                   slug={project.slug}
                   stack={GROUP_ORDER.filter((g) => project.stack[g]?.length).map((g) => [
-                    dict.stackGroups[g].toLowerCase(),
+                    t(`projects.stackGroups.${g}`).toLowerCase(),
                     project.stack[g]!.slice(0, 3).map(shortName).join(", "),
                   ])}
                   demo={getTerminalDemo(project.slug, locale)}
                   repo={project.repo}
                   dirs={REPO_DIRS[project.slug] ?? null}
-                  labels={dict.terminal}
+                  labels={{
+                    hint: t("terminal.hint"),
+                    help: t("terminal.help"),
+                    notFound: t("terminal.notFound"),
+                    opening: t("terminal.opening"),
+                    noRepo: t("terminal.noRepo"),
+                  }}
                 />
               )}
             </div>

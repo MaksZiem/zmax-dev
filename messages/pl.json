@@ -1,0 +1,113 @@
+{
+  "meta": {
+    "description": "Maksymilian Ziembicki – {role}"
+  },
+  "common": {
+    "language": "Język",
+    "copy": "Kopiuj",
+    "copied": "Skopiowano"
+  },
+  "nav": {
+    "about": "O mnie",
+    "projects": "Projekty",
+    "contact": "Kontakt"
+  },
+  "hero": {
+    "role": "Full-Stack Developer",
+    "intro": "Projektuję i buduję kompletne aplikacje webowe – od architektury backendu i bazy danych po dopracowany interfejs. Pracuję w TypeScripcie, NestJS i Next.js, a do produktów wdrażam AI, które działa przewidywalnie i bezpiecznie.",
+    "scroll": "Przewiń"
+  },
+  "about": {
+    "title": "O mnie",
+    "paragraphs": {
+      "p1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Curabitur blandit tempus porttitor.",
+      "p2": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Maecenas faucibus mollis interdum.",
+      "p3": "Nullam quis risus eget urna mollis ornare vel eu leo. Cras mattis consectetur purus sit amet fermentum. Vestibulum id ligula porta felis euismod semper. Aenean lacinia bibendum nulla sed consectetur. Donec ullamcorper nulla non metus auctor fringilla.",
+      "p4": "Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus."
+    },
+    "educationTitle": "Wykształcenie",
+    "experienceTitle": "Doświadczenie",
+    "education": {
+      "technikum": {
+        "period": "2017 – 2021",
+        "school": "Technikum – ZSP nr 5 w Krośnie",
+        "field": "Kierunek: informatyka",
+        "note": ""
+      },
+      "rzeszow": {
+        "period": "2021 – 2025",
+        "school": "Uniwersytet Rzeszowski",
+        "field": "Informatyka, specjalizacja: aplikacje internetowe",
+        "note": "Inżynier"
+      },
+      "warsaw": {
+        "period": "2026 – obecnie",
+        "school": "Politechnika Warszawska",
+        "field": "Informatyka, specjalizacja: inteligentne systemy",
+        "note": "W trakcie"
+      }
+    },
+    "experience": {
+      "ebi": {
+        "period": "sierpień 2024 – sierpień 2026",
+        "school": "e-bi sp. z o.o.",
+        "field": "Frontend Developer",
+        "note": ""
+      }
+    }
+  },
+  "work": {
+    "titleFirst": "Wybrane projekty.",
+    "titleSecond": "Od schematu po produkcję.",
+    "lead": "Każdy projekt ma opis architektury, przepływu danych, schemat bazy i przykładowy przebieg.",
+    "allProjects": "Wszystkie projekty"
+  },
+  "contact": {
+    "kicker": "Kontakt",
+    "title": "Porozmawiajmy.",
+    "lead": "Masz projekt, pomysł na produkt albo ofertę pracy? Napisz – chętnie porozmawiam o tym, co mogę zbudować.",
+    "nameLabel": "Imię i nazwisko",
+    "locationLabel": "Lokalizacja",
+    "location": "Warszawa, Polska",
+    "elsewhere": "W sieci"
+  },
+  "projects": {
+    "all": "Wszystkie projekty",
+    "lead": "Każdy projekt ma opis architektury, przepływu danych, schemat bazy i przykładowy przebieg.",
+    "home": "Strona główna",
+    "back": "Wszystkie projekty",
+    "details": "Szczegóły",
+    "source": "Kod",
+    "demo": "Demo",
+    "stack": "Stack",
+    "screenshots": "Zrzuty ekranu",
+    "contents": "Na tej stronie",
+    "role": "Rola",
+    "period": "Okres",
+    "stackGroups": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "database": "Baza danych",
+      "infra": "Infrastruktura",
+      "ai": "AI"
+    },
+    "status": {
+      "active": "W rozwoju",
+      "completed": "Ukończony",
+      "mvp": "MVP",
+      "archived": "Archiwum"
+    }
+  },
+  "terminal": {
+    "hint": "wpisz help albo cd frontend",
+    "help": "dostępne komendy:",
+    "notFound": "nie znaleziono komendy",
+    "opening": "otwieram",
+    "noRepo": "repozytorium nie jest publiczne"
+  },
+  "markdown": {
+    "expand": "Powiększ",
+    "close": "Zamknij",
+    "diagramError": "Nie udało się wyrenderować diagramu."
+  }
+}

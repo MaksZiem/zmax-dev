@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { Dictionary, Locale } from "@/lib/i18n";
+import { useTranslations } from "next-intl";
+import type { Locale } from "@/i18n/config";
 import type { Project } from "@/lib/projects";
 import { StatusBadge } from "./status-badge";
 
@@ -52,7 +53,8 @@ export function CoverPlaceholder({ project }: { project: Project }) {
   );
 }
 
-export function ProjectCard({ project, locale, dict }: { project: Project; locale: Locale; dict: Dictionary }) {
+export function ProjectCard({ project, locale }: { project: Project; locale: Locale }) {
+  const t = useTranslations("projects");
   const href = `/${locale}/projects/${project.slug}`;
 
   return (
@@ -73,7 +75,7 @@ export function ProjectCard({ project, locale, dict }: { project: Project; local
 
       <div className="flex flex-1 flex-col gap-4 p-5">
         <div className="flex items-center gap-3 text-xs text-muted">
-          <StatusBadge status={project.status} dict={dict} />
+          <StatusBadge status={project.status} />
           <span className="font-mono">{project.period}</span>
         </div>
 
@@ -95,7 +97,7 @@ export function ProjectCard({ project, locale, dict }: { project: Project; local
         </ul>
 
         <div className="flex items-center gap-4 pt-1 text-sm">
-          <span className="font-medium text-foreground">{dict.details} →</span>
+          <span className="font-medium text-foreground">{t("details")} →</span>
           {project.repo && (
             <a
               href={project.repo}
@@ -103,7 +105,7 @@ export function ProjectCard({ project, locale, dict }: { project: Project; local
               rel="noreferrer"
               className="relative z-10 text-muted hover:text-foreground"
             >
-              {dict.source}
+              {t("source")}
             </a>
           )}
         </div>

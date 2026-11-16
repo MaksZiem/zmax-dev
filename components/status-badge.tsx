@@ -1,7 +1,11 @@
-import type { Dictionary } from "@/lib/i18n";
+import { useMessages, useTranslations } from "next-intl";
 
-export function StatusBadge({ status, dict }: { status: string; dict: Dictionary }) {
-  const label = dict.status[status as keyof Dictionary["status"]] ?? status;
+type StatusKey = keyof ReturnType<typeof useMessages>["projects"]["status"];
+
+export function StatusBadge({ status }: { status: string }) {
+  const t = useTranslations("projects.status");
+  const known = useMessages().projects.status;
+  const label = status in known ? t(status as StatusKey) : status;
   const live = status === "active";
 
   return (

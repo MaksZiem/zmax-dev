@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { getDictionary, type Locale } from "@/lib/i18n";
+import { useTranslations } from "next-intl";
+import type { Locale } from "@/i18n/config";
 import { LanguageSwitcher } from "./language-switcher";
 
 export function SiteHeader({ locale }: { locale: Locale }) {
-  const dict = getDictionary(locale);
+  const t = useTranslations("nav");
 
   return (
     <header className="sticky top-0 z-20 border-b border-line bg-background/85 backdrop-blur">
@@ -13,13 +14,13 @@ export function SiteHeader({ locale }: { locale: Locale }) {
         </Link>
         <div className="flex items-center gap-4 sm:gap-6">
           <Link href={`/${locale}#about`} className="text-sm text-muted hover:text-foreground">
-            {dict.about}
+            {t("about")}
           </Link>
           <Link href={`/${locale}#projects`} className="text-sm text-muted hover:text-foreground">
-            {dict.projects}
+            {t("projects")}
           </Link>
           <Link href={`/${locale}#contact`} className="text-sm text-muted hover:text-foreground">
-            {dict.contact}
+            {t("contact")}
           </Link>
           <a
             href="https://github.com/MaksZiem"

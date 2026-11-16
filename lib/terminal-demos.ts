@@ -1,4 +1,4 @@
-import type { Locale } from "./i18n";
+import type { Locale } from "@/i18n/config";
 
 /**
  * Content for the interactive terminal on the featured project cards.

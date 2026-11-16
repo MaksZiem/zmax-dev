@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
-import type { Dictionary } from "@/lib/i18n";
+import { useTranslations } from "next-intl";
 import { slugify } from "@/lib/slugify";
 import { Mermaid } from "./mermaid";
 
@@ -28,7 +28,8 @@ function hastText(node: HastNode | undefined): string {
   return (node.children ?? []).map(hastText).join("");
 }
 
-export function Markdown({ source, dict }: { source: string; dict: Dictionary }) {
+export function Markdown({ source }: { source: string }) {
+  const t = useTranslations("markdown");
   const components: Components = {
     h2: ({ children }) => <h2 id={slugify(textOf(children))}>{children}</h2>,
     h3: ({ children }) => <h3 id={slugify(textOf(children))}>{children}</h3>,
@@ -50,9 +51,9 @@ export function Markdown({ source, dict }: { source: string; dict: Dictionary })
         return (
           <Mermaid
             chart={hastText(code).trim()}
-            expandLabel={dict.expand}
-            closeLabel={dict.close}
-            errorLabel={dict.diagramError}
+            expandLabel={t("expand")}
+            closeLabel={t("close")}
+            errorLabel={t("diagramError")}
           />
         );
       }
