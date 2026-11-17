@@ -26,6 +26,7 @@ export interface Project {
   tags: string[];
   repo: string | null;
   demo: string | null;
+  apiDocs: string | null;
   cover: string | null;
   screenshots: Screenshot[];
   featured: boolean;
@@ -69,6 +70,7 @@ function toProject(slug: string, data: Frontmatter): Project {
     tags: data.tags ?? [],
     repo: data.repo ?? null,
     demo: data.demo ?? null,
+    apiDocs: data.apiDocs ?? null,
     cover: publicImage(slug, data.cover),
     screenshots: (data.screenshots ?? []).flatMap(({ file, caption }) => {
       const src = publicImage(slug, file);

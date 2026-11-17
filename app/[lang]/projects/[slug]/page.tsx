@@ -93,6 +93,16 @@ export default async function ProjectPage({
                 {t("source")} ↗
               </a>
             )}
+            {project.apiDocs && (
+              <a
+                href={project.apiDocs}
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-lg border border-line-strong px-4 py-2 text-sm font-medium hover:bg-surface"
+              >
+                {t("apiDocs")} ↗
+              </a>
+            )}
             {project.demo && (
               <a
                 href={project.demo}

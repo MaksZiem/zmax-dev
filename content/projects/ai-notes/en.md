@@ -15,6 +15,7 @@ stack:
 tags: [notes, collaboration, crdt, yjs, realtime, rag, embeddings, semantic-search, ai-agent, react, nestjs]
 repo: https://github.com/MaksZiem/ai-notes
 demo: null
+apiDocs: http://localhost:3001/api/docs
 cover: screenshots/cover.png
 screenshots:
   - file: screenshots/editor.png
@@ -377,17 +378,14 @@ Requirements: Node.js, PostgreSQL, a Gemini API key and (optionally) a Resend AP
 
 ```bash
 cd ai-notes-backend
-# .env: DB_HOST, DB_PORT, DB_USER, DB_PASS, DB_NAME, JWT_SECRET,
-#       GEMINI_API_KEY, GEMINI_MODEL, RESEND_API_KEY, FRONTEND_URL
+cp .env.example .env       # PORT, YJS_PORT, DB_*, JWT_SECRET, GEMINI_*, RESEND_API_KEY, FRONTEND_URL
 npm install
-npm run start:dev          # REST + Socket.IO, Hocuspocus on :1234
+npm run start:dev          # http://localhost:3001 (Swagger: /api/docs), Hocuspocus on :1234
 
 cd ../ai-notes-frontend
 npm install
-npm run dev                # http://localhost:5173
+npm run dev                # http://localhost:3000
 ```
-
-<!-- TODO: add .env.example files to the repo -->
 
 ## Limitations & roadmap
 

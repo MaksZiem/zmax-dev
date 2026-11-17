@@ -15,6 +15,7 @@ stack:
 tags: [fitness, workout-logging, training-plans, statistics, llm, openapi, i18n, nestjs, nextjs]
 repo: https://github.com/MaksZiem/workout-tracker
 demo: null
+apiDocs: http://localhost:3001/api/docs
 cover: screenshots/cover.png
 screenshots:
   - file: screenshots/dashboard.png
@@ -357,22 +358,20 @@ POST /planner/generate
 Requirements: Node.js, PostgreSQL and a Gemini API key.
 
 ```bash
-# backend (port 3000)
+# backend (port 3001)
 cd backend
-# .env: DB_HOST, DB_PORT, DB_USER, DB_PASS, DB_NAME, JWT secret, GEMINI_API_KEY, GEMINI_MODEL
+cp .env.example .env         # PORT, DB_*, JWT_SECRET, GEMINI_*, FRONTEND_URL
 npm install
 npm run start:dev
 npm run seed                  # demo users, exercise catalog, workouts
-# Swagger: http://localhost:3000/api/docs
+# Swagger: http://localhost:3001/api/docs
 
-# frontend (port 3001)
+# frontend (port 3000)
 cd ../frontend
-cp .env.example .env.local    # BACKEND_URL=http://localhost:3000
+cp .env.example .env.local    # BACKEND_URL=http://localhost:3001
 npm install
 npm run dev
 ```
-
-<!-- TODO: add backend/.env.example to the repo -->
 
 ## Limitations & roadmap
 

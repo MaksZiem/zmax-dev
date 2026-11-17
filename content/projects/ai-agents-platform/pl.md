@@ -15,6 +15,7 @@ stack:
 tags: [ai-agents, llm, function-calling, human-in-the-loop, job-queue, websockets, rag, ssrf-protection, nestjs, nextjs]
 repo: https://github.com/MaksZiem/ai-agents-platform
 demo: null
+apiDocs: http://localhost:3001/api/docs
 cover: screenshots/cover.png
 screenshots:
   - file: screenshots/dashboard.png

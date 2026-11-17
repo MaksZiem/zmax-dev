@@ -15,6 +15,7 @@ stack:
 tags: [observability, incident-response, sre, logs, distributed-tracing, error-tracking, alerting, llm, nestjs, nextjs]
 repo: https://github.com/MaksZiem/ai-observability-incident-response
 demo: null
+apiDocs: http://localhost:3001/api/docs
 cover: screenshots/cover.png
 screenshots:
   - file: screenshots/overview.png
