@@ -42,7 +42,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
   setRequestLocale(lang);
 
   return (
-    <html lang={lang} className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+    <html lang={lang} data-scroll-behavior="smooth" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col">
         <NextIntlClientProvider>
           <SiteHeader locale={lang} />
