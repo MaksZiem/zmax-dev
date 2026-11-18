@@ -1,20 +1,12 @@
 import type { Locale } from "@/i18n/config";
 
-/**
- * Content for the interactive terminal on the featured project cards.
- * Kept in the site (not in content/projects) because `npm run sync` overwrites that folder.
- *
- * Line kinds: "cmd" is typed out after a "$" prompt, "out" is plain output,
- * "ok" / "warn" are highlighted results, "dim" is secondary output.
- */
 export type TerminalLineKind = "cmd" | "out" | "ok" | "warn" | "dim";
 export type TerminalLine = { kind: TerminalLineKind; text: string };
 
-/** Folder names inside each repo that `cd frontend` / `cd backend` open on GitHub. */
 export const REPO_DIRS: Record<string, { frontend: string; backend: string; branch: string }> = {
   "ai-agents-platform": { frontend: "frontend", backend: "backend", branch: "main" },
-  "ai-observability-incident-response": { frontend: "frontend", backend: "backend", branch: "main" },
-  "ai-notes": { frontend: "ai-notes-frontend", backend: "ai-notes-backend", branch: "main" },
+  "ai-observability": { frontend: "frontend", backend: "backend", branch: "main" },
+  "ai-notes": { frontend: "frontend", backend: "backend", branch: "main" },
   "workout-tracker": { frontend: "frontend", backend: "backend", branch: "main" },
 };
 
@@ -37,7 +29,7 @@ const DEMOS: Record<string, Record<Locale, TerminalLine[]>> = {
       { kind: "warn", text: "⏸ sendEmail needs approval (email:send)" },
     ],
   },
-  "ai-observability-incident-response": {
+  "ai-observability": {
     pl: [
       { kind: "cmd", text: "curl -X POST /api/ingest/errors -H 'X-Api-Key: obs_…'" },
       { kind: "dim", text: "202 Accepted · w kolejce ingestu" },

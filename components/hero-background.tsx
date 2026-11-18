@@ -3,18 +3,7 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
-/**
- * Scroll-driven galactic scene for the hero -> "About" transition.
- *
- * The stage (parent element) contains a tall "hero track" in which the hero is pinned.
- * While scrolling through that track (progress T):
- *   - the hero copy blurs and fades out (CSS, via --t on the stage),
- *   - the nebula flows down like smoke and a fog bank rises from the bottom (shader).
- * Then "About" scrolls in (progress A): the fog thins out and every [data-fog] element
- * emerges from it (CSS, via a per-element --fog value).
- */
-
-const VERT = /* glsl */ `
+const VERT = `
 varying vec2 vUv;
 void main() {
   vUv = uv;
@@ -22,7 +11,7 @@ void main() {
 }
 `;
 
-const FRAG = /* glsl */ `
+const FRAG = `
 precision highp float;
 uniform float uTime;
 uniform vec2  uRes;
@@ -138,7 +127,6 @@ const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
 
 function readBg(): THREE.Color {
   const raw = getComputedStyle(document.documentElement).getPropertyValue("--background").trim() || "#ffffff";
-  // take the CSS colour as-is (the shader works in display space, no colour management)
   return new THREE.Color().setStyle(raw, THREE.LinearSRGBColorSpace);
 }
 
@@ -158,7 +146,6 @@ export function HeroBackground() {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
-    // ---- scroll state (drives CSS even when WebGL is unavailable)
     let T = 0;
     let A = 0;
     let P = 0;
@@ -170,7 +157,6 @@ export function HeroBackground() {
     const updateScroll = () => {
       scrollQueued = false;
       const vh = window.innerHeight;
-      // ---- read every rect first, then write: interleaving the two forces a layout per element
       if (track) {
         const r = track.getBoundingClientRect();
         T = clamp01(-r.top / Math.max(1, r.height - vh));
@@ -178,18 +164,13 @@ export function HeroBackground() {
       if (about) A = clamp01((vh - about.getBoundingClientRect().top) / vh);
       if (projects) {
         const r = projects.getBoundingClientRect();
-        // fades in as the section enters, fades out as its end scrolls past
         P = clamp01((vh - r.top) / (vh * 0.6)) * clamp01((r.bottom - vh * 0.2) / (vh * 0.6));
       }
       for (let i = 0; i < fogEls.length; i++) fogTops[i] = fogEls[i].getBoundingClientRect().top;
 
-      // ---- writes, only when a value actually changed (every write invalidates styles)
       const t = T.toFixed(3);
       if (t !== lastT) stage.style.setProperty("--t", (lastT = t));
-      // each [data-fog] element is hidden in fog near the bottom and clears as it rises
       for (let i = 0; i < fogEls.length; i++) {
-        // default ("About" text): clear by the time it reaches 75% of the screen height;
-        // data-fog="slow" (project cards): a longer emergence, clear at mid-screen
         const clearAt = fogSlow[i] ? 0.5 : 0.75;
         const range = fogSlow[i] ? 0.5 : 0.25;
         const f = reduceMotion.matches ? "0" : clamp01((fogTops[i] - vh * clearAt) / (vh * range)).toFixed(2);
@@ -208,7 +189,7 @@ export function HeroBackground() {
       renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: false, powerPreference: "low-power" });
       renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
     } catch {
-      renderer = null; // no WebGL: plain page background, CSS effects still run
+      renderer = null;
     }
 
     const scene = new THREE.Scene();
@@ -243,7 +224,6 @@ export function HeroBackground() {
 
     const resize = () => {
       if (!renderer) return;
-      // render below device resolution: the image is soft by design and fbm is costly
       const scale = Math.min(window.devicePixelRatio || 1, 1.5) * 0.6;
       renderer.setPixelRatio(scale);
       renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);

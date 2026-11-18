@@ -10,7 +10,12 @@
   "nav": {
     "about": "About",
     "projects": "Projects",
-    "contact": "Contact"
+    "contact": "Contact",
+    "cv": "CV",
+    "techStack": "Tech stack",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "main": "Main navigation"
   },
   "hero": {
     "role": "Full-Stack Developer",
@@ -82,6 +87,8 @@
     "apiDocs": "Try the API",
     "stack": "Stack",
     "screenshots": "Screenshots",
+    "previousScreenshot": "Previous screenshot",
+    "nextScreenshot": "Next screenshot",
     "contents": "On this page",
     "role": "Role",
     "period": "Period",
@@ -97,6 +104,30 @@
       "completed": "Completed",
       "mvp": "MVP",
       "archived": "Archived"
+    }
+  },
+  "cv": {
+    "title": "CV",
+    "lead": "Experience, education and skills in one place. A downloadable PDF version is coming soon.",
+    "soon": "Coming soon",
+    "download": "Download PDF",
+    "sections": {
+      "experience": "Experience",
+      "education": "Education",
+      "skills": "Skills"
+    }
+  },
+  "techStack": {
+    "title": "Tech stack",
+    "lead": "The technologies I use day to day – from backend and databases to frontend, infrastructure and AI.",
+    "soon": "Coming soon",
+    "groups": {
+      "backend": "Backend",
+      "frontend": "Frontend",
+      "database": "Databases",
+      "infra": "Infrastructure",
+      "ai": "AI",
+      "tools": "Tools"
     }
   },
   "terminal": {

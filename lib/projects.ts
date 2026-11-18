@@ -43,8 +43,6 @@ interface Frontmatter extends Omit<Project, "cover" | "screenshots"> {
   screenshots?: { file: string; caption: string }[];
 }
 
-// Paths in the frontmatter are relative to portfolio/, e.g. "screenshots/cover.png".
-// Only files that were actually synced into public/ are returned.
 function publicImage(slug: string, file: string | undefined): string | null {
   if (!file) return null;
   const src = `/projects/${slug}/${path.basename(file)}`;
@@ -101,8 +99,6 @@ export function getProject(locale: Locale, slug: string): ProjectDetail | null {
   const project = readProject(slug, locale);
   if (!project) return null;
 
-  // The page renders the title itself, so the leading "# Title" is dropped.
-  // HTML comments are authoring notes (TODOs) and never reach the page.
   const body = project.body
     .replace(/^\s*# .+\n/, "")
     .replace(/<!--[\s\S]*?-->/g, "")

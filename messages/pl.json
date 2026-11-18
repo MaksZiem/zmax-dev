@@ -10,7 +10,12 @@
   "nav": {
     "about": "O mnie",
     "projects": "Projekty",
-    "contact": "Kontakt"
+    "contact": "Kontakt",
+    "cv": "CV",
+    "techStack": "Tech stack",
+    "openMenu": "Otwórz menu",
+    "closeMenu": "Zamknij menu",
+    "main": "Główna nawigacja"
   },
   "hero": {
     "role": "Full-Stack Developer",
@@ -82,6 +87,8 @@
     "apiDocs": "Przetestuj API",
     "stack": "Stack",
     "screenshots": "Zrzuty ekranu",
+    "previousScreenshot": "Poprzedni zrzut",
+    "nextScreenshot": "Następny zrzut",
     "contents": "Na tej stronie",
     "role": "Rola",
     "period": "Okres",
@@ -97,6 +104,30 @@
       "completed": "Ukończony",
       "mvp": "MVP",
       "archived": "Archiwum"
+    }
+  },
+  "cv": {
+    "title": "CV",
+    "lead": "Doświadczenie, edukacja i umiejętności w jednym miejscu. Wersja do pobrania w PDF pojawi się wkrótce.",
+    "soon": "W przygotowaniu",
+    "download": "Pobierz PDF",
+    "sections": {
+      "experience": "Doświadczenie",
+      "education": "Edukacja",
+      "skills": "Umiejętności"
+    }
+  },
+  "techStack": {
+    "title": "Tech stack",
+    "lead": "Technologie, z których korzystam na co dzień – od backendu i baz danych po frontend, infrastrukturę i AI.",
+    "soon": "W przygotowaniu",
+    "groups": {
+      "backend": "Backend",
+      "frontend": "Frontend",
+      "database": "Bazy danych",
+      "infra": "Infrastruktura",
+      "ai": "AI",
+      "tools": "Narzędzia"
     }
   },
   "terminal": {

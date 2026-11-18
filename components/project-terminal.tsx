@@ -40,21 +40,16 @@ function Line({ line }: { line: TerminalLine }) {
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-/**
- * Terminal on a featured project card: shows the stack, types out a short demo of what the
- * project does once the card is on screen, then accepts commands. `cd frontend` / `cd backend`
- * open those folders of the repo on GitHub.
- */
 export function ProjectTerminal({ slug, stack, demo, repo, dirs, labels }: Props) {
   const rootRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const runId = useRef(0);
 
-  const [shown, setShown] = useState<TerminalLine[]>([]); // demo lines already printed
-  const [typing, setTyping] = useState<string | null>(null); // command being typed right now
-  const [ready, setReady] = useState(demo.length === 0); // demo finished, prompt accepts input
-  const [log, setLog] = useState<TerminalLine[]>([]); // interactive session output
+  const [shown, setShown] = useState<TerminalLine[]>([]);
+  const [typing, setTyping] = useState<string | null>(null);
+  const [ready, setReady] = useState(demo.length === 0);
+  const [log, setLog] = useState<TerminalLine[]>([]);
   const [value, setValue] = useState("");
   const history = useRef<string[]>([]);
   const historyPos = useRef(-1);
@@ -89,7 +84,6 @@ export function ProjectTerminal({ slug, stack, demo, repo, dirs, labels }: Props
     if (runId.current === id) setReady(true);
   }, [demo]);
 
-  // start the demo the first time the card is properly on screen
   useEffect(() => {
     const el = rootRef.current;
     const runs = runId;
@@ -106,11 +100,10 @@ export function ProjectTerminal({ slug, stack, demo, repo, dirs, labels }: Props
     io.observe(el);
     return () => {
       io.disconnect();
-      runs.current++; // stops a demo that is still typing
+      runs.current++;
     };
   }, [demo, playDemo]);
 
-  // keep the newest line in view inside the panel
   useEffect(() => {
     const body = bodyRef.current;
     if (body) body.scrollTop = body.scrollHeight;
@@ -154,7 +147,6 @@ export function ProjectTerminal({ slug, stack, demo, repo, dirs, labels }: Props
         print([echo]);
         if (!repo) return print([{ kind: "warn", text: labels.noRepo }]);
         if (arg === "" || arg === ".." || arg === "~" || arg === "/") return openUrl(repo);
-        // accept both the alias ("frontend") and the real folder name ("ai-notes-frontend")
         const target =
           dirs && (arg === "frontend" || arg === dirs.frontend)
             ? dirs.frontend
@@ -191,7 +183,6 @@ export function ProjectTerminal({ slug, stack, demo, repo, dirs, labels }: Props
       historyPos.current = pos >= h.length ? -1 : pos;
       setValue(historyPos.current < 0 ? "" : h[historyPos.current]);
     } else if (e.key === "Tab" && dirs) {
-      // complete "cd fr" -> "cd frontend"
       const m = value.match(/^cd\s+(\S*)$/);
       if (!m) return;
       const hit = ["frontend", "backend"].find((d) => d.startsWith(m[1]) && d !== m[1]);

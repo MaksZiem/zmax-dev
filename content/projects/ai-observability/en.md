@@ -1,6 +1,6 @@
 ---
-slug: ai-observability-incident-response
-title: AI Observability & Incident Response
+slug: ai-observability
+title: AI Observability
 tagline: An observability platform that ingests logs, traces, errors and deployments, correlates them, and uses AI to analyze production incidents from structured evidence.
 lang: en
 status: active
@@ -13,28 +13,28 @@ stack:
   infra: [BullMQ ingest worker + dead-letter queue, SSE]
   ai: [Google Gemini (structured JSON output)]
 tags: [observability, incident-response, sre, logs, distributed-tracing, error-tracking, alerting, llm, nestjs, nextjs]
-repo: https://github.com/MaksZiem/ai-observability-incident-response
+repo: https://github.com/MaksZiem/ai-observability
 demo: null
 apiDocs: http://localhost:3001/api/docs
-cover: screenshots/cover.png
+cover: screenshots/cover.webp
 screenshots:
-  - file: screenshots/overview.png
+  - file: screenshots/overview.webp
     caption: Project overview – requests, error rate, P95 latency and time-series charts with deployment markers
-  - file: screenshots/trace.png
+  - file: screenshots/trace.webp
     caption: Distributed trace waterfall with the slow PostgreSQL span highlighted
-  - file: screenshots/errors.png
+  - file: screenshots/errors.webp
     caption: Grouped errors with occurrences, first/last seen and status
-  - file: screenshots/incident.png
+  - file: screenshots/incident.webp
     caption: Incident page – auto-generated timeline, linked evidence and similar past incidents
-  - file: screenshots/ai-analysis.png
+  - file: screenshots/ai-analysis.webp
     caption: AI analysis separating observed facts, hypotheses and suggested investigation
-  - file: screenshots/platform.png
+  - file: screenshots/platform.webp
     caption: Platform health – ingest latency, queue depth, retries and dead-lettered batches
 featured: true
 order: 2
 ---
 
-# AI Observability & Incident Response
+# AI Observability
 
 ## Overview
 
@@ -391,11 +391,11 @@ The stored event has `"authorization": "[REDACTED]"`, and it lands in the `Datab
 1. **History:** deployments `v1.42.1` and `v1.42.2`, plus a resolved past incident, *"Database connection pool exhaustion"* (fixed by raising the pool from 5 to 20).
 2. **Bad deploy:** `v1.42.3` on `payment-service`, *"Reduce database connection pool size to 5"*, 40 minutes ago.
 3. **Degradation:** 4 minutes later, the PostgreSQL spans slow down and about 35% of `POST /payments` requests fail with `DatabaseConnectionTimeout`. Logs say *"Database pool exhausted (5/5 connections in use)"*.
-4. **Overview** shows the error rate and P95 jumping right after the deployment marker. *(screenshot: overview.png)*
-5. **Trace view** shows the slow PostgreSQL span dominating `POST /payments`. *(screenshot: trace.png)*
-6. **Errors** shows a single grouped issue with its occurrence count instead of hundreds of separate 500s. *(screenshot: errors.png)*
-7. **Incident:** "Payment API degraded" is linked to the error group, a slow trace and the deployment. The timeline shows *deploy → latency anomaly → error-rate anomaly → new error*. **Similar incidents** surfaces the old pool-exhaustion incident, citing *"Same error: DatabaseConnectionTimeout"* and *"Same service: payment-service"*. *(screenshot: incident.png)*
-8. **AI analysis** names the pool reduction in v1.42.3 as a high-confidence *hypothesis*, not a confirmed cause, and suggests comparing pool configuration. *(screenshot: ai-analysis.png)*
+4. **Overview** shows the error rate and P95 jumping right after the deployment marker. *(screenshot: overview.webp)*
+5. **Trace view** shows the slow PostgreSQL span dominating `POST /payments`. *(screenshot: trace.webp)*
+6. **Errors** shows a single grouped issue with its occurrence count instead of hundreds of separate 500s. *(screenshot: errors.webp)*
+7. **Incident:** "Payment API degraded" is linked to the error group, a slow trace and the deployment. The timeline shows *deploy → latency anomaly → error-rate anomaly → new error*. **Similar incidents** surfaces the old pool-exhaustion incident, citing *"Same error: DatabaseConnectionTimeout"* and *"Same service: payment-service"*. *(screenshot: incident.webp)*
+8. **AI analysis** names the pool reduction in v1.42.3 as a high-confidence *hypothesis*, not a confirmed cause, and suggests comparing pool configuration. *(screenshot: ai-analysis.webp)*
 9. **Chat:** *"What changed before the errors started?"* → the answer cites `[deployment v1.42.3]`.
 10. The engineer resolves the incident, and it becomes searchable history for the next similar one.
 

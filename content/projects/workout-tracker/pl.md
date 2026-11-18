@@ -16,19 +16,19 @@ tags: [fitness, workout-logging, training-plans, statistics, llm, openapi, i18n,
 repo: https://github.com/MaksZiem/workout-tracker
 demo: null
 apiDocs: http://localhost:3001/api/docs
-cover: screenshots/cover.png
+cover: screenshots/cover.webp
 screenshots:
-  - file: screenshots/dashboard.png
+  - file: screenshots/dashboard.webp
     caption: Dashboard – dzisiejszy zaplanowany trening, pasek tygodnia, seria dni i świeże rekordy
-  - file: screenshots/log.png
+  - file: screenshots/log.webp
     caption: Logger treningu projektowany pod telefon – ćwiczenia, serie, ciężar i powtórzenia
-  - file: screenshots/parse.png
+  - file: screenshots/parse.webp
     caption: AI zamienia swobodny opis treningu na ćwiczenia i serie
-  - file: screenshots/plan-editor.png
+  - file: screenshots/plan-editor.webp
     caption: Edytor planu z szablonami na dni treningowe i zamiennikami ćwiczeń dobranymi przez AI
-  - file: screenshots/planner.png
+  - file: screenshots/planner.webp
     caption: Planer – widok tygodnia/miesiąca z treningami zaplanowanymi, wykonanymi i pominiętymi
-  - file: screenshots/stats.png
+  - file: screenshots/stats.webp
     caption: Statystyki – wykres e1RM, rekordy, rozkład grup mięśniowych i mapa aktywności
 featured: true
 order: 3
@@ -314,13 +314,13 @@ POST /planner/generate
 
 ## Przykładowy przebieg
 
-1. **Rejestracja**, po której dashboard pokazuje onboarding i kartę „AI na start”. *(screen: dashboard.png)*
-2. **Generowanie planu:** cel *Hipertrofia*, 3 dni w tygodniu, ograniczenie *„bez przysiadów ze sztangą”*. W edytorze planu pojawiają się trzy szablony (Push, Pull, Legs). Każdy można przemianować, przestawić albo podmienić w nim ćwiczenie na zamiennik od AI, np. *„Suwnica – ten sam wzorzec przysiadu, czworogłowe i pośladki”*. *(screen: plan-editor.png)*
-3. **Harmonogram:** przypisanie Push → poniedziałek, Pull → środa, Legs → piątek na najbliższe 4 tygodnie. Tablica planera wypełnia się sesjami `PLANNED`. *(screen: planner.png)*
-4. **Trening:** w poniedziałek karta „Dziś” pokazuje *Push*. Kliknięcie **Start** tworzy trening wypełniony docelowymi seriami, powtórzeniami i ciężarem. Użytkownik koryguje ciężary i odhacza serie na telefonie. *(screen: log.png)*
-5. **Skrót:** innego dnia użytkownik wpisuje *„OHP 3x8 40kg, wznosy bokiem 3x15 10kg”*, a AI dodaje do treningu oba ćwiczenia i wszystkie sześć serii. *(screen: parse.png)*
+1. **Rejestracja**, po której dashboard pokazuje onboarding i kartę „AI na start”. *(screen: dashboard.webp)*
+2. **Generowanie planu:** cel *Hipertrofia*, 3 dni w tygodniu, ograniczenie *„bez przysiadów ze sztangą”*. W edytorze planu pojawiają się trzy szablony (Push, Pull, Legs). Każdy można przemianować, przestawić albo podmienić w nim ćwiczenie na zamiennik od AI, np. *„Suwnica – ten sam wzorzec przysiadu, czworogłowe i pośladki”*. *(screen: plan-editor.webp)*
+3. **Harmonogram:** przypisanie Push → poniedziałek, Pull → środa, Legs → piątek na najbliższe 4 tygodnie. Tablica planera wypełnia się sesjami `PLANNED`. *(screen: planner.webp)*
+4. **Trening:** w poniedziałek karta „Dziś” pokazuje *Push*. Kliknięcie **Start** tworzy trening wypełniony docelowymi seriami, powtórzeniami i ciężarem. Użytkownik koryguje ciężary i odhacza serie na telefonie. *(screen: log.webp)*
+5. **Skrót:** innego dnia użytkownik wpisuje *„OHP 3x8 40kg, wznosy bokiem 3x15 10kg”*, a AI dodaje do treningu oba ćwiczenia i wszystkie sześć serii. *(screen: parse.webp)*
 6. **Koniec treningu:** trening dostaje `finishedAt`, a wpis w planerze zostaje oznaczony jako wykonany.
-7. **Przegląd postępów:** statystyki pokazują trend e1RM w wyciskaniu, nowy rekord na 8 powtórzeń, rozkład grup mięśniowych, 3-tygodniową serię, realizację planu i ostrzeżenie, że *wiosłowanie sztangą* stoi w miejscu od 6 tygodni. *(screen: stats.png)*
+7. **Przegląd postępów:** statystyki pokazują trend e1RM w wyciskaniu, nowy rekord na 8 powtórzeń, rozkład grup mięśniowych, 3-tygodniową serię, realizację planu i ostrzeżenie, że *wiosłowanie sztangą* stoi w miejscu od 6 tygodni. *(screen: stats.webp)*
 
 ## Kluczowe decyzje i kompromisy
 

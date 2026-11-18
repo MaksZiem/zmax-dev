@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 
-/** Copies `value` to the clipboard and briefly confirms it. */
 export function CopyButton({ value, label, doneLabel }: { value: string; label: string; doneLabel: string }) {
   const [done, setDone] = useState(false);
 

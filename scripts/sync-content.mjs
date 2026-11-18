@@ -1,5 +1,3 @@
-// Copies portfolio descriptions and screenshots from the project repos into this site.
-// Run with `npm run sync` after editing any project's portfolio/ folder.
 import { cp, mkdir, readdir, readFile, rm } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import path from "node:path";
@@ -11,7 +9,7 @@ const projectsDir = path.resolve(root, process.env.PROJECTS_DIR ?? "../..");
 
 const sources = [
   "ai-agents-platform",
-  "ai-observability-incident-response",
+  "ai-observability",
   "workout tracker",
   "ai-notes",
 ];

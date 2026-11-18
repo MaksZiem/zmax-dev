@@ -16,17 +16,17 @@ tags: [ai-agents, llm, function-calling, human-in-the-loop, job-queue, websocket
 repo: https://github.com/MaksZiem/ai-agents-platform
 demo: null
 apiDocs: http://localhost:3001/api/docs
-cover: screenshots/cover.png
+cover: screenshots/cover.webp
 screenshots:
-  - file: screenshots/dashboard.png
+  - file: screenshots/dashboard.webp
     caption: Dashboard with agent count, running executions and pending approvals
-  - file: screenshots/agent-config.png
+  - file: screenshots/agent-config.webp
     caption: Agent configuration – model, instructions, tools, permissions, knowledge and connections
-  - file: screenshots/execution-live.png
+  - file: screenshots/execution-live.webp
     caption: Live execution timeline with tool calls, inputs and outputs
-  - file: screenshots/approval.png
+  - file: screenshots/approval.webp
     caption: Human-in-the-loop approval of a sensitive tool call
-  - file: screenshots/execution-metrics.png
+  - file: screenshots/execution-metrics.webp
     caption: Execution metrics – duration, LLM calls, tokens, retries
 featured: true
 order: 1
@@ -364,15 +364,15 @@ Content-Type: application/json
 
 The demo agent is a **Financial Analyst** with the document tools, `calculate`, `generateReport`, `askUser` and `sendEmail` enabled, and the permissions `documents:read`, `financial_data:read`, `reports:create` and `email:send`. Its knowledge base holds a cost spreadsheet (`koszty-2026.csv`) and two versions of a supplier contract.
 
-1. **Create the agent** with instructions like *"You are a financial analyst. Never invent financial information. If the task is ambiguous, ask the user…"*, then pick the tools, permissions and documents. *(screenshot: agent-config.png)*
+1. **Create the agent** with instructions like *"You are a financial analyst. Never invent financial information. If the task is ambiguous, ask the user…"*, then pick the tools, permissions and documents. *(screenshot: agent-config.webp)*
 2. **Start a task:** *"The IT supplier sent a new contract. Compare it with the old one, calculate how much our yearly IT costs will grow, create a report and send it to accountant@company.com."*
 3. **Turn 1:** Gemini calls `compareDocuments` and `extractTable` in parallel. The diff shows the new monthly fee, the longer term, the longer notice period and a new indexation clause. The table comes back with the amount column parsed as numbers (`"8 200,00 zł"` → `8200`).
 4. **Turn 2:** the model notices the indexation clause and calls `askUser`: *"Should the report include inflation indexation, and at what rate?"* The execution moves to **WAITING_FOR_APPROVAL**, and the question card offers suggested answers and a free-text field.
 5. **Answer:** the user types *"Yes, assume 4%"*. A new job resumes the execution and the tool returns the answer to the model.
-6. **Turn 3:** `calculate` computes the yearly difference (`(9100 − 8200) × 12 = 10 800 zł`, plus indexation), then `generateReport` saves an HTML report with a bar chart. Each step appears in the timeline live, with its input and output JSON. *(screenshot: execution-live.png)*
-7. **Turn 4:** the model calls `sendEmail` with the report as an attachment and explains why. The executor returns `approval_required`. The user sees the recipient, subject, body and the agent's reason, then clicks *Approve*. *(screenshot: approval.png)*
+6. **Turn 3:** `calculate` computes the yearly difference (`(9100 − 8200) × 12 = 10 800 zł`, plus indexation), then `generateReport` saves an HTML report with a bar chart. Each step appears in the timeline live, with its input and output JSON. *(screenshot: execution-live.webp)*
+7. **Turn 4:** the model calls `sendEmail` with the report as an attachment and explains why. The executor returns `approval_required`. The user sees the recipient, subject, body and the agent's reason, then clicks *Approve*. *(screenshot: approval.webp)*
 8. **Resume:** the email goes out through Resend with an idempotency key, the model writes the final answer, and the execution becomes **COMPLETED**.
-9. **Inspect:** the metrics panel shows duration, LLM calls, tool calls, retries and tokens. *(screenshot: execution-metrics.png)*
+9. **Inspect:** the metrics panel shows duration, LLM calls, tool calls, retries and tokens. *(screenshot: execution-metrics.webp)*
 
 If the user clicks *Reject*, the step is marked `SKIPPED`, the model is told "The user rejected this action." and adapts its answer. A skipped question tells the model to continue with its best judgement and state its assumption.
 

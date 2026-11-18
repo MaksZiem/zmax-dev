@@ -16,17 +16,17 @@ tags: [ai-agents, llm, function-calling, human-in-the-loop, job-queue, websocket
 repo: https://github.com/MaksZiem/ai-agents-platform
 demo: null
 apiDocs: http://localhost:3001/api/docs
-cover: screenshots/cover.png
+cover: screenshots/cover.webp
 screenshots:
-  - file: screenshots/dashboard.png
+  - file: screenshots/dashboard.webp
     caption: Dashboard z liczbą agentów, trwającymi wykonaniami i oczekującymi akceptacjami
-  - file: screenshots/agent-config.png
+  - file: screenshots/agent-config.webp
     caption: Konfiguracja agenta – model, instrukcje, narzędzia, uprawnienia, wiedza i połączenia
-  - file: screenshots/execution-live.png
+  - file: screenshots/execution-live.webp
     caption: Oś czasu wykonania na żywo z wywołaniami narzędzi, wejściem i wyjściem
-  - file: screenshots/approval.png
+  - file: screenshots/approval.webp
     caption: Akceptacja wrażliwego wywołania narzędzia przez człowieka (human-in-the-loop)
-  - file: screenshots/execution-metrics.png
+  - file: screenshots/execution-metrics.webp
     caption: Metryki wykonania – czas, wywołania LLM, tokeny, ponowienia
 featured: true
 order: 1
@@ -364,15 +364,15 @@ Content-Type: application/json
 
 Agent demo to **Financial Analyst** z włączonymi narzędziami do dokumentów, `calculate`, `generateReport`, `askUser` i `sendEmail` oraz z uprawnieniami `documents:read`, `financial_data:read`, `reports:create` i `email:send`. W jego bazie wiedzy są arkusz kosztów (`koszty-2026.csv`) i dwie wersje umowy z dostawcą.
 
-1. **Tworzenie agenta** z instrukcjami w stylu *„You are a financial analyst. Never invent financial information. If the task is ambiguous, ask the user…”*, potem wybór narzędzi, uprawnień i dokumentów. *(screen: agent-config.png)*
+1. **Tworzenie agenta** z instrukcjami w stylu *„You are a financial analyst. Never invent financial information. If the task is ambiguous, ask the user…”*, potem wybór narzędzi, uprawnień i dokumentów. *(screen: agent-config.webp)*
 2. **Start zadania:** *„Dostawca IT przysłał nową umowę. Porównaj ją ze starą, policz, o ile wzrosną nasze roczne koszty IT, przygotuj raport i wyślij go na accountant@company.com.”*
 3. **Tura 1:** Gemini równolegle wywołuje `compareDocuments` i `extractTable`. Diff pokazuje nową opłatę miesięczną, dłuższy okres umowy, dłuższe wypowiedzenie i nowy punkt o waloryzacji. Tabela wraca z kolumną kwot zamienioną na liczby (`"8 200,00 zł"` → `8200`).
 4. **Tura 2:** model zauważa punkt o waloryzacji i wywołuje `askUser`: *„Czy raport ma uwzględniać waloryzację o inflację i jaką stopę przyjąć?”*. Wykonanie przechodzi w **WAITING_FOR_APPROVAL**, a karta pytania pokazuje podpowiedzi i pole na własną odpowiedź.
 5. **Odpowiedź:** użytkownik wpisuje *„Tak, przyjmij 4%”*. Nowe zadanie w kolejce wznawia wykonanie, a narzędzie zwraca modelowi odpowiedź.
-6. **Tura 3:** `calculate` liczy roczną różnicę (`(9100 − 8200) × 12 = 10 800 zł`, plus waloryzacja), a `generateReport` zapisuje raport HTML z wykresem słupkowym. Każdy krok pojawia się na osi czasu na żywo, z JSON-em wejścia i wyjścia. *(screen: execution-live.png)*
-7. **Tura 4:** model wywołuje `sendEmail` z raportem w załączniku i uzasadnia dlaczego. Executor zwraca `approval_required`. Użytkownik widzi odbiorcę, temat, treść i uzasadnienie agenta, po czym klika *Approve*. *(screen: approval.png)*
+6. **Tura 3:** `calculate` liczy roczną różnicę (`(9100 − 8200) × 12 = 10 800 zł`, plus waloryzacja), a `generateReport` zapisuje raport HTML z wykresem słupkowym. Każdy krok pojawia się na osi czasu na żywo, z JSON-em wejścia i wyjścia. *(screen: execution-live.webp)*
+7. **Tura 4:** model wywołuje `sendEmail` z raportem w załączniku i uzasadnia dlaczego. Executor zwraca `approval_required`. Użytkownik widzi odbiorcę, temat, treść i uzasadnienie agenta, po czym klika *Approve*. *(screen: approval.webp)*
 8. **Wznowienie:** mail wychodzi przez Resend z kluczem idempotencji, model pisze odpowiedź końcową, a wykonanie kończy się jako **COMPLETED**.
-9. **Podgląd:** panel metryk pokazuje czas, wywołania LLM, wywołania narzędzi, ponowienia i tokeny. *(screen: execution-metrics.png)*
+9. **Podgląd:** panel metryk pokazuje czas, wywołania LLM, wywołania narzędzi, ponowienia i tokeny. *(screen: execution-metrics.webp)*
 
 Jeśli użytkownik kliknie *Reject*, krok dostaje status `SKIPPED`, model otrzymuje komunikat „The user rejected this action.” i dostosowuje odpowiedź. Pominięte pytanie każe modelowi kontynuować według własnej oceny i wypisać przyjęte założenie.
 

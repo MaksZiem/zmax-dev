@@ -4,10 +4,6 @@ import { useEffect, useState } from "react";
 
 type Item = { id: string; title: string };
 
-/**
- * "On this page" list for a project page. Highlights the section currently being read:
- * the last heading that has scrolled past a line just below the sticky header.
- */
 export function TableOfContents({ items, label }: { items: Item[]; label: string }) {
   const [active, setActive] = useState<string | null>(items[0]?.id ?? null);
 
@@ -20,13 +16,12 @@ export function TableOfContents({ items, label }: { items: Item[]; label: string
     let raf = 0;
     const update = () => {
       raf = 0;
-      const line = Math.min(160, window.innerHeight * 0.25); // just below the header
+      const line = Math.min(160, window.innerHeight * 0.25);
       let current = headings[0].id;
       for (const el of headings) {
         if (el.getBoundingClientRect().top <= line) current = el.id;
         else break;
       }
-      // at the very bottom the last sections may never reach the line: mark the last one
       const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
       if (atBottom) current = headings[headings.length - 1].id;
       setActive(current);

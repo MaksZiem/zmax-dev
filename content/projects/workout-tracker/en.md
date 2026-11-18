@@ -16,19 +16,19 @@ tags: [fitness, workout-logging, training-plans, statistics, llm, openapi, i18n,
 repo: https://github.com/MaksZiem/workout-tracker
 demo: null
 apiDocs: http://localhost:3001/api/docs
-cover: screenshots/cover.png
+cover: screenshots/cover.webp
 screenshots:
-  - file: screenshots/dashboard.png
+  - file: screenshots/dashboard.webp
     caption: Dashboard – today's planned workout, week strip, streak and fresh personal records
-  - file: screenshots/log.png
+  - file: screenshots/log.webp
     caption: Mobile-first workout logger – exercises, sets, weight and reps
-  - file: screenshots/parse.png
+  - file: screenshots/parse.webp
     caption: AI parsing a free-text workout description into exercises and sets
-  - file: screenshots/plan-editor.png
+  - file: screenshots/plan-editor.webp
     caption: Plan editor with templates per training day and AI-picked exercise substitutes
-  - file: screenshots/planner.png
+  - file: screenshots/planner.webp
     caption: Planner – week/month board with planned, completed and skipped sessions
-  - file: screenshots/stats.png
+  - file: screenshots/stats.webp
     caption: Stats – e1RM progress chart, records, muscle-group distribution and activity map
 featured: true
 order: 3
@@ -314,13 +314,13 @@ POST /planner/generate
 
 ## Example run
 
-1. **Sign up**, then the dashboard shows onboarding and an "AI quick start" card. *(screenshot: dashboard.png)*
-2. **Generate a plan:** goal *Hypertrophy*, 3 days a week, constraint *"no barbell squats"*. Three templates (Push, Pull, Legs) appear in the plan editor, and each can be renamed or reordered, or have an exercise swapped for an AI-picked substitute such as *"Leg press – same squat pattern, quads and glutes"*. *(screenshot: plan-editor.png)*
-3. **Schedule it:** assign Push → Monday, Pull → Wednesday, Legs → Friday for the next 4 weeks. The planner board fills with `PLANNED` sessions. *(screenshot: planner.png)*
-4. **Train:** on Monday the "Today" card shows *Push*. Tapping **Start** creates a workout pre-filled with target sets, reps and weight. The user adjusts weights and ticks off sets on the phone. *(screenshot: log.png)*
-5. **Shortcut:** on another day the user types *"OHP 3x8 40kg, lateral raises 3x15 10kg"* and the AI adds both exercises and all six sets to the workout. *(screenshot: parse.png)*
+1. **Sign up**, then the dashboard shows onboarding and an "AI quick start" card. *(screenshot: dashboard.webp)*
+2. **Generate a plan:** goal *Hypertrophy*, 3 days a week, constraint *"no barbell squats"*. Three templates (Push, Pull, Legs) appear in the plan editor, and each can be renamed or reordered, or have an exercise swapped for an AI-picked substitute such as *"Leg press – same squat pattern, quads and glutes"*. *(screenshot: plan-editor.webp)*
+3. **Schedule it:** assign Push → Monday, Pull → Wednesday, Legs → Friday for the next 4 weeks. The planner board fills with `PLANNED` sessions. *(screenshot: planner.webp)*
+4. **Train:** on Monday the "Today" card shows *Push*. Tapping **Start** creates a workout pre-filled with target sets, reps and weight. The user adjusts weights and ticks off sets on the phone. *(screenshot: log.webp)*
+5. **Shortcut:** on another day the user types *"OHP 3x8 40kg, lateral raises 3x15 10kg"* and the AI adds both exercises and all six sets to the workout. *(screenshot: parse.webp)*
 6. **Finish:** the workout gets `finishedAt` and the scheduled entry is marked done.
-7. **Review progress:** the stats page shows the e1RM trend for bench press, a new rep record at 8 reps, the muscle-group split, a 3-week streak, adherence, and a warning that *Barbell row* has stagnated for 6 weeks. *(screenshot: stats.png)*
+7. **Review progress:** the stats page shows the e1RM trend for bench press, a new rep record at 8 reps, the muscle-group split, a 3-week streak, adherence, and a warning that *Barbell row* has stagnated for 6 weeks. *(screenshot: stats.webp)*
 
 ## Key decisions & trade-offs
 

@@ -151,6 +151,244 @@ body {
   }
 }
 
+/* Header navigation – in the components layer so Tailwind utilities (md:hidden) still win */
+@layer components {
+  .nav-logo {
+    transition: letter-spacing 0.3s ease;
+  }
+
+  .nav-logo:hover {
+    letter-spacing: 0.02em;
+  }
+
+  /* Desktop links: an accent underline grows from the left, text brightens, the external arrow nudges. */
+  .nav-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 0.25rem 0;
+    font-size: 0.875rem;
+    color: var(--muted);
+    transition: color 0.2s ease;
+  }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.1rem;
+    height: 1.5px;
+    border-radius: 1px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.1, 1);
+  }
+
+  .nav-link:hover,
+  .nav-link:focus-visible,
+  .nav-link[aria-current="page"] {
+    color: var(--foreground);
+  }
+
+  .nav-link:hover::after,
+  .nav-link:focus-visible::after,
+  .nav-link[aria-current="page"]::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .nav-arrow {
+    display: inline-block;
+    font-size: 0.75em;
+    transition: transform 0.25s ease, color 0.2s ease;
+  }
+
+  .nav-link:hover .nav-arrow,
+  .nav-panel-link:hover .nav-arrow {
+    color: var(--accent);
+    transform: translate(2px, -2px);
+  }
+
+  /* Mobile: burger morphs into an X, the panel unfolds (grid 0fr → 1fr) and items slide in one by one. */
+  .nav-burger {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 0.6rem;
+    color: var(--foreground);
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+  }
+
+  .nav-burger:hover,
+  .nav-burger[aria-expanded="true"] {
+    border-color: color-mix(in srgb, var(--accent) 60%, var(--line-strong));
+    background: color-mix(in srgb, var(--accent) 8%, transparent);
+  }
+
+  .nav-burger span {
+    position: absolute;
+    width: 1rem;
+    height: 1.5px;
+    border-radius: 1px;
+    background: currentColor;
+    transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.1, 1), opacity 0.2s ease;
+  }
+
+  .nav-burger span:nth-child(1) {
+    transform: translateY(-5px);
+  }
+
+  .nav-burger span:nth-child(3) {
+    transform: translateY(5px);
+  }
+
+  .nav-burger[aria-expanded="true"] span:nth-child(1) {
+    transform: rotate(45deg);
+  }
+
+  .nav-burger[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0.2);
+  }
+
+  .nav-burger[aria-expanded="true"] span:nth-child(3) {
+    transform: rotate(-45deg);
+  }
+
+  .nav-panel {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: grid;
+    grid-template-rows: 0fr;
+    border-bottom: 1px solid transparent;
+    /* solid: a nested backdrop-filter inside the blurred header would not blur the page */
+    background: var(--background);
+    transition: grid-template-rows 0.4s cubic-bezier(0.2, 0.7, 0.1, 1), border-color 0.3s ease;
+  }
+
+  .nav-panel[data-open="true"] {
+    grid-template-rows: 1fr;
+    border-bottom-color: var(--line);
+  }
+
+  .nav-panel-inner {
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .nav-panel-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--muted);
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: color 0.2s ease, padding-left 0.25s ease, opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .nav-panel-link:last-child {
+    border-bottom: 0;
+  }
+
+  .nav-panel[data-open="true"] .nav-panel-link {
+    opacity: 1;
+    transform: none;
+    transition-delay: 0s, 0s, calc(0.05s + var(--i, 0) * 0.04s), calc(0.05s + var(--i, 0) * 0.04s);
+  }
+
+  .nav-panel-link:hover,
+  .nav-panel-link[aria-current="page"] {
+    color: var(--foreground);
+    padding-left: 0.4rem;
+  }
+
+  .nav-panel-link[aria-current="page"] {
+    box-shadow: inset 2px 0 0 var(--accent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav-link::after,
+    .nav-arrow,
+    .nav-burger span,
+    .nav-panel,
+    .nav-panel-link {
+      transition: none;
+    }
+  }
+}
+
+/* Hero entrance on page load (CSS only, so it starts with the server HTML).
+   Order: role → name lines rise from a mask (same feel as .reveal-line) → intro clears from a blur → scroll cue. */
+.hero-line {
+  display: block;
+  overflow: hidden;
+  /* room for descenders ("y") under leading-[0.95], without shifting the layout */
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+
+.hero-line-in {
+  display: inline-block;
+  animation: hero-rise 0.9s cubic-bezier(0.2, 0.7, 0.1, 1) 0.12s both;
+}
+
+.hero-line + .hero-line .hero-line-in {
+  animation-delay: 0.24s;
+}
+
+.hero-enter {
+  animation: hero-fade 0.6s ease-out both;
+}
+
+.hero-enter-blur {
+  animation: hero-clear 0.8s ease-out 0.45s both;
+}
+
+.hero-enter-late {
+  animation-delay: 0.9s;
+}
+
+@keyframes hero-rise {
+  from {
+    transform: translateY(110%);
+  }
+}
+
+@keyframes hero-fade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@keyframes hero-clear {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-line-in,
+  .hero-enter {
+    animation: none;
+  }
+}
+
 /* Hero copy dissolves while the hero is pinned (--t = transition progress, set on the stage) */
 .hero-content {
   opacity: clamp(0, calc(1 - var(--t, 0) * 1.6), 1);

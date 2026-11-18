@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Markdown } from "@/components/markdown";
-import { StatusBadge } from "@/components/status-badge";
+import { ScreenshotGallery } from "@/components/screenshot-gallery";
 import { TableOfContents } from "@/components/table-of-contents";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { isLocale } from "@/i18n/config";
@@ -50,10 +49,10 @@ export default async function ProjectPage({
   const project = getProject(lang, slug);
   if (!project) notFound();
   const t = await getTranslations("projects");
+  const tMarkdown = await getTranslations("markdown");
 
   return (
     <div className="relative overflow-x-clip">
-      {/* the home page's dot grid, lit by a soft smoke glow behind the header */}
       <div className="dot-field" aria-hidden="true" />
       <article className="relative mx-auto max-w-6xl px-4 pb-24 sm:px-6">
         <header className="border-b border-line pb-10 pt-10 sm:pt-14">
@@ -69,18 +68,6 @@ export default async function ProjectPage({
           <p className="mt-4 max-w-3xl text-lg leading-relaxed text-muted">
             {project.tagline}
           </p>
-
-          <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
-            <StatusBadge status={project.status} />
-            <span>
-              <span className="text-muted">{t("period")}: </span>
-              <span className="font-mono">{project.period}</span>
-            </span>
-            <span>
-              <span className="text-muted">{t("role")}: </span>
-              {project.role}
-            </span>
-          </div>
 
           <div className="mt-8 flex flex-wrap gap-3">
             {project.repo && (
@@ -157,32 +144,12 @@ export default async function ProjectPage({
             >
               {t("screenshots")}
             </h2>
-            <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:px-0">
-              {project.screenshots.map((shot) => (
-                <figure
-                  key={shot.src}
-                  className="w-[85%] shrink-0 snap-start sm:w-[60%] lg:w-[45%]"
-                >
-                  <a
-                    href={shot.src}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="block overflow-hidden rounded-lg border border-line"
-                  >
-                    <Image
-                      src={shot.src}
-                      alt={shot.caption}
-                      width={1600}
-                      height={1000}
-                      className="h-auto w-full"
-                    />
-                  </a>
-                  <figcaption className="mt-2 text-sm text-muted">
-                    {shot.caption}
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
+            <ScreenshotGallery
+              shots={project.screenshots}
+              closeLabel={tMarkdown("close")}
+              prevLabel={t("previousScreenshot")}
+              nextLabel={t("nextScreenshot")}
+            />
           </section>
         )}
 

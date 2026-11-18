@@ -8,8 +8,7 @@ import { getMessages, getTranslations, setRequestLocale } from "next-intl/server
 import { isLocale } from "@/i18n/config";
 import { getProjects } from "@/lib/projects";
 
-// shown as the stacked showcase on the home page, in this order; all projects live on /projects
-const FEATURED = ["ai-agents-platform", "ai-observability-incident-response", "ai-notes"];
+const FEATURED = ["ai-agents-platform", "ai-observability", "ai-notes"];
 
 const CONTACT = {
   email: "mtziembicki@gmail.com",
@@ -48,7 +47,6 @@ function Timeline({ title, items }: { title: string; items: TimelineItem[] }) {
                   : "border border-line-strong bg-background"
               }`}
             />
-            {/* period and badge share one line to keep each entry short */}
             <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
               <span className="font-mono text-xs text-muted">{item.period}</span>
               {item.note && (
@@ -83,28 +81,31 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
 
   return (
     <>
-      {/* one stage for hero + about: the galaxy canvas stays pinned behind both */}
       <div className="relative">
         <HeroBackground />
 
-        {/* tall track: the hero stays pinned while the galaxy flows down into fog */}
         <div data-hero-track className="relative h-[140vh]">
           <section className="sticky top-14 h-[calc(100svh-3.5rem)]">
             <div className="hero-content mx-auto flex h-full max-w-6xl flex-col justify-center px-4 sm:px-6">
-              {/* name on the left (one word per line), description on the right, aligned to the bottom line */}
               <div className="grid gap-8 md:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] md:items-end md:gap-14">
                 <div>
-                  <p className="font-mono text-base text-accent sm:text-lg">{t("hero.role")}</p>
-                  <h1 className="mt-4 text-6xl font-semibold leading-[0.95] tracking-tight sm:text-7xl lg:text-8xl">
-                    <span className="block">Maksymilian</span>
-                    <span className="block">Ziembicki</span>
+                  <p className="hero-enter font-mono text-base text-accent sm:text-lg">{t("hero.role")}</p>
+                  <h1 className="mt-4 text-5xl font-semibold leading-[0.95] tracking-tight min-[400px]:text-6xl sm:text-7xl lg:text-8xl">
+                    <span className="hero-line">
+                      <span className="hero-line-in">Maksymilian</span>
+                    </span>
+                    <span className="hero-line">
+                      <span className="hero-line-in">Ziembicki</span>
+                    </span>
                   </h1>
                 </div>
-                <p className="max-w-md text-lg leading-relaxed text-muted md:pb-2">{t("hero.intro")}</p>
+                <p className="hero-enter hero-enter-blur max-w-lg text-lg leading-relaxed text-foreground/85 sm:text-xl md:pb-2">
+                  {t("hero.intro")}
+                </p>
               </div>
               <a
                 href="#about"
-                className="mt-14 inline-flex w-fit items-center gap-3 font-mono text-xs uppercase tracking-widest text-muted hover:text-foreground"
+                className="hero-enter hero-enter-late mt-14 inline-flex w-fit items-center gap-3 font-mono text-xs uppercase tracking-widest text-muted hover:text-foreground"
               >
                 <span className="scroll-cue-line" aria-hidden="true" />
                 {t("hero.scroll")}
@@ -114,7 +115,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
         </div>
 
         <section id="about" className="relative scroll-mt-14">
-          <div className="mx-auto max-w-6xl px-4 pb-40 pt-16 sm:px-6 md:pt-16">
+          <div className="mx-auto max-w-6xl px-4 pb-32 pt-16 sm:px-6 md:pt-16">
             <h2 data-fog className="text-6xl font-semibold tracking-tight sm:text-7xl lg:text-8xl">
               {t("about.title")}
             </h2>
@@ -127,7 +128,6 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
                 <p data-fog>{t("about.paragraphs.p4")}</p>
               </div>
 
-              {/* education + experience timelines */}
               <div className="space-y-8">
                 <Timeline title={t("about.educationTitle")} items={education} />
                 <Timeline title={t("about.experienceTitle")} items={experience} />
@@ -136,9 +136,8 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
           </div>
         </section>
 
-        {/* featured projects: cards rise out of the smoke and stack on top of each other */}
-        <section id="projects" className="relative scroll-mt-14">
-          <div className="mx-auto max-w-6xl px-4 pt-16 sm:px-6 md:pt-24">
+        <section id="projects" className="relative scroll-mt-14 border-t border-line">
+          <div className="mx-auto max-w-6xl px-4 pt-24 sm:px-6 md:pt-32">
             <ProjectStack>
               <div className="flex flex-wrap items-end justify-between gap-8">
                 <div>
@@ -165,7 +164,6 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
                     key={project.slug}
                     project={project}
                     index={i}
-                    total={featured.length}
                     locale={lang}
                   />
                 ))}
@@ -195,7 +193,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
             <p data-fog className="font-mono text-base text-accent sm:text-lg">
               {t("contact.kicker")}
             </p>
-            <h2 data-fog className="mt-4 text-6xl font-semibold tracking-tight sm:text-7xl lg:text-8xl">
+            <h2 data-fog className="mt-4 text-4xl font-semibold tracking-tight min-[400px]:text-5xl sm:text-7xl lg:text-8xl">
               {t("contact.title")}
             </h2>
             <p data-fog className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
@@ -205,7 +203,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
             <div data-fog className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-4">
               <a
                 href={`mailto:${CONTACT.email}`}
-                className="group inline-flex items-center gap-3 text-3xl font-medium tracking-tight sm:text-5xl"
+                className="group inline-flex items-center gap-3 text-xl font-medium tracking-tight min-[400px]:text-3xl sm:text-5xl"
               >
                 <span className="bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_2px] bg-left-bottom bg-no-repeat pb-1 transition-[background-size] duration-500 group-hover:bg-[length:100%_2px]">
                   {CONTACT.email}

@@ -1,6 +1,6 @@
 ---
-slug: ai-observability-incident-response
-title: AI Observability & Incident Response
+slug: ai-observability
+title: AI Observability
 tagline: Platforma observability, która zbiera logi, trace'y, błędy i wdrożenia, koreluje je ze sobą i używa AI do analizy incydentów produkcyjnych na podstawie ustrukturyzowanych dowodów.
 lang: pl
 status: active
@@ -13,28 +13,28 @@ stack:
   infra: [BullMQ ingest worker + dead-letter queue, SSE]
   ai: [Google Gemini (structured JSON output)]
 tags: [observability, incident-response, sre, logs, distributed-tracing, error-tracking, alerting, llm, nestjs, nextjs]
-repo: https://github.com/MaksZiem/ai-observability-incident-response
+repo: https://github.com/MaksZiem/ai-observability
 demo: null
 apiDocs: http://localhost:3001/api/docs
-cover: screenshots/cover.png
+cover: screenshots/cover.webp
 screenshots:
-  - file: screenshots/overview.png
+  - file: screenshots/overview.webp
     caption: Przegląd projektu – liczba żądań, error rate, opóźnienie P95 i wykresy ze znacznikami wdrożeń
-  - file: screenshots/trace.png
+  - file: screenshots/trace.webp
     caption: Waterfall rozproszonego trace'a z wyróżnionym wolnym spanem PostgreSQL
-  - file: screenshots/errors.png
+  - file: screenshots/errors.webp
     caption: Pogrupowane błędy z liczbą wystąpień, pierwszym/ostatnim wystąpieniem i statusem
-  - file: screenshots/incident.png
+  - file: screenshots/incident.webp
     caption: Strona incydentu – automatyczna oś czasu, podpięte dowody i podobne incydenty z przeszłości
-  - file: screenshots/ai-analysis.png
+  - file: screenshots/ai-analysis.webp
     caption: Analiza AI oddzielająca zaobserwowane fakty, hipotezy i sugerowane kroki
-  - file: screenshots/platform.png
+  - file: screenshots/platform.webp
     caption: Zdrowie platformy – opóźnienie ingestu, głębokość kolejki, ponowienia i paczki w dead-letter queue
 featured: true
 order: 2
 ---
 
-# AI Observability & Incident Response
+# AI Observability
 
 ## Opis
 
@@ -391,11 +391,11 @@ Zapisane zdarzenie ma `"authorization": "[REDACTED]"` i trafia do grupy `Databas
 1. **Historia:** wdrożenia `v1.42.1` i `v1.42.2` oraz rozwiązany incydent z przeszłości *„Database connection pool exhaustion”* (naprawiony podniesieniem puli z 5 do 20 połączeń).
 2. **Wadliwe wdrożenie:** `v1.42.3` na `payment-service`, *„Reduce database connection pool size to 5”*, 40 minut temu.
 3. **Degradacja:** 4 minuty później spany PostgreSQL zwalniają, a około 35% żądań `POST /payments` kończy się błędem `DatabaseConnectionTimeout`. W logach pojawia się *„Database pool exhausted (5/5 connections in use)”*.
-4. **Przegląd** pokazuje skok error rate i P95 tuż za znacznikiem wdrożenia. *(screen: overview.png)*
-5. **Widok trace'a** pokazuje, że w `POST /payments` dominuje wolny span PostgreSQL. *(screen: trace.png)*
-6. **Błędy** pokazują jedną grupę z licznikiem wystąpień zamiast setek osobnych błędów 500. *(screen: errors.png)*
-7. **Incydent:** „Payment API degraded” ma podpiętą grupę błędów, wolny trace i wdrożenie. Oś czasu pokazuje *wdrożenie → anomalia opóźnienia → anomalia error rate → nowy błąd*. **Podobne incydenty** wyciągają stary incydent z wyczerpaniem puli, z uzasadnieniem *„Same error: DatabaseConnectionTimeout”* i *„Same service: payment-service”*. *(screen: incident.png)*
-8. **Analiza AI** wskazuje zmniejszenie puli w v1.42.3 jako *hipotezę* o wysokiej pewności, a nie potwierdzoną przyczynę, i proponuje porównanie konfiguracji puli. *(screen: ai-analysis.png)*
+4. **Przegląd** pokazuje skok error rate i P95 tuż za znacznikiem wdrożenia. *(screen: overview.webp)*
+5. **Widok trace'a** pokazuje, że w `POST /payments` dominuje wolny span PostgreSQL. *(screen: trace.webp)*
+6. **Błędy** pokazują jedną grupę z licznikiem wystąpień zamiast setek osobnych błędów 500. *(screen: errors.webp)*
+7. **Incydent:** „Payment API degraded” ma podpiętą grupę błędów, wolny trace i wdrożenie. Oś czasu pokazuje *wdrożenie → anomalia opóźnienia → anomalia error rate → nowy błąd*. **Podobne incydenty** wyciągają stary incydent z wyczerpaniem puli, z uzasadnieniem *„Same error: DatabaseConnectionTimeout”* i *„Same service: payment-service”*. *(screen: incident.webp)*
+8. **Analiza AI** wskazuje zmniejszenie puli w v1.42.3 jako *hipotezę* o wysokiej pewności, a nie potwierdzoną przyczynę, i proponuje porównanie konfiguracji puli. *(screen: ai-analysis.webp)*
 9. **Czat:** *„Co się zmieniło, zanim zaczęły się błędy?”* → odpowiedź cytuje `[deployment v1.42.3]`.
 10. Inżynier rozwiązuje incydent, który staje się przeszukiwalną historią przy następnym podobnym problemie.
 
