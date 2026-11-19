@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import type { Locale } from "@/i18n/config";
 import type { Project } from "@/lib/projects";
 import { StatusBadge } from "./status-badge";
+import { TestsChip } from "./project-quality";
 
 const MAX_CHIPS = 6;
 
@@ -87,6 +88,7 @@ export function ProjectCard({ project, locale }: { project: Project; locale: Loc
         </div>
 
         <ul className="mt-auto flex flex-wrap gap-1.5">
+          {project.quality && <TestsChip tests={project.quality.tests} />}
           {stackHighlights(project).map((item) => (
             <li key={item} className="rounded-md border border-line px-2 py-0.5 font-mono text-[11px] text-muted">
               {item}

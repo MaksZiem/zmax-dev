@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Markdown } from "@/components/markdown";
+import { ProjectQuality } from "@/components/project-quality";
 import { ScreenshotGallery } from "@/components/screenshot-gallery";
 import { TableOfContents } from "@/components/table-of-contents";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { isLocale } from "@/i18n/config";
-import { getProject, getProjectSlugs, type StackGroup } from "@/lib/projects";
+import { getProject, getProjectSlugs, splitAfterTesting, type StackGroup } from "@/lib/projects";
 
 const stackOrder: StackGroup[] = [
   "frontend",
@@ -50,6 +51,7 @@ export default async function ProjectPage({
   if (!project) notFound();
   const t = await getTranslations("projects");
   const tMarkdown = await getTranslations("markdown");
+  const body = splitAfterTesting(project.body);
 
   return (
     <div className="relative overflow-x-clip">
@@ -155,7 +157,17 @@ export default async function ProjectPage({
 
         <div className="gap-12 pt-10 lg:grid lg:grid-cols-[200px_minmax(0,1fr)]">
           <TableOfContents items={project.toc} label={t("contents")} />
-          <Markdown source={project.body} />
+          <div className="min-w-0">
+            {project.quality && body ? (
+              <>
+                <Markdown source={body[0]} />
+                <ProjectQuality quality={project.quality} />
+                {body[1] && <Markdown source={body[1]} />}
+              </>
+            ) : (
+              <Markdown source={project.body} />
+            )}
+          </div>
         </div>
       </article>
     </div>

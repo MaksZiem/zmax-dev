@@ -16,6 +16,17 @@ tags: [ai-agents, llm, function-calling, human-in-the-loop, job-queue, websocket
 repo: https://github.com/MaksZiem/ai-agents-platform
 demo: null
 apiDocs: http://localhost:3001/api/docs
+quality:
+  tests: 155
+  kinds: [unit]
+  framework: Vitest
+  ci: https://github.com/MaksZiem/ai-agents-platform/actions/workflows/ci.yml
+  covered:
+    - "ToolExecutor: tool enablement, input validation, input-dependent permissions and approvals"
+    - "SSRF guard: private IPs checked after DNS resolution and on every redirect"
+    - "API connections: secret encryption (AES-256-GCM) and path traversal checks"
+    - "Deterministic helpers: safe expression evaluator, table parsing, document diffs"
+    - "Execution engine: cancellation, retries and metrics"
 cover: screenshots/cover.webp
 screenshots:
   - file: screenshots/dashboard.webp
@@ -400,10 +411,10 @@ If the user clicks *Reject*, the step is marked `SKIPPED`, the model is told "Th
 
 ## Testing & quality
 
-- **Unit tests (Vitest, 141 tests):** `ToolExecutor` (enablement, validation, input-dependent permissions and approvals), the SSRF guard and HTML-to-text conversion, connection path validation and secret encryption, the expression evaluator, table parsing and number formats, document diffs, report rendering, execution metrics, agent activity, cancellation, chunking and knowledge search.
+- **Unit tests (Vitest, 155 tests):** `ToolExecutor` (enablement, validation, input-dependent permissions and approvals), the SSRF guard and HTML-to-text conversion, connection path validation and secret encryption, the expression evaluator, table parsing and number formats, document diffs, report rendering, execution metrics, agent activity, cancellation, chunking and knowledge search.
 - **Linting/formatting:** oxlint and Prettier on the backend, ESLint on the frontend.
 - **Strict TypeScript** across both apps, with DTO validation (`whitelist`, `forbidNonWhitelisted`) on every HTTP request.
-- <!-- TODO: add CI (GitHub Actions) and e2e tests if/when they exist -->
+- **CI (GitHub Actions):** every push to `main` and every pull request runs lint, build and the test suite for the backend, plus lint and build for the frontend.
 
 ## Security
 

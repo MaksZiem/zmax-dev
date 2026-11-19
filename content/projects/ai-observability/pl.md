@@ -16,6 +16,17 @@ tags: [observability, incident-response, sre, logs, distributed-tracing, error-t
 repo: https://github.com/MaksZiem/ai-observability
 demo: null
 apiDocs: http://localhost:3001/api/docs
+quality:
+  tests: 116
+  kinds: [unit, e2e, frontend]
+  framework: Vitest
+  ci: https://github.com/MaksZiem/ai-observability/actions/workflows/ci.yml
+  covered:
+    - "Fingerprinting i grupowanie zaszumionych błędów"
+    - "Redakcja sekretów, zanim cokolwiek trafi do bazy"
+    - "Wykrywanie anomalii, oś czasu incydentu i podobne incydenty"
+    - "Ocena alertów i ochrona webhooków przed SSRF"
+    - "E2E na prawdziwym Postgresie: izolacja projektów, ingest, cały przepływ analizy AI"
 cover: screenshots/cover.webp
 screenshots:
   - file: screenshots/overview.webp
@@ -419,10 +430,10 @@ Zapisane zdarzenie ma `"authorization": "[REDACTED]"` i trafia do grupy `Databas
 
 ## Testy i jakość
 
-- **Testy jednostkowe (Vitest):** fingerprinting, redakcja, klucze API, wykrywanie anomalii, statystyki żądań, zakresy czasu, oś czasu i status incydentu, podobieństwo, ocena alertów, ochrona webhooków przed SSRF, budowanie promptów analizy i czatu, parsowanie wyniku, kolejka ingestu, statystyki platformy, kursor logów, drzewo trace'a, realtime.
-- **Testy E2E** na prawdziwym, zmigrowanym Postgresie. Obejmują izolację projektów, ingest z maskowaniem, zdegradowane metryki, oś czasu z dowodami, analizę AI z czatem i edycję profilu.
-- oxlint + Prettier na backendzie, ESLint + Vitest (logika formularzy) na frontendzie.
-- <!-- TODO: dodać badge CI po skonfigurowaniu GitHub Actions -->
+- **Testy jednostkowe (Vitest, 66 testów):** fingerprinting, redakcja, klucze API, wykrywanie anomalii, statystyki żądań, zakresy czasu, oś czasu i status incydentu, podobieństwo, ocena alertów, ochrona webhooków przed SSRF, budowanie promptów analizy i czatu, parsowanie wyniku, kolejka ingestu, statystyki platformy, kursor logów, drzewo trace'a, realtime.
+- **Testy E2E (6)** na prawdziwym, zmigrowanym Postgresie. Obejmują izolację projektów, ingest z maskowaniem, zdegradowane metryki, oś czasu z dowodami, analizę AI z czatem i edycję profilu.
+- oxlint + Prettier na backendzie, ESLint + Vitest (44 testy logiki formularzy) na frontendzie.
+- **CI (GitHub Actions):** każdy push i pull request uruchamia trzy joby: lint, build i testy jednostkowe backendu; testy e2e na Postgresie i Redisie uruchamianych jako service containers; lint, testy i build frontendu.
 
 ## Bezpieczeństwo
 

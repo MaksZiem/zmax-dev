@@ -16,6 +16,17 @@ tags: [observability, incident-response, sre, logs, distributed-tracing, error-t
 repo: https://github.com/MaksZiem/ai-observability
 demo: null
 apiDocs: http://localhost:3001/api/docs
+quality:
+  tests: 116
+  kinds: [unit, e2e, frontend]
+  framework: Vitest
+  ci: https://github.com/MaksZiem/ai-observability/actions/workflows/ci.yml
+  covered:
+    - "Error fingerprinting and grouping of noisy messages"
+    - "Secret redaction before anything is stored"
+    - "Anomaly detection, incident timeline and similar incidents"
+    - "Alert evaluation and SSRF checks for webhooks"
+    - "E2E on a real Postgres: project isolation, ingest, the full AI analysis flow"
 cover: screenshots/cover.webp
 screenshots:
   - file: screenshots/overview.webp
@@ -419,10 +430,10 @@ The stored event has `"authorization": "[REDACTED]"`, and it lands in the `Datab
 
 ## Testing & quality
 
-- **Unit tests (Vitest):** fingerprinting, redaction, API keys, anomaly detection, request stats, time ranges, incident timeline, incident status, similarity scoring, alert evaluation, webhook SSRF checks, analysis and chat prompt builders, result parsing, ingest queue, platform stats, log cursor, trace tree, realtime.
-- **E2E tests** against a real migrated Postgres. They cover project isolation, ingest + masking, degraded metrics, timeline + evidence, AI analysis + chat, and profile updates.
-- oxlint + Prettier on the backend, ESLint + Vitest (form logic) on the frontend.
-- <!-- TODO: add CI badge once GitHub Actions is configured -->
+- **Unit tests (Vitest, 66 tests):** fingerprinting, redaction, API keys, anomaly detection, request stats, time ranges, incident timeline, incident status, similarity scoring, alert evaluation, webhook SSRF checks, analysis and chat prompt builders, result parsing, ingest queue, platform stats, log cursor, trace tree, realtime.
+- **E2E tests (6)** against a real migrated Postgres. They cover project isolation, ingest + masking, degraded metrics, timeline + evidence, AI analysis + chat, and profile updates.
+- oxlint + Prettier on the backend, ESLint + Vitest (44 tests of form logic) on the frontend.
+- **CI (GitHub Actions):** every push and pull request runs three jobs: backend lint, build and unit tests; e2e tests against Postgres and Redis started as service containers; frontend lint, tests and build.
 
 ## Security
 

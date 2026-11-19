@@ -16,6 +16,17 @@ tags: [ai-agents, llm, function-calling, human-in-the-loop, job-queue, websocket
 repo: https://github.com/MaksZiem/ai-agents-platform
 demo: null
 apiDocs: http://localhost:3001/api/docs
+quality:
+  tests: 155
+  kinds: [unit]
+  framework: Vitest
+  ci: https://github.com/MaksZiem/ai-agents-platform/actions/workflows/ci.yml
+  covered:
+    - "ToolExecutor: włączenie narzędzia, walidacja wejścia, uprawnienia i akceptacje zależne od wejścia"
+    - "Ochrona SSRF: prywatne adresy IP sprawdzane po rozwiązaniu DNS i przy każdym przekierowaniu"
+    - "Połączenia z API: szyfrowanie sekretów (AES-256-GCM) i blokada wychodzenia poza ścieżkę"
+    - "Deterministyczne helpery: bezpieczny kalkulator wyrażeń, parsowanie tabel, porównywanie dokumentów"
+    - "Silnik wykonania: anulowanie, ponowienia i metryki"
 cover: screenshots/cover.webp
 screenshots:
   - file: screenshots/dashboard.webp
@@ -400,10 +411,10 @@ Jeśli użytkownik kliknie *Reject*, krok dostaje status `SKIPPED`, model otrzym
 
 ## Testy i jakość
 
-- **Testy jednostkowe (Vitest, 141 testów):** `ToolExecutor` (włączenie narzędzia, walidacja, uprawnienia i akceptacje zależne od wejścia), ochrona SSRF i konwersja HTML do tekstu, walidacja ścieżek połączeń i szyfrowanie sekretów, kalkulator wyrażeń, parsowanie tabel i formatów liczb, porównywanie dokumentów, renderowanie raportów, metryki wykonania, aktywność agentów, anulowanie, chunking i wyszukiwanie w bazie wiedzy.
+- **Testy jednostkowe (Vitest, 155 testów):** `ToolExecutor` (włączenie narzędzia, walidacja, uprawnienia i akceptacje zależne od wejścia), ochrona SSRF i konwersja HTML do tekstu, walidacja ścieżek połączeń i szyfrowanie sekretów, kalkulator wyrażeń, parsowanie tabel i formatów liczb, porównywanie dokumentów, renderowanie raportów, metryki wykonania, aktywność agentów, anulowanie, chunking i wyszukiwanie w bazie wiedzy.
 - **Linting i formatowanie:** oxlint i Prettier na backendzie, ESLint na frontendzie.
 - **Ścisły TypeScript** w obu aplikacjach i walidacja DTO (`whitelist`, `forbidNonWhitelisted`) dla każdego żądania HTTP.
-- <!-- TODO: dodać CI (GitHub Actions) i testy e2e, jeśli/gdy powstaną -->
+- **CI (GitHub Actions):** każdy push na `main` i każdy pull request uruchamia lint, build i testy backendu oraz lint i build frontendu.
 
 ## Bezpieczeństwo
 

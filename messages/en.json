@@ -98,6 +98,19 @@
       "infra": "Infrastructure",
       "ai": "AI"
     },
+    "quality": {
+      "title": "Tests & quality",
+      "count": "{count, plural, one {test} other {tests}}",
+      "kinds": {
+        "unit": "unit",
+        "e2e": "e2e · real Postgres",
+        "frontend": "frontend"
+      },
+      "covered": "What's tested",
+      "ci": "Every push and pull request runs the build, lint and tests in GitHub Actions.",
+      "ciLink": "CI runs",
+      "ciStatus": "CI status"
+    },
     "status": {
       "active": "In progress",
       "completed": "Completed",

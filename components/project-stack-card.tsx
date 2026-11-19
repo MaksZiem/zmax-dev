@@ -7,6 +7,7 @@ import type { Project, StackGroup } from "@/lib/projects";
 import { stackHighlights } from "./project-card";
 import { getTerminalDemo, REPO_DIRS } from "@/lib/terminal-demos";
 import { ProjectTerminal } from "./project-terminal";
+import { TestsChip } from "./project-quality";
 
 const GLOWS = ["#8b6cff", "#4c9fff", "#3ccf91"];
 const GROUP_ORDER: StackGroup[] = ["backend", "frontend", "database", "ai"];
@@ -79,6 +80,7 @@ export function ProjectStackCard({
 
               <div className={shot ? "pt-5" : "mt-auto pt-8"}>
                 <ul className="flex flex-wrap gap-1.5">
+                  {project.quality && <TestsChip tests={project.quality.tests} />}
                   {stackHighlights(project).map((item) => (
                     <li
                       key={item}

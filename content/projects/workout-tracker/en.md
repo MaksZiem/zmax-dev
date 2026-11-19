@@ -16,6 +16,17 @@ tags: [fitness, workout-logging, training-plans, statistics, llm, openapi, i18n,
 repo: https://github.com/MaksZiem/workout-tracker
 demo: null
 apiDocs: http://localhost:3001/api/docs
+quality:
+  tests: 63
+  kinds: [unit]
+  framework: Jest
+  ci: https://github.com/MaksZiem/workout-tracker/actions/workflows/ci.yml
+  covered:
+    - "AI output limited to the exercise catalog: parsed workouts, generated plans, substitutes"
+    - "Planner: schedule generation that never overwrites existing days"
+    - "Stats: e1RM, personal and rep records, stagnation, plan adherence"
+    - "Workouts: finish, cancel, duplicate, start from a template"
+    - "Auth: hashed passwords, wrong credentials rejected"
 cover: screenshots/cover.webp
 screenshots:
   - file: screenshots/dashboard.webp
@@ -341,7 +352,8 @@ POST /planner/generate
 
 ## Testing & quality
 
-- **Jest unit tests:** workout, exercise, stats and users services and controllers, plus extensive tests for the pure stats helpers (records, rep ranges, stagnation, adherence, weekly stats).
+- **Unit tests (Jest, 63 tests):** the AI service (catalog-only output for parsed workouts and generated plans), exercise substitutes (unknown IDs, duplicates, the 5-item limit, AI outages), the planner's schedule generation, workout finish/cancel/duplicate/start-from-template, auth, and the pure stats helpers (e1RM, records, rep ranges, stagnation, adherence, weekly stats).
+- **CI (GitHub Actions):** every push and pull request runs the backend build and tests, plus frontend lint, type check and build.
 - Global `ValidationPipe` and a unified `HttpExceptionFilter` with a documented `ErrorResponse` shape.
 - ESLint + Prettier.
 - Example requests for every module in `*.http` files.

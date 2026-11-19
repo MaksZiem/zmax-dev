@@ -15,6 +15,17 @@ export interface Screenshot {
   caption: string;
 }
 
+export type TestKind = "unit" | "e2e" | "frontend";
+
+export interface Quality {
+  tests: number;
+  kinds: TestKind[];
+  framework: string;
+  ci: string | null;
+  ciBadge: string | null;
+  covered: string[];
+}
+
 export interface Project {
   slug: string;
   title: string;
@@ -29,6 +40,7 @@ export interface Project {
   apiDocs: string | null;
   cover: string | null;
   screenshots: Screenshot[];
+  quality: Quality | null;
   featured: boolean;
   order: number;
 }
@@ -38,9 +50,32 @@ export interface ProjectDetail extends Project {
   toc: { id: string; title: string }[];
 }
 
-interface Frontmatter extends Omit<Project, "cover" | "screenshots"> {
+interface Frontmatter extends Omit<Project, "cover" | "screenshots" | "quality"> {
   cover?: string;
   screenshots?: { file: string; caption: string }[];
+  quality?: Partial<Omit<Quality, "ciBadge">>;
+}
+
+const WORKFLOW_URL = /^https:\/\/github\.com\/([\w.-]+)\/([\w.-]+)\/actions\/workflows\/([\w.-]+)$/;
+
+function ciBadge(workflow: string | null): string | null {
+  const match = workflow?.match(WORKFLOW_URL);
+  if (!match) return null;
+  const [, owner, repo, file] = match;
+  return `https://img.shields.io/github/actions/workflow/status/${owner}/${repo}/${file}?branch=main&style=flat-square&label=CI&logo=githubactions&logoColor=white`;
+}
+
+function toQuality(data: Frontmatter["quality"]): Quality | null {
+  if (!data?.tests) return null;
+  const ci = data.ci ?? null;
+  return {
+    tests: data.tests,
+    kinds: data.kinds ?? [],
+    framework: data.framework ?? "",
+    ci,
+    ciBadge: ciBadge(ci),
+    covered: data.covered ?? [],
+  };
 }
 
 function publicImage(slug: string, file: string | undefined): string | null {
@@ -74,6 +109,7 @@ function toProject(slug: string, data: Frontmatter): Project {
       const src = publicImage(slug, file);
       return src ? [{ src, caption }] : [];
     }),
+    quality: toQuality(data.quality),
     featured: data.featured ?? false,
     order: data.order ?? 99,
   };
@@ -105,6 +141,23 @@ export function getProject(locale: Locale, slug: string): ProjectDetail | null {
     .replace(/^\s*[-*]\s*$/gm, "");
 
   return { ...toProject(slug, project.data), body, toc: tableOfContents(body) };
+}
+
+const TESTING_HEADINGS = ["## Testing & quality", "## Testy i jakość"];
+
+export function splitAfterTesting(markdown: string): [string, string] | null {
+  const lines = markdown.split("\n");
+  const start = lines.findIndex((line) => TESTING_HEADINGS.includes(line.trim()));
+  if (start === -1) return null;
+
+  let inFence = false;
+  for (let i = start + 1; i < lines.length; i++) {
+    if (lines[i].startsWith("```")) inFence = !inFence;
+    if (!inFence && lines[i].startsWith("## ")) {
+      return [lines.slice(0, i).join("\n"), lines.slice(i).join("\n")];
+    }
+  }
+  return [markdown, ""];
 }
 
 function tableOfContents(markdown: string) {

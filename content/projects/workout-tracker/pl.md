@@ -16,6 +16,17 @@ tags: [fitness, workout-logging, training-plans, statistics, llm, openapi, i18n,
 repo: https://github.com/MaksZiem/workout-tracker
 demo: null
 apiDocs: http://localhost:3001/api/docs
+quality:
+  tests: 63
+  kinds: [unit]
+  framework: Jest
+  ci: https://github.com/MaksZiem/workout-tracker/actions/workflows/ci.yml
+  covered:
+    - "Odpowiedzi AI ograniczone do katalogu ćwiczeń: parsowanie treningów, generowanie planów, zamienniki"
+    - "Planner: generowanie harmonogramu bez nadpisywania istniejących dni"
+    - "Statystyki: e1RM, rekordy osobiste i powtórzeniowe, stagnacja, realizacja planu"
+    - "Treningi: zakończenie, anulowanie, duplikowanie, start z szablonu"
+    - "Logowanie: hashowane hasła, odrzucanie błędnych danych"
 cover: screenshots/cover.webp
 screenshots:
   - file: screenshots/dashboard.webp
@@ -341,7 +352,8 @@ POST /planner/generate
 
 ## Testy i jakość
 
-- **Testy jednostkowe (Jest):** serwisy i kontrolery treningów, ćwiczeń, statystyk i użytkowników, plus rozbudowane testy czystych helperów statystyk (rekordy, zakresy powtórzeń, stagnacja, realizacja planu, statystyki tygodniowe).
+- **Testy jednostkowe (Jest, 63 testy):** serwis AI (odpowiedzi ograniczone do katalogu przy parsowaniu treningów i generowaniu planów), zamienniki ćwiczeń (nieznane ID, duplikaty, limit 5, awaria AI), generowanie harmonogramu w plannerze, kończenie/anulowanie/duplikowanie treningów i start z szablonu, logowanie oraz czyste helpery statystyk (e1RM, rekordy, zakresy powtórzeń, stagnacja, realizacja planu, statystyki tygodniowe).
+- **CI (GitHub Actions):** każdy push i pull request uruchamia build i testy backendu oraz lint, sprawdzenie typów i build frontendu.
 - Globalny `ValidationPipe` i wspólny `HttpExceptionFilter` z udokumentowanym formatem `ErrorResponse`.
 - ESLint + Prettier.
 - Przykładowe żądania dla każdego modułu w plikach `*.http`.
