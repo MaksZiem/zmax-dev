@@ -14,6 +14,7 @@ const CONTACT = {
   email: "mtziembicki@gmail.com",
   linkedin: "https://www.linkedin.com/in/maksymilian-ziembicki-b81864351/",
   github: "https://github.com/MaksZiem",
+  instagram: "https://www.instagram.com/m4xys/",
 };
 
 type TimelineItem = {
@@ -120,7 +121,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
               {t("about.title")}
             </h2>
 
-            <div className="mt-10 grid gap-16 md:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] md:gap-20">
+            <div className="mt-10 grid gap-16 md:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] md:gap-16 lg:grid-cols-[minmax(0,8fr)_minmax(0,3fr)]">
               <div className="space-y-6 text-lg leading-relaxed text-muted">
                 <p data-fog>{t("about.paragraphs.p1")}</p>
                 <p data-fog>{t("about.paragraphs.p2")}</p>
@@ -153,9 +154,6 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
                     </span>
                   </h2>
                 </div>
-                <p data-fog className="max-w-sm leading-relaxed text-muted">
-                  {t("work.lead")}
-                </p>
               </div>
 
               <div className="stack mt-16">
@@ -233,6 +231,9 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
                   </a>
                   <a href={CONTACT.github} target="_blank" rel="noreferrer" className="w-fit hover:text-accent">
                     GitHub ↗
+                  </a>
+                  <a href={CONTACT.instagram} target="_blank" rel="noreferrer" className="w-fit hover:text-accent">
+                    Instagram ↗
                   </a>
                 </dd>
               </div>

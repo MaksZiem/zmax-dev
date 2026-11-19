@@ -25,10 +25,10 @@
   "about": {
     "title": "About",
     "paragraphs": {
-      "p1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Curabitur blandit tempus porttitor.",
-      "p2": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Maecenas faucibus mollis interdum.",
-      "p3": "Nullam quis risus eget urna mollis ornare vel eu leo. Cras mattis consectetur purus sit amet fermentum. Vestibulum id ligula porta felis euismod semper. Aenean lacinia bibendum nulla sed consectetur. Donec ullamcorper nulla non metus auctor fringilla.",
-      "p4": "Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus."
+      "p1": "My journey into tech started with games on the PSP. The more time I spent playing, the more they fascinated me. Over time I began to wonder how they were made, what made them work, and how it was possible that everything I saw on the screen could come to life and react to what I did.",
+      "p2": "That curiosity quickly turned into a desire to build things of my own. As soon as I found out what programming was, I wanted to try it myself. I started with websites and simple browser games. I was looking for a way to turn my own ideas into something tangible and see the results on screen. The chance to create has always been what drew me in the most, and that hasn't changed to this day.",
+      "p3": "Over time, my interest in programming became more than a hobby and turned into the direction I wanted to grow in. Each stage of my IT education helped me understand better how software works, and as my knowledge grew, I found myself more and more at home in backend development. Today I feel most confident in NestJS. At my first job I worked mainly on the frontend, and looking back, I see that as a real advantage. It lets me look at an application from both sides - building interfaces while understanding what happens on the server. In programming I enjoy challenges that seem difficult at first glance. I know that most problems can be solved if you give them enough time, patience and commitment.",
+      "p4": "Outside of programming, sport takes up a big part of my life, especially football. I have supported Chelsea FC since I was a kid, and as soon as the opportunity came along, I started travelling to London for matches. Great Britain itself is a place that fascinates me - its architecture, culture, film, music and even its food. I also follow Formula 1, where I support the Mercedes-AMG Petronas team. Lately I have been spending more and more time creating 3D graphics."
     },
     "educationTitle": "Education",
     "experienceTitle": "Experience",
@@ -64,7 +64,6 @@
   "work": {
     "titleFirst": "Selected work.",
     "titleSecond": "From schema to production.",
-    "lead": "Every project comes with its architecture, data flow, database schema and an example run.",
     "allProjects": "All projects"
   },
   "contact": {

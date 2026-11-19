@@ -89,13 +89,21 @@ export function ProjectStackCard({
                   ))}
                 </ul>
                 <div className="mt-5 flex flex-wrap items-center gap-3 text-sm">
-                  <span className="mr-2 font-medium text-foreground">{t("projects.details")} →</span>
+                  <Link
+                    href={href}
+                    className="group/details relative z-10 inline-flex items-center gap-2 rounded-lg bg-foreground px-4 py-2 font-medium text-background hover:opacity-90"
+                  >
+                    {t("projects.details")}
+                    <span aria-hidden="true" className="transition-transform duration-300 group-hover/details:translate-x-0.5">
+                      →
+                    </span>
+                  </Link>
                   {project.repo && (
                     <a
                       href={project.repo}
                       target="_blank"
                       rel="noreferrer"
-                      className="relative z-10 rounded-lg bg-foreground px-4 py-2 font-medium text-background hover:opacity-90"
+                      className="relative z-10 rounded-lg border border-line-strong px-4 py-2 font-medium hover:bg-surface"
                     >
                       {t("projects.source")} ↗
                     </a>

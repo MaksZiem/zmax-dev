@@ -25,10 +25,10 @@
   "about": {
     "title": "O mnie",
     "paragraphs": {
-      "p1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Curabitur blandit tempus porttitor.",
-      "p2": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Maecenas faucibus mollis interdum.",
-      "p3": "Nullam quis risus eget urna mollis ornare vel eu leo. Cras mattis consectetur purus sit amet fermentum. Vestibulum id ligula porta felis euismod semper. Aenean lacinia bibendum nulla sed consectetur. Donec ullamcorper nulla non metus auctor fringilla.",
-      "p4": "Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus."
+      "p1": "Moja przygoda z informatyką zaczęła się od gier na PSP. Im więcej czasu spędzałem przy grach, tym bardziej mnie fascynowały. Z czasem zacząłem zastanawiać się, jak powstają, co sprawia, że działają i jak to możliwe, że wszystko, co widzę na ekranie, jest w stanie ożywać i reagować na moje działania.",
+      "p2": "Ta ciekawość szybko przerodziła się w chęć tworzenia własnych rzeczy. Gdy dowiedziałem się, czym jest programowanie, od razu chciałem spróbować swoich sił. Zacząłem od stron internetowych i prostych gier przeglądarkowych. Szukałem sposobu, by przekładać własne pomysły na coś namacalnego i widzieć ich efekty na ekranie. To właśnie możliwość tworzenia zawsze najbardziej mnie przyciągała i tak zostało do dzisiaj.",
+      "p3": "Z czasem zainteresowanie programowaniem przerodziło się w coś więcej niż hobby i stało się kierunkiem, w którym chciałem się rozwijać. Kolejne etapy edukacji informatycznej pozwalały mi coraz lepiej rozumieć, jak działa oprogramowanie, a wraz ze zdobywaną wiedzą coraz bardziej odnajdywałem się w backendzie. Dziś najpewniej czuję się w NestJS. W swojej pierwszej pracy zajmowałem się głównie frontendem i z perspektywy czasu uważam to za dużą zaletę. Dzięki temu potrafię spojrzeć na aplikację z obu stron - tworzyć interfejsy, a jednocześnie rozumieć, co dzieje się po stronie serwera. W programowaniu lubię wyzwania, które na pierwszy rzut oka wydają się trudne. Wiem, że większość problemów da się rozwiązać, jeśli poświęci się im odpowiednio dużo czasu, cierpliwości i zaangażowania.",
+      "p4": "Poza programowaniem dużą część mojego życia zajmuje sport, szczególnie piłka nożna. Od dziecka kibicuję Chelsea FC, a kiedy tylko nadarzyła się okazja, zacząłem jeździć na mecze do Londynu. Sama Wielka Brytania również jest miejscem, które wyjątkowo mnie fascynuje - jej architektura, kultura, kino, muzyka, a nawet kuchnia. Interesuję się również Formułą 1, w której kibicuję zespołowi Mercedes-AMG Petronas. Ostatnio coraz więcej uwagi poświęcam także tworzeniu grafiki 3D."
     },
     "educationTitle": "Wykształcenie",
     "experienceTitle": "Doświadczenie",
@@ -64,7 +64,6 @@
   "work": {
     "titleFirst": "Wybrane projekty.",
     "titleSecond": "Od schematu po produkcję.",
-    "lead": "Każdy projekt ma opis architektury, przepływu danych, schemat bazy i przykładowy przebieg.",
     "allProjects": "Wszystkie projekty"
   },
   "contact": {
