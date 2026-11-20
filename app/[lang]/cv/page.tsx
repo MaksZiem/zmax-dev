@@ -3,12 +3,18 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ComingSoonHeader, SkeletonLine } from "@/components/coming-soon";
 import { isLocale } from "@/i18n/config";
+import { localeAlternates } from "@/lib/site";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/cv">): Promise<Metadata> {
   const { lang } = await params;
   if (!isLocale(lang)) return {};
   const t = await getTranslations({ locale: lang, namespace: "cv" });
-  return { title: t("title"), description: t("lead") };
+  return {
+    title: t("title"),
+    description: t("lead"),
+    alternates: localeAlternates(lang, "/cv"),
+    robots: { index: false, follow: true },
+  };
 }
 
 // Mocked for now: shows the planned structure of the CV page.

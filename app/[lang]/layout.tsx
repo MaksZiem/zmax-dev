@@ -5,6 +5,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { SiteHeader } from "@/components/site-header";
 import { isLocale, LOCALES } from "@/i18n/config";
+import { SITE_URL } from "@/lib/site";
 import "../globals.css";
 
 const geistSans = Geist({
@@ -29,10 +30,14 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
   const t = await getTranslations({ locale: lang });
 
   return {
-    metadataBase: new URL("https://zmax-dev.pl"),
+    metadataBase: new URL(SITE_URL),
     title: { default: "Maksymilian Ziembicki", template: "%s · Maksymilian Ziembicki" },
-    description: t("meta.description", { role: t("hero.role") }),
-    alternates: { languages: { pl: "/pl", en: "/en" } },
+    description: t("meta.description"),
+    openGraph: {
+      type: "website",
+      siteName: "Maksymilian Ziembicki",
+      locale: lang === "pl" ? "pl_PL" : "en_US",
+    },
   };
 }
 

@@ -1,6 +1,6 @@
 {
   "meta": {
-    "description": "Maksymilian Ziembicki – {role}"
+    "description": "Maksymilian Ziembicki – Full-Stack Developer z Warszawy. Projektuję i buduję aplikacje webowe w TypeScript, NestJS i Next.js: od architektury backendu i bazy danych po dopracowany interfejs, z AI wdrażanym przewidywalnie i bezpiecznie."
   },
   "common": {
     "language": "Język",
@@ -25,10 +25,10 @@
   "about": {
     "title": "O mnie",
     "paragraphs": {
-      "p1": "Moja przygoda z informatyką zaczęła się od gier na PSP. Im więcej czasu spędzałem przy grach, tym bardziej mnie fascynowały. Z czasem zacząłem zastanawiać się, jak powstają, co sprawia, że działają i jak to możliwe, że wszystko, co widzę na ekranie, jest w stanie ożywać i reagować na moje działania.",
-      "p2": "Ta ciekawość szybko przerodziła się w chęć tworzenia własnych rzeczy. Gdy dowiedziałem się, czym jest programowanie, od razu chciałem spróbować swoich sił. Zacząłem od stron internetowych i prostych gier przeglądarkowych. Szukałem sposobu, by przekładać własne pomysły na coś namacalnego i widzieć ich efekty na ekranie. To właśnie możliwość tworzenia zawsze najbardziej mnie przyciągała i tak zostało do dzisiaj.",
-      "p3": "Z czasem zainteresowanie programowaniem przerodziło się w coś więcej niż hobby i stało się kierunkiem, w którym chciałem się rozwijać. Kolejne etapy edukacji informatycznej pozwalały mi coraz lepiej rozumieć, jak działa oprogramowanie, a wraz ze zdobywaną wiedzą coraz bardziej odnajdywałem się w backendzie. Dziś najpewniej czuję się w NestJS. W swojej pierwszej pracy zajmowałem się głównie frontendem i z perspektywy czasu uważam to za dużą zaletę. Dzięki temu potrafię spojrzeć na aplikację z obu stron - tworzyć interfejsy, a jednocześnie rozumieć, co dzieje się po stronie serwera. W programowaniu lubię wyzwania, które na pierwszy rzut oka wydają się trudne. Wiem, że większość problemów da się rozwiązać, jeśli poświęci się im odpowiednio dużo czasu, cierpliwości i zaangażowania.",
-      "p4": "Poza programowaniem dużą część mojego życia zajmuje sport, szczególnie piłka nożna. Od dziecka kibicuję Chelsea FC, a kiedy tylko nadarzyła się okazja, zacząłem jeździć na mecze do Londynu. Sama Wielka Brytania również jest miejscem, które wyjątkowo mnie fascynuje - jej architektura, kultura, kino, muzyka, a nawet kuchnia. Interesuję się również Formułą 1, w której kibicuję zespołowi Mercedes-AMG Petronas. Ostatnio coraz więcej uwagi poświęcam także tworzeniu grafiki 3D."
+      "p1": "Moja przygoda z informatyką zaczęła się od gier na PSP. Z czasem coraz bardziej fascynowało mnie, jak powstają, co sprawia, że działają i jak to możliwe, że świat widoczny na ekranie reaguje na nasze działania.",
+      "p2": "Ta ciekawość przerodziła się w chęć tworzenia własnych rzeczy. Gdy poznałem programowanie, od razu chciałem spróbować swoich sił. Zacząłem od stron internetowych i prostych gier przeglądarkowych, szukając sposobu na przekładanie własnych pomysłów na coś namacalnego. Możliwość tworzenia i oglądania efektów swojej pracy fascynuje mnie do dziś.",
+      "p3": "Kolejne etapy edukacji informatycznej pozwoliły mi rozwijać tę pasję i lepiej poznawać świat oprogramowania. Z czasem najbardziej odnalazłem się w backendzie, a dziś najpewniej czuję się w NestJS. Moje pierwsze doświadczenia zawodowe związane głównie z frontendem dały mi szersze spojrzenie na aplikacje – zarówno od strony interfejsu, jak i serwera. Lubię wyzwania i wierzę, że większość problemów można rozwiązać, jeśli poświęci się im odpowiednio dużo czasu i zaangażowania.",
+      "p4": "Poza programowaniem pasjonuję się sportem, przede wszystkim piłką nożną. Od dziecka kibicuję Chelsea FC, a gdy tylko pojawiła się możliwość, zacząłem jeździć na mecze do Londynu. Fascynuje mnie również Wielka Brytania – jej architektura, kultura, kino, muzyka i kuchnia. Śledzę Formułę 1, kibicując zespołowi Mercedes-AMG Petronas, a ostatnio rozwijam też zainteresowanie grafiką 3D."
     },
     "educationTitle": "Wykształcenie",
     "experienceTitle": "Doświadczenie",
@@ -131,15 +131,16 @@
   },
   "techStack": {
     "title": "Tech stack",
-    "lead": "Technologie, z których korzystam na co dzień – od backendu i baz danych po frontend, infrastrukturę i AI.",
-    "soon": "W przygotowaniu",
+    "lead": "Technologie pogrupowane według obszaru. Przy każdej widać, w których projektach jej użyłem – kliknij, żeby przejść do szczegółów.",
+    "usedIn": "Użyte w",
     "groups": {
+      "languages": "Języki i środowisko",
       "backend": "Backend",
       "frontend": "Frontend",
       "database": "Bazy danych",
-      "infra": "Infrastruktura",
+      "realtime": "Realtime i integracje",
       "ai": "AI",
-      "tools": "Narzędzia"
+      "tools": "Narzędzia i jakość"
     }
   },
   "terminal": {

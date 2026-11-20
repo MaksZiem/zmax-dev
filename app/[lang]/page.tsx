@@ -1,5 +1,7 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { localeAlternates, localePath } from "@/lib/site";
 import { CopyButton } from "@/components/copy-button";
 import { HeroBackground } from "@/components/hero-background";
 import { ProjectStack } from "@/components/project-stack";
@@ -67,6 +69,15 @@ function Timeline({ title, items }: { title: string; items: TimelineItem[] }) {
       </ol>
     </div>
   );
+}
+
+export async function generateMetadata({ params }: PageProps<"/[lang]">): Promise<Metadata> {
+  const { lang } = await params;
+  if (!isLocale(lang)) return {};
+  return {
+    alternates: localeAlternates(lang),
+    openGraph: { url: localePath(lang) },
+  };
 }
 
 export default async function Home({ params }: PageProps<"/[lang]">) {

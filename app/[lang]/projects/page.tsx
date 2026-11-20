@@ -5,12 +5,18 @@ import { ProjectCard } from "@/components/project-card";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { isLocale } from "@/i18n/config";
 import { getProjects } from "@/lib/projects";
+import { localeAlternates, localePath } from "@/lib/site";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/projects">): Promise<Metadata> {
   const { lang } = await params;
   if (!isLocale(lang)) return {};
   const t = await getTranslations({ locale: lang, namespace: "projects" });
-  return { title: t("all"), description: t("lead") };
+  return {
+    title: t("all"),
+    description: t("lead"),
+    alternates: localeAlternates(lang, "/projects"),
+    openGraph: { url: localePath(lang, "/projects") },
+  };
 }
 
 export default async function ProjectsPage({ params }: PageProps<"/[lang]/projects">) {

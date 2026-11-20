@@ -8,6 +8,7 @@ import { TableOfContents } from "@/components/table-of-contents";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { isLocale } from "@/i18n/config";
 import { getProject, getProjectSlugs, splitAfterTesting, type StackGroup } from "@/lib/projects";
+import { localeAlternates, localePath } from "@/lib/site";
 
 const stackOrder: StackGroup[] = [
   "frontend",
@@ -34,10 +35,14 @@ export async function generateMetadata({
   return {
     title: project.title,
     description: project.tagline,
-    alternates: {
-      languages: { pl: `/pl/projects/${slug}`, en: `/en/projects/${slug}` },
+    alternates: localeAlternates(lang, `/projects/${slug}`),
+    openGraph: {
+      type: "article",
+      url: localePath(lang, `/projects/${slug}`),
+      title: project.title,
+      description: project.tagline,
+      ...(project.cover && { images: [project.cover] }),
     },
-    openGraph: project.cover ? { images: [project.cover] } : undefined,
   };
 }
 

@@ -1,6 +1,6 @@
 {
   "meta": {
-    "description": "Maksymilian Ziembicki – {role}"
+    "description": "Maksymilian Ziembicki – Full-Stack Developer based in Warsaw. I design and build web applications with TypeScript, NestJS and Next.js: from backend architecture and the database to a polished interface, with AI built in predictably and safely."
   },
   "common": {
     "language": "Language",
@@ -25,10 +25,10 @@
   "about": {
     "title": "About",
     "paragraphs": {
-      "p1": "My journey into tech started with games on the PSP. The more time I spent playing, the more they fascinated me. Over time I began to wonder how they were made, what made them work, and how it was possible that everything I saw on the screen could come to life and react to what I did.",
-      "p2": "That curiosity quickly turned into a desire to build things of my own. As soon as I found out what programming was, I wanted to try it myself. I started with websites and simple browser games. I was looking for a way to turn my own ideas into something tangible and see the results on screen. The chance to create has always been what drew me in the most, and that hasn't changed to this day.",
-      "p3": "Over time, my interest in programming became more than a hobby and turned into the direction I wanted to grow in. Each stage of my IT education helped me understand better how software works, and as my knowledge grew, I found myself more and more at home in backend development. Today I feel most confident in NestJS. At my first job I worked mainly on the frontend, and looking back, I see that as a real advantage. It lets me look at an application from both sides - building interfaces while understanding what happens on the server. In programming I enjoy challenges that seem difficult at first glance. I know that most problems can be solved if you give them enough time, patience and commitment.",
-      "p4": "Outside of programming, sport takes up a big part of my life, especially football. I have supported Chelsea FC since I was a kid, and as soon as the opportunity came along, I started travelling to London for matches. Great Britain itself is a place that fascinates me - its architecture, culture, film, music and even its food. I also follow Formula 1, where I support the Mercedes-AMG Petronas team. Lately I have been spending more and more time creating 3D graphics."
+      "p1": "My journey into tech started with games on the PSP. Over time I became more and more fascinated by how they are made, what makes them work, and how the world on the screen can react to what we do.",
+      "p2": "That curiosity turned into a desire to build things of my own. When I discovered programming, I wanted to try it straight away. I started with websites and simple browser games, looking for a way to turn my own ideas into something tangible. Being able to create things and see the results of my work still fascinates me today.",
+      "p3": "Each stage of my IT education let me develop this passion and understand the world of software better. Over time I found myself most at home in backend development, and today I feel most confident in NestJS. My first professional experience, mostly on the frontend, gave me a broader view of applications, from both the interface and the server side. I enjoy challenges and believe that most problems can be solved if you give them enough time and commitment.",
+      "p4": "Outside of programming, I am passionate about sport, above all football. I have supported Chelsea FC since I was a kid, and as soon as I had the chance, I started travelling to London for matches. I am also fascinated by Great Britain: its architecture, culture, film, music and food. I follow Formula 1, supporting the Mercedes-AMG Petronas team, and lately I have been developing an interest in 3D graphics."
     },
     "educationTitle": "Education",
     "experienceTitle": "Experience",
@@ -131,15 +131,16 @@
   },
   "techStack": {
     "title": "Tech stack",
-    "lead": "The technologies I use day to day – from backend and databases to frontend, infrastructure and AI.",
-    "soon": "Coming soon",
+    "lead": "Technologies grouped by area. Each one lists the projects I used it in – click through to see the details.",
+    "usedIn": "Used in",
     "groups": {
+      "languages": "Languages & runtime",
       "backend": "Backend",
       "frontend": "Frontend",
       "database": "Databases",
-      "infra": "Infrastructure",
+      "realtime": "Realtime & integrations",
       "ai": "AI",
-      "tools": "Tools"
+      "tools": "Tooling & quality"
     }
   },
   "terminal": {
