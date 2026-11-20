@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ComingSoonHeader, SkeletonLine } from "@/components/coming-soon";
 import { isLocale } from "@/i18n/config";
-import { localeAlternates } from "@/lib/site";
+import { localeAlternates, localePath } from "@/lib/site";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/cv">): Promise<Metadata> {
   const { lang } = await params;
@@ -33,7 +33,7 @@ export default async function CvPage({ params }: PageProps<"/[lang]/cv">) {
   return (
     <div className="mx-auto max-w-6xl px-4 pb-24 pt-12 sm:px-6 sm:pt-16">
       <ComingSoonHeader
-        homeHref={`/${lang}`}
+        homeHref={localePath(lang)}
         homeLabel={tProjects("home")}
         title={t("title")}
         lead={t("lead")}

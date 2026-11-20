@@ -28,7 +28,7 @@ export default async function ProjectsPage({ params }: PageProps<"/[lang]/projec
 
   return (
     <div className="mx-auto max-w-6xl px-4 pb-24 pt-12 sm:px-6 sm:pt-16">
-      <Link href={`/${lang}`} className="text-sm text-muted hover:text-foreground">
+      <Link href={localePath(lang)} className="text-sm text-muted hover:text-foreground">
         ← {t("home")}
       </Link>
 

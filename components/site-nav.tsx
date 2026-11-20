@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useState, type CSSProperties } from "react";
+import { publicPathname } from "@/lib/site";
 
 export interface NavItem {
   href: string;
@@ -16,7 +17,7 @@ interface SiteNavProps {
   children?: React.ReactNode;
 }
 
-// Section links ("/pl#about") are never "current"; page links match their path and anything below it.
+// Section links ("/#about") are never "current"; page links match their path and anything below it.
 function isCurrent(pathname: string, item: NavItem) {
   if (item.external || item.href.includes("#")) return false;
   return pathname === item.href || pathname.startsWith(`${item.href}/`);
@@ -68,7 +69,7 @@ function NavAnchor({
 }
 
 export function SiteNav({ items, labels, children }: SiteNavProps) {
-  const pathname = usePathname();
+  const pathname = publicPathname(usePathname());
   const [open, setOpen] = useState(false);
   const panelId = useId();
 

@@ -181,7 +181,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
 
             <div data-fog className="flex justify-center pb-32">
               <Link
-                href={`/${lang}/projects`}
+                href={localePath(lang, "/projects")}
                 className="group inline-flex items-center gap-4 rounded-full bg-foreground py-2 pl-7 pr-2 text-base font-semibold text-background shadow-[0_10px_40px_-12px_color-mix(in_srgb,var(--accent)_55%,transparent)] transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_50px_-12px_color-mix(in_srgb,var(--accent)_75%,transparent)]"
               >
                 {t("work.allProjects")}

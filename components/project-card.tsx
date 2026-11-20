@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import type { Locale } from "@/i18n/config";
 import type { Project } from "@/lib/projects";
+import { localePath } from "@/lib/site";
 import { StatusBadge } from "./status-badge";
 import { TestsChip } from "./project-quality";
 
@@ -54,7 +55,7 @@ export function CoverPlaceholder({ project }: { project: Project }) {
 
 export function ProjectCard({ project, locale }: { project: Project; locale: Locale }) {
   const t = useTranslations("projects");
-  const href = `/${locale}/projects/${project.slug}`;
+  const href = localePath(locale, `/projects/${project.slug}`);
 
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-xl border border-line bg-background transition-colors hover:border-line-strong">

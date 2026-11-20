@@ -29,7 +29,7 @@ export default async function TechStackPage({ params }: PageProps<"/[lang]/tech-
 
   return (
     <div className="mx-auto max-w-6xl px-4 pb-24 pt-12 sm:px-6 sm:pt-16">
-      <Link href={`/${lang}`} className="text-sm text-muted hover:text-foreground">
+      <Link href={localePath(lang)} className="text-sm text-muted hover:text-foreground">
         ← {tProjects("home")}
       </Link>
 
@@ -60,7 +60,7 @@ export default async function TechStackPage({ params }: PageProps<"/[lang]/tech-
                     {tech.projects.map((project) => (
                       <Link
                         key={project.slug}
-                        href={`/${lang}/projects/${project.slug}`}
+                        href={localePath(lang, `/projects/${project.slug}`)}
                         className="rounded-md border border-line px-2 py-0.5 text-xs text-muted transition-colors hover:border-accent/50 hover:text-accent"
                       >
                         {project.title}

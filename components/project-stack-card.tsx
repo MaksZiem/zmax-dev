@@ -4,6 +4,7 @@ import type { CSSProperties } from "react";
 import { useTranslations } from "next-intl";
 import type { Locale } from "@/i18n/config";
 import type { Project, StackGroup } from "@/lib/projects";
+import { localePath } from "@/lib/site";
 import { stackHighlights } from "./project-card";
 import { getTerminalDemo, REPO_DIRS } from "@/lib/terminal-demos";
 import { ProjectTerminal } from "./project-terminal";
@@ -39,7 +40,7 @@ export function ProjectStackCard({
   locale: Locale;
 }) {
   const t = useTranslations();
-  const href = `/${locale}/projects/${project.slug}`;
+  const href = localePath(locale, `/projects/${project.slug}`);
   const style = { "--i": index, "--glow": GLOWS[index % GLOWS.length] } as CSSProperties;
   const shot = homeShot(project);
 

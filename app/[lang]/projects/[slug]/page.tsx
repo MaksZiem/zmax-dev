@@ -64,7 +64,7 @@ export default async function ProjectPage({
       <article className="relative mx-auto max-w-6xl px-4 pb-24 sm:px-6">
         <header className="border-b border-line pb-10 pt-10 sm:pt-14">
           <Link
-            href={`/${lang}/projects`}
+            href={localePath(lang, "/projects")}
             className="text-sm text-muted hover:text-foreground"
           >
             ← {t("back")}
