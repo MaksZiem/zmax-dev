@@ -1,6 +1,6 @@
 {
   "meta": {
-    "description": "Maksymilian Ziembicki – Full-Stack Developer based in Warsaw. I design and build web applications with TypeScript, NestJS and Next.js: from backend architecture and the database to a polished interface, with AI built in predictably and safely."
+    "description": "Maksymilian Ziembicki – Full-Stack Developer based in Warsaw. I design and build web applications with TypeScript, NestJS and Next.js: from backend architecture and the database to a polished interface, with AI built in predictably and safely."
   },
   "common": {
     "language": "Language",
@@ -19,7 +19,7 @@
   },
   "hero": {
     "role": "Full-Stack Developer",
-    "intro": "I design and build complete web applications – from backend architecture and the database to a polished interface. I work with TypeScript, NestJS and Next.js, and bring AI into products in a way that is predictable and safe.",
+    "intro": "I design and build complete web applications – from backend architecture and the database to a polished interface. I work with TypeScript, NestJS and Next.js, and bring AI into products in a way that is predictable and safe.",
     "scroll": "Scroll"
   },
   "about": {
@@ -34,19 +34,19 @@
     "experienceTitle": "Experience",
     "education": {
       "technikum": {
-        "period": "2017 – 2021",
-        "school": "Technical secondary school – ZSP no. 5, Krosno",
+        "period": "2017 – 2021",
+        "school": "Technical secondary school – ZSP no. 5, Krosno",
         "field": "Computer Science",
         "note": ""
       },
       "rzeszow": {
-        "period": "2021 – 2025",
+        "period": "2021 – 2025",
         "school": "University of Rzeszów",
         "field": "Computer Science, specialisation: web applications",
         "note": "Engineer's degree (BEng)"
       },
       "warsaw": {
-        "period": "2026 – present",
+        "period": "2026 – present",
         "school": "Warsaw University of Technology",
         "field": "Computer Science, specialisation: intelligent systems",
         "note": "In progress"
@@ -54,7 +54,7 @@
     },
     "experience": {
       "ebi": {
-        "period": "August 2024 – August 2026",
+        "period": "August 2024 – August 2026",
         "school": "e-bi sp. z o.o.",
         "field": "Frontend Developer",
         "note": ""
@@ -69,7 +69,7 @@
   "contact": {
     "kicker": "Contact",
     "title": "Let's talk.",
-    "lead": "Have a project, a product idea or a job offer? Get in touch – I'd be glad to talk about what I can build.",
+    "lead": "Have a project, a product idea or a job offer? Get in touch – I'd be glad to talk about what I can build.",
     "nameLabel": "Name",
     "locationLabel": "Location",
     "location": "Warsaw, Poland",
@@ -131,7 +131,7 @@
   },
   "techStack": {
     "title": "Tech stack",
-    "lead": "Technologies grouped by area. Each one lists the projects I used it in – click through to see the details.",
+    "lead": "Technologies grouped by area. Each one lists the projects I used it in – click through to see the details.",
     "usedIn": "Used in",
     "groups": {
       "languages": "Languages & runtime",
@@ -154,5 +154,11 @@
     "expand": "Expand",
     "close": "Close",
     "diagramError": "Could not render the diagram."
+  },
+  "notFound": {
+    "title": "This page doesn’t exist",
+    "lead": "The address may have changed, or the page never existed. Head back home or browse my projects.",
+    "home": "Home",
+    "projects": "Projects"
   }
 }

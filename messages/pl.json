@@ -1,6 +1,6 @@
 {
   "meta": {
-    "description": "Maksymilian Ziembicki – Full-Stack Developer z Warszawy. Projektuję i buduję aplikacje webowe w TypeScript, NestJS i Next.js: od architektury backendu i bazy danych po dopracowany interfejs, z AI wdrażanym przewidywalnie i bezpiecznie."
+    "description": "Maksymilian Ziembicki – Full-Stack Developer z Warszawy. Projektuję i buduję aplikacje webowe w TypeScript, NestJS i Next.js: od architektury backendu i bazy danych po dopracowany interfejs, z AI wdrażanym przewidywalnie i bezpiecznie."
   },
   "common": {
     "language": "Język",
@@ -19,7 +19,7 @@
   },
   "hero": {
     "role": "Full-Stack Developer",
-    "intro": "Projektuję i buduję kompletne aplikacje webowe – od architektury backendu i bazy danych po dopracowany interfejs. Pracuję w TypeScripcie, NestJS i Next.js, a do produktów wdrażam AI, które działa przewidywalnie i bezpiecznie.",
+    "intro": "Projektuję i buduję kompletne aplikacje webowe – od architektury backendu i bazy danych po dopracowany interfejs. Pracuję w TypeScripcie, NestJS i Next.js, a do produktów wdrażam AI, które działa przewidywalnie i bezpiecznie.",
     "scroll": "Przewiń"
   },
   "about": {
@@ -27,26 +27,26 @@
     "paragraphs": {
       "p1": "Moja przygoda z informatyką zaczęła się od gier na PSP. Z czasem coraz bardziej fascynowało mnie, jak powstają, co sprawia, że działają i jak to możliwe, że świat widoczny na ekranie reaguje na nasze działania.",
       "p2": "Ta ciekawość przerodziła się w chęć tworzenia własnych rzeczy. Gdy poznałem programowanie, od razu chciałem spróbować swoich sił. Zacząłem od stron internetowych i prostych gier przeglądarkowych, szukając sposobu na przekładanie własnych pomysłów na coś namacalnego. Możliwość tworzenia i oglądania efektów swojej pracy fascynuje mnie do dziś.",
-      "p3": "Kolejne etapy edukacji informatycznej pozwoliły mi rozwijać tę pasję i lepiej poznawać świat oprogramowania. Z czasem najbardziej odnalazłem się w backendzie, a dziś najpewniej czuję się w NestJS. Moje pierwsze doświadczenia zawodowe związane głównie z frontendem dały mi szersze spojrzenie na aplikacje – zarówno od strony interfejsu, jak i serwera. Lubię wyzwania i wierzę, że większość problemów można rozwiązać, jeśli poświęci się im odpowiednio dużo czasu i zaangażowania.",
-      "p4": "Poza programowaniem pasjonuję się sportem, przede wszystkim piłką nożną. Od dziecka kibicuję Chelsea FC, a gdy tylko pojawiła się możliwość, zacząłem jeździć na mecze do Londynu. Fascynuje mnie również Wielka Brytania – jej architektura, kultura, kino, muzyka i kuchnia. Śledzę Formułę 1, kibicując zespołowi Mercedes-AMG Petronas, a ostatnio rozwijam też zainteresowanie grafiką 3D."
+      "p3": "Kolejne etapy edukacji informatycznej pozwoliły mi rozwijać tę pasję i lepiej poznawać świat oprogramowania. Z czasem najbardziej odnalazłem się w backendzie, a dziś najpewniej czuję się w NestJS. Moje pierwsze doświadczenia zawodowe związane głównie z frontendem dały mi szersze spojrzenie na aplikacje – zarówno od strony interfejsu, jak i serwera. Lubię wyzwania i wierzę, że większość problemów można rozwiązać, jeśli poświęci się im odpowiednio dużo czasu i zaangażowania.",
+      "p4": "Poza programowaniem pasjonuję się sportem, przede wszystkim piłką nożną. Od dziecka kibicuję Chelsea FC, a gdy tylko pojawiła się możliwość, zacząłem jeździć na mecze do Londynu. Fascynuje mnie również Wielka Brytania – jej architektura, kultura, kino, muzyka i kuchnia. Śledzę Formułę 1, kibicując zespołowi Mercedes-AMG Petronas, a ostatnio rozwijam też zainteresowanie grafiką 3D."
     },
     "educationTitle": "Wykształcenie",
     "experienceTitle": "Doświadczenie",
     "education": {
       "technikum": {
-        "period": "2017 – 2021",
-        "school": "Technikum – ZSP nr 5 w Krośnie",
+        "period": "2017 – 2021",
+        "school": "Technikum – ZSP nr 5 w Krośnie",
         "field": "Kierunek: informatyka",
         "note": ""
       },
       "rzeszow": {
-        "period": "2021 – 2025",
+        "period": "2021 – 2025",
         "school": "Uniwersytet Rzeszowski",
         "field": "Informatyka, specjalizacja: aplikacje internetowe",
         "note": "Inżynier"
       },
       "warsaw": {
-        "period": "2026 – obecnie",
+        "period": "2026 – obecnie",
         "school": "Politechnika Warszawska",
         "field": "Informatyka, specjalizacja: inteligentne systemy",
         "note": "W trakcie"
@@ -54,7 +54,7 @@
     },
     "experience": {
       "ebi": {
-        "period": "sierpień 2024 – sierpień 2026",
+        "period": "sierpień 2024 – sierpień 2026",
         "school": "e-bi sp. z o.o.",
         "field": "Frontend Developer",
         "note": ""
@@ -69,7 +69,7 @@
   "contact": {
     "kicker": "Kontakt",
     "title": "Porozmawiajmy.",
-    "lead": "Masz projekt, pomysł na produkt albo ofertę pracy? Napisz – chętnie porozmawiam o tym, co mogę zbudować.",
+    "lead": "Masz projekt, pomysł na produkt albo ofertę pracy? Napisz – chętnie porozmawiam o tym, co mogę zbudować.",
     "nameLabel": "Imię i nazwisko",
     "locationLabel": "Lokalizacja",
     "location": "Warszawa, Polska",
@@ -131,7 +131,7 @@
   },
   "techStack": {
     "title": "Tech stack",
-    "lead": "Technologie pogrupowane według obszaru. Przy każdej widać, w których projektach jej użyłem – kliknij, żeby przejść do szczegółów.",
+    "lead": "Technologie pogrupowane według obszaru. Przy każdej widać, w których projektach jej użyłem – kliknij, żeby przejść do szczegółów.",
     "usedIn": "Użyte w",
     "groups": {
       "languages": "Języki i środowisko",
@@ -154,5 +154,11 @@
     "expand": "Powiększ",
     "close": "Zamknij",
     "diagramError": "Nie udało się wyrenderować diagramu."
+  },
+  "notFound": {
+    "title": "Nie ma takiej strony",
+    "lead": "Adres mógł się zmienić albo strona nigdy nie istniała. Wróć na stronę główną albo zobacz moje projekty.",
+    "home": "Strona główna",
+    "projects": "Projekty"
   }
 }

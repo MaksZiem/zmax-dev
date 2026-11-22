@@ -14,8 +14,8 @@ stack:
   ai: [Google Gemini (structured JSON output)]
 tags: [observability, incident-response, sre, logs, distributed-tracing, error-tracking, alerting, llm, nestjs, nextjs]
 repo: https://github.com/MaksZiem/ai-observability
-demo: null
-apiDocs: http://localhost:3001/api/docs
+demo: https://ai-observability.zmax-dev.pl
+apiDocs: https://api.ai-observability.zmax-dev.pl/api/docs
 quality:
   tests: 116
   kinds: [unit, e2e, frontend]

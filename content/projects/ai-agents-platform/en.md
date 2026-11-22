@@ -14,8 +14,8 @@ stack:
   ai: [Google Gemini (function calling)]
 tags: [ai-agents, llm, function-calling, human-in-the-loop, job-queue, websockets, rag, ssrf-protection, nestjs, nextjs]
 repo: https://github.com/MaksZiem/ai-agents-platform
-demo: null
-apiDocs: http://localhost:3001/api/docs
+demo: https://ai-agents-platform.zmax-dev.pl
+apiDocs: https://api.ai-agents-platform.zmax-dev.pl/api/docs
 quality:
   tests: 155
   kinds: [unit]

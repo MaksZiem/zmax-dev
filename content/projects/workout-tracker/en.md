@@ -14,8 +14,8 @@ stack:
   ai: [Google Gemini (JSON schema output)]
 tags: [fitness, workout-logging, training-plans, statistics, llm, openapi, i18n, nestjs, nextjs]
 repo: https://github.com/MaksZiem/workout-tracker
-demo: null
-apiDocs: http://localhost:3001/api/docs
+demo: https://workout-tracker.zmax-dev.pl
+apiDocs: https://api.workout-tracker.zmax-dev.pl/api/docs
 quality:
   tests: 63
   kinds: [unit]

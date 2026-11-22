@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ProjectCard } from "@/components/project-card";
@@ -7,7 +7,10 @@ import { isLocale } from "@/i18n/config";
 import { getProjects } from "@/lib/projects";
 import { localeAlternates, localePath } from "@/lib/site";
 
-export async function generateMetadata({ params }: PageProps<"/[lang]/projects">): Promise<Metadata> {
+export async function generateMetadata(
+  { params }: PageProps<"/[lang]/projects">,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
   const { lang } = await params;
   if (!isLocale(lang)) return {};
   const t = await getTranslations({ locale: lang, namespace: "projects" });
@@ -15,7 +18,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/projects">
     title: t("all"),
     description: t("lead"),
     alternates: localeAlternates(lang, "/projects"),
-    openGraph: { url: localePath(lang, "/projects") },
+    openGraph: { url: localePath(lang, "/projects"), images: (await parent).openGraph?.images },
   };
 }
 

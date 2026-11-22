@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -7,7 +7,10 @@ import { getProjects } from "@/lib/projects";
 import { localeAlternates, localePath } from "@/lib/site";
 import { buildTechStack } from "@/lib/tech-stack";
 
-export async function generateMetadata({ params }: PageProps<"/[lang]/tech-stack">): Promise<Metadata> {
+export async function generateMetadata(
+  { params }: PageProps<"/[lang]/tech-stack">,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
   const { lang } = await params;
   if (!isLocale(lang)) return {};
   const t = await getTranslations({ locale: lang, namespace: "techStack" });
@@ -15,7 +18,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/tech-stack
     title: t("title"),
     description: t("lead"),
     alternates: localeAlternates(lang, "/tech-stack"),
-    openGraph: { url: localePath(lang, "/tech-stack") },
+    openGraph: { url: localePath(lang, "/tech-stack"), images: (await parent).openGraph?.images },
   };
 }
 

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Markdown } from "@/components/markdown";
@@ -24,9 +24,10 @@ export function generateStaticParams() {
   return getProjectSlugs().map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({
-  params,
-}: PageProps<"/[lang]/projects/[slug]">): Promise<Metadata> {
+export async function generateMetadata(
+  { params }: PageProps<"/[lang]/projects/[slug]">,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
   const { lang, slug } = await params;
   if (!isLocale(lang)) return {};
   const project = getProject(lang, slug);
@@ -41,7 +42,7 @@ export async function generateMetadata({
       url: localePath(lang, `/projects/${slug}`),
       title: project.title,
       description: project.tagline,
-      ...(project.cover && { images: [project.cover] }),
+      images: project.cover ? [project.cover] : (await parent).openGraph?.images,
     },
   };
 }
