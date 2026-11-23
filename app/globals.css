@@ -43,6 +43,24 @@ html {
   scroll-behavior: smooth;
 }
 
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  summary,
+  select,
+  input[type="checkbox"],
+  input[type="radio"],
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"] {
+    cursor: pointer;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -154,11 +172,53 @@ body {
 /* Header navigation – in the components layer so Tailwind utilities (md:hidden) still win */
 @layer components {
   .nav-logo {
-    transition: letter-spacing 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.15rem;
+    padding: 0.25rem 0;
   }
 
-  .nav-logo:hover {
-    letter-spacing: 0.02em;
+  .nav-logo-text {
+    position: relative;
+    transition: color 0.2s ease;
+  }
+
+  .nav-logo-text::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.2rem;
+    height: 1.5px;
+    border-radius: 1px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.1, 1);
+  }
+
+  .nav-logo-caret {
+    display: inline-flex;
+    opacity: 0;
+    transform: translateX(-0.25rem);
+    transition: opacity 0.2s ease, transform 0.25s ease;
+  }
+
+  .nav-logo:hover .nav-logo-text,
+  .nav-logo:focus-visible .nav-logo-text {
+    color: var(--accent);
+  }
+
+  .nav-logo:hover .nav-logo-text::after,
+  .nav-logo:focus-visible .nav-logo-text::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .nav-logo:hover .nav-logo-caret,
+  .nav-logo:focus-visible .nav-logo-caret {
+    opacity: 1;
+    transform: none;
   }
 
   /* Desktop links: an accent underline grows from the left, text brightens, the external arrow nudges. */
@@ -320,6 +380,8 @@ body {
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .nav-logo-text::after,
+    .nav-logo-caret,
     .nav-link::after,
     .nav-arrow,
     .nav-burger span,

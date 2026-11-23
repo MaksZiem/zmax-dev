@@ -31,7 +31,7 @@ export function ScreenshotGallery({ shots, closeLabel, prevLabel, nextLabel }: S
             <button
               type="button"
               onClick={() => open(index)}
-              className="block w-full cursor-zoom-in overflow-hidden rounded-lg border border-line"
+              className="block w-full overflow-hidden rounded-lg border border-line"
             >
               <Image src={s.src} alt={s.caption} width={1600} height={1000} className="h-auto w-full" />
             </button>

@@ -8,6 +8,7 @@
     "copied": "Copied"
   },
   "nav": {
+    "home": "Home",
     "about": "About",
     "projects": "Projects",
     "contact": "Contact",
@@ -120,13 +121,69 @@
   },
   "cv": {
     "title": "CV",
-    "lead": "Experience, education and skills in one place. A downloadable PDF version is coming soon.",
-    "soon": "Coming soon",
+    "lead": "Experience, projects, skills and education in one place. You can download the full version as a PDF.",
     "download": "Download PDF",
+    "downloadNote": "1 page · in Polish",
     "sections": {
+      "profile": "Profile",
       "experience": "Experience",
+      "projects": "Projects",
       "education": "Education",
-      "skills": "Skills"
+      "skills": "Skills",
+      "languages": "Languages"
+    },
+    "profile": "Computer science engineer with 2 years of commercial experience as a Frontend Developer working on CRM systems. I am building up my backend skills to work as a full-stack developer and deliver complete web applications on my own, and I am growing my experience integrating applications with AI models and LLMs.",
+    "experience": {
+      "ebi": {
+        "role": "Frontend Developer",
+        "company": "E-BI Sp. z o.o.",
+        "period": "August 2024 – August 2026",
+        "points": {
+          "ui": "Developing and maintaining user interfaces in React and Angular for CRM systems",
+          "clients": "Delivering projects for clients: Axpo, Tramwaje Warszawskie, CLAR System, Medicover, CHORS",
+          "standards": "Writing code to agreed standards – typing, code review, working with Git",
+          "backend": "Working with the backend team on API integration and data flow",
+          "spfx": "Building SharePoint Framework (SPFx) solutions: web parts, extensions, application customizers",
+          "performance": "Optimising application performance"
+        }
+      },
+      "helpdesk": {
+        "role": "Help Desk – internship",
+        "company": "Exalo Drilling S.A.",
+        "period": "April – June 2019",
+        "points": {
+          "hardware": "Learning how computer hardware is built and serviced",
+          "support": "Day-to-day technical support for company staff"
+        }
+      }
+    },
+    "education": {
+      "pw": {
+        "school": "Warsaw University of Technology",
+        "field": "Computer Science, master's degree · specialisation: intelligent systems",
+        "period": "2026 – present"
+      },
+      "ur": {
+        "school": "University of Rzeszów",
+        "field": "Computer Science, engineer's degree · specialisation: web applications",
+        "period": "2021 – 2025"
+      },
+      "zse": {
+        "school": "Zespół Szkół Elektrycznych i Ogólnokształcących, Krosno",
+        "field": "IT technician · exams: EE.08, EE.09",
+        "period": "2017 – 2021"
+      }
+    },
+    "skillGroups": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "database": "Databases",
+      "infra": "Infrastructure",
+      "ai": "AI"
+    },
+    "languages": {
+      "pl": "Polish – native",
+      "en": "English – B2"
     }
   },
   "techStack": {

@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
 import type { Locale } from "@/i18n/config";
 import type { Project } from "@/lib/projects";
 import { localePath } from "@/lib/site";
+import { ProjectActions } from "./project-actions";
 import { StatusBadge } from "./status-badge";
 import { TestsChip } from "./project-quality";
 
@@ -54,7 +54,6 @@ export function CoverPlaceholder({ project }: { project: Project }) {
 }
 
 export function ProjectCard({ project, locale }: { project: Project; locale: Locale }) {
-  const t = useTranslations("projects");
   const href = localePath(locale, `/projects/${project.slug}`);
 
   return (
@@ -97,19 +96,7 @@ export function ProjectCard({ project, locale }: { project: Project; locale: Loc
           ))}
         </ul>
 
-        <div className="flex items-center gap-4 pt-1 text-sm">
-          <span className="font-medium text-foreground">{t("details")} →</span>
-          {project.repo && (
-            <a
-              href={project.repo}
-              target="_blank"
-              rel="noreferrer"
-              className="relative z-10 text-muted hover:text-foreground"
-            >
-              {t("source")}
-            </a>
-          )}
-        </div>
+        <ProjectActions project={project} locale={locale} className="pt-1" />
       </div>
     </article>
   );

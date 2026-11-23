@@ -7,6 +7,7 @@ import type { Project, StackGroup } from "@/lib/projects";
 import { localePath } from "@/lib/site";
 import { stackHighlights } from "./project-card";
 import { getTerminalDemo, REPO_DIRS } from "@/lib/terminal-demos";
+import { ProjectActions, secondaryAction } from "./project-actions";
 import { ProjectTerminal } from "./project-terminal";
 import { TestsChip } from "./project-quality";
 
@@ -91,37 +92,13 @@ export function ProjectStackCard({
                     </li>
                   ))}
                 </ul>
-                <div className="mt-5 flex flex-wrap items-center gap-3 text-sm">
-                  <Link
-                    href={href}
-                    className="group/details relative z-10 inline-flex items-center gap-2 rounded-lg bg-foreground px-4 py-2 font-medium text-background hover:opacity-90"
-                  >
-                    {t("projects.details")}
-                    <span aria-hidden="true" className="transition-transform duration-300 group-hover/details:translate-x-0.5">
-                      →
-                    </span>
-                  </Link>
-                  {project.repo && (
-                    <a
-                      href={project.repo}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="relative z-10 rounded-lg border border-line-strong px-4 py-2 font-medium hover:bg-surface"
-                    >
-                      {t("projects.source")} ↗
-                    </a>
-                  )}
+                <ProjectActions project={project} locale={locale} className="mt-5">
                   {project.apiDocs && (
-                    <a
-                      href={project.apiDocs}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="relative z-10 rounded-lg border border-line-strong px-4 py-2 font-medium hover:bg-surface"
-                    >
+                    <a href={project.apiDocs} target="_blank" rel="noreferrer" className={secondaryAction}>
                       {t("projects.apiDocs")} ↗
                     </a>
                   )}
-                </div>
+                </ProjectActions>
               </div>
             </div>
 

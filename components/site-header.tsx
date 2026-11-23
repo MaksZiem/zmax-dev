@@ -20,8 +20,17 @@ export function SiteHeader({ locale }: { locale: Locale }) {
   return (
     <header className="sticky top-0 z-20 border-b border-line bg-background/85 backdrop-blur">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
-        <Link href={localePath(locale)} className="nav-logo font-mono text-sm font-medium tracking-tight">
-          zmax<span className="text-accent">.dev</span>
+        <Link
+          href={localePath(locale)}
+          title={t("home")}
+          className="nav-logo font-mono text-sm font-medium tracking-tight"
+        >
+          <span className="nav-logo-text">
+            zmax<span className="text-accent">.dev</span>
+          </span>
+          <span className="nav-logo-caret" aria-hidden="true">
+            <span className="terminal-caret" />
+          </span>
         </Link>
         <SiteNav items={items} labels={{ main: t("main"), open: t("openMenu"), close: t("closeMenu") }}>
           <LanguageSwitcher current={locale} />

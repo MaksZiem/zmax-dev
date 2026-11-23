@@ -8,6 +8,7 @@
     "copied": "Skopiowano"
   },
   "nav": {
+    "home": "Strona główna",
     "about": "O mnie",
     "projects": "Projekty",
     "contact": "Kontakt",
@@ -120,13 +121,69 @@
   },
   "cv": {
     "title": "CV",
-    "lead": "Doświadczenie, edukacja i umiejętności w jednym miejscu. Wersja do pobrania w PDF pojawi się wkrótce.",
-    "soon": "W przygotowaniu",
+    "lead": "Doświadczenie, projekty, umiejętności i wykształcenie w jednym miejscu. Pełną wersję możesz pobrać jako PDF.",
     "download": "Pobierz PDF",
+    "downloadNote": "1 strona · po polsku",
     "sections": {
+      "profile": "Profil",
       "experience": "Doświadczenie",
-      "education": "Edukacja",
-      "skills": "Umiejętności"
+      "projects": "Projekty",
+      "education": "Wykształcenie",
+      "skills": "Umiejętności",
+      "languages": "Języki"
+    },
+    "profile": "Inżynier informatyki z 2-letnim komercyjnym doświadczeniem jako Frontend Developer przy systemach CRM. Rozwijam kompetencje backendowe, dążąc do pracy w modelu Fullstack i samodzielnego tworzenia kompletnych aplikacji internetowych, a także integrację aplikacji z modelami AI i LLM.",
+    "experience": {
+      "ebi": {
+        "role": "Frontend Developer",
+        "company": "E-BI Sp. z o.o.",
+        "period": "sierpień 2024 – sierpień 2026",
+        "points": {
+          "ui": "Rozwijanie i utrzymanie interfejsów użytkownika w React i Angular dla systemów CRM",
+          "clients": "Realizacja projektów dla klientów: Axpo, Tramwaje Warszawskie, CLAR System, Medicover, CHORS",
+          "standards": "Pisanie kodu zgodnie z przyjętymi standardami – typowanie, code review, praca w Git",
+          "backend": "Współpraca z zespołem backendowym przy integracji API i przepływie danych",
+          "spfx": "Budowanie rozwiązań w SharePoint Framework (SPFx): webparty, extensions, application customizers",
+          "performance": "Optymalizacja wydajności aplikacji"
+        }
+      },
+      "helpdesk": {
+        "role": "Help Desk – praktyka zawodowa",
+        "company": "Exalo Drilling S.A.",
+        "period": "kwiecień – czerwiec 2019",
+        "points": {
+          "hardware": "Zdobywanie wiedzy na temat budowy i serwisowania sprzętu komputerowego",
+          "support": "Codzienne wsparcie techniczne dla pracowników firmy"
+        }
+      }
+    },
+    "education": {
+      "pw": {
+        "school": "Politechnika Warszawska",
+        "field": "Informatyka, tytuł magistra · specjalizacja: inteligentne systemy",
+        "period": "2026 – obecnie"
+      },
+      "ur": {
+        "school": "Uniwersytet Rzeszowski",
+        "field": "Informatyka, tytuł inżyniera · specjalizacja: aplikacje internetowe",
+        "period": "2021 – 2025"
+      },
+      "zse": {
+        "school": "Zespół Szkół Elektrycznych i Ogólnokształcących w Krośnie",
+        "field": "Technik informatyk · egzaminy: EE.08, EE.09",
+        "period": "2017 – 2021"
+      }
+    },
+    "skillGroups": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "database": "Bazy danych",
+      "infra": "Infrastruktura",
+      "ai": "AI"
+    },
+    "languages": {
+      "pl": "polski – ojczysty",
+      "en": "angielski – B2"
     }
   },
   "techStack": {
