@@ -448,7 +448,7 @@ npm install
 npm run dev                   # http://localhost:3000
 ```
 
-Sample files for testing the document tools are in `demo-data/`.
+Sample files for testing the document tools are in `backend/demo-data/`, and `npm run seed:demo` creates the demo account with a ready Financial Analyst agent.
 
 <!-- TODO: add docker-compose for Postgres + Redis to make this one command -->
 

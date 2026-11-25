@@ -17,8 +17,8 @@ repo: https://github.com/MaksZiem/ai-observability
 demo: https://ai-observability.zmax-dev.pl
 apiDocs: https://api.ai-observability.zmax-dev.pl/api/docs
 quality:
-  tests: 116
-  kinds: [unit, e2e, frontend]
+  tests: 117
+  kinds: [unit, frontend]
   framework: Vitest
   ci: https://github.com/MaksZiem/ai-observability/actions/workflows/ci.yml
   covered:
@@ -26,7 +26,6 @@ quality:
     - "Redakcja sekretów, zanim cokolwiek trafi do bazy"
     - "Wykrywanie anomalii, oś czasu incydentu i podobne incydenty"
     - "Ocena alertów i ochrona webhooków przed SSRF"
-    - "E2E na prawdziwym Postgresie: izolacja projektów, ingest, cały przepływ analizy AI"
 cover: screenshots/cover.webp
 screenshots:
   - file: screenshots/overview.webp
@@ -83,7 +82,7 @@ Ta platforma:
 - **Realtime:** strumień Server-Sent Events per projekt z nowymi błędami, incydentami, alertami i statusem analiz.
 - **Monitorowanie samej platformy:** opóźnienie ingestu, liczba paczek przyjętych, zapisanych, ponowionych i przeniesionych do dead-letter queue, głębokość kolejki, błędy alertów i AI.
 - **Redakcja sekretów:** hasła, tokeny, JWT, nagłówki `Bearer`, klucze API i numery kart (ze sprawdzeniem Luhna) są maskowane przed zapisem.
-- **Generator demo:** `npm run demo` tworzy 3 godziny realistycznego ruchu plus wadliwe wdrożenie, które wywołuje incydent.
+- **Generator demo:** `npm run seed:demo` tworzy 3 godziny realistycznego ruchu plus wadliwe wdrożenie, które wywołuje incydent.
 
 ## Stack technologiczny
 
@@ -98,7 +97,7 @@ Ta platforma:
 | Harmonogram | `@nestjs/schedule` | Pętla oceny alertów co 60 s, zabezpieczona przed nakładaniem się uruchomień |
 | AI | Gemini przez `@google/genai` | Tryb wyjścia JSON z walidacją schematem Zod. `AnalysisModel` to abstrakcja, więc model da się podmienić |
 | Bezpieczeństwo | argon2, JWT, `@nestjs/throttler` | Osobne limity zapytań dla API dashboardu i ingestu (1200 żądań/min na klucz) |
-| Testy | Vitest (unit + e2e na prawdziwym Postgresie) | Testy e2e przechodzą cały scenariusz dochodzenia |
+| Testy | Vitest | Testy jednostkowe logiki backendu i formularzy frontendu |
 
 ## Architektura
 
@@ -397,7 +396,7 @@ Zapisane zdarzenie ma `"authorization": "[REDACTED]"` i trafia do grupy `Databas
 
 ## Przykładowy przebieg
 
-`npm run demo` tworzy projekt *My E-commerce API* i symuluje 3 godziny ruchu dla `api` i `payment-service`:
+`npm run seed:demo` tworzy projekt *My E-commerce API* i symuluje 3 godziny ruchu dla `api` i `payment-service`:
 
 1. **Historia:** wdrożenia `v1.42.1` i `v1.42.2` oraz rozwiązany incydent z przeszłości *„Database connection pool exhaustion”* (naprawiony podniesieniem puli z 5 do 20 połączeń).
 2. **Wadliwe wdrożenie:** `v1.42.3` na `payment-service`, *„Reduce database connection pool size to 5”*, 40 minut temu.
@@ -430,10 +429,9 @@ Zapisane zdarzenie ma `"authorization": "[REDACTED]"` i trafia do grupy `Databas
 
 ## Testy i jakość
 
-- **Testy jednostkowe (Vitest, 66 testów):** fingerprinting, redakcja, klucze API, wykrywanie anomalii, statystyki żądań, zakresy czasu, oś czasu i status incydentu, podobieństwo, ocena alertów, ochrona webhooków przed SSRF, budowanie promptów analizy i czatu, parsowanie wyniku, kolejka ingestu, statystyki platformy, kursor logów, drzewo trace'a, realtime.
-- **Testy E2E (6)** na prawdziwym, zmigrowanym Postgresie. Obejmują izolację projektów, ingest z maskowaniem, zdegradowane metryki, oś czasu z dowodami, analizę AI z czatem i edycję profilu.
+- **Testy jednostkowe (Vitest, 73 testy):** fingerprinting, redakcja, klucze API, wykrywanie anomalii, statystyki żądań, zakresy czasu, oś czasu i status incydentu, podobieństwo, ocena alertów, ochrona webhooków przed SSRF, budowanie promptów analizy i czatu, parsowanie wyniku, kolejka ingestu, statystyki platformy, kursor logów, drzewo trace'a, realtime, format błędów API.
 - oxlint + Prettier na backendzie, ESLint + Vitest (44 testy logiki formularzy) na frontendzie.
-- **CI (GitHub Actions):** każdy push i pull request uruchamia trzy joby: lint, build i testy jednostkowe backendu; testy e2e na Postgresie i Redisie uruchamianych jako service containers; lint, testy i build frontendu.
+- **CI (GitHub Actions):** każdy push i pull request uruchamia dwa joby: lint, build i testy jednostkowe backendu; lint, testy i build frontendu.
 
 ## Bezpieczeństwo
 
@@ -454,11 +452,11 @@ cp .env.example .env            # DATABASE_URL, REDIS_URL, JWT_SECRET, GEMINI_AP
 npm install
 npm run migration:run
 npm run start:dev               # http://localhost:3001/api
-npm run demo                    # tworzy użytkownika demo, projekt, telemetrię i incydenty
+npm run seed:demo               # tworzy użytkownika demo, projekt, telemetrię i incydenty
 
 cd ../frontend
 npm install
-npm run dev                     # http://localhost:3000  (demo@example.com / demo-password)
+npm run dev                     # http://localhost:3000  (demo-login@example.com / password-demo)
 ```
 
 ## Ograniczenia i plany

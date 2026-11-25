@@ -375,7 +375,7 @@ cd backend
 cp .env.example .env         # PORT, DB_*, JWT_SECRET, GEMINI_*, FRONTEND_URL
 npm install
 npm run start:dev
-npm run seed                  # użytkownicy demo, katalog ćwiczeń, treningi
+npm run seed:demo             # konto demo, katalog ćwiczeń, treningi
 # Swagger: http://localhost:3001/api/docs
 
 # frontend (port 3000)
